@@ -14,35 +14,39 @@ export default {
 
 <template>
 
-    <nav>
-        <div><img src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt=""></div>
-        <div class="link"> 
-            <ul>
-                <li><a href="">altro</a></li>
-                <li><a href="">carrello</a></li>
-                <li class="login"><a href="">login</a>/<a href="">register</a></li>
-            </ul>
-        </div>
-    </nav>
+        <nav class="px-5 d-flex align-items-center">
+            <div class="h-100 w-100">
+                <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
+            </div>
+            <div class="link"> 
+                <ul>
+                    <li><a href="">altro</a></li>
+                    <li><a href="">carrello</a></li>
+                    <li class="login"><a href="">login</a>/<a href="">register</a></li>
+                </ul>
+            </div>
+        </nav>
+
 
 </template>
 
 <style lang="scss" scoped>
+@use "../assets/scss/partials/variables.scss" as *;
+
 
 nav{
-    position: fixed;
-    background-color: #FFC93C;
+    // position: fixed;
+    background-color: $bg-color;
     width: 100%;
-    height: 60px;
-    border-bottom: 2px solid black;
+    height: 100px;
+    border-bottom: 6px solid black;
     display: flex;
     justify-content: space-around;
-    padding: 0 10%;
+    // padding: 0 10%;
 
     div{
         img{
-            max-height: 50px;
-            margin: 4px 0;
+            // height: 20%;
         }
     }
     .link{
