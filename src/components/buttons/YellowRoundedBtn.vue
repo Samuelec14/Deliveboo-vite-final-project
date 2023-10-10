@@ -16,8 +16,13 @@ export default {
 
 <template>
 
-    <button  id="btn-1" type="button" class="btn btn-warning border border-dark px-3 mx-2"><strong>Button</strong></button>
-    <button id="btn-2" type="button" class="btn btn-warning border border-dark px-3"><strong>Button</strong></button>
+    <button  id="btn-1" type="button" class="btn btn-warning border border-dark px-3 mx-2">
+        <strong>
+            <slot></slot>
+        </strong>
+    </button>
+
+    <!-- <button id="btn-2" type="button" class="btn btn-warning border border-dark px-3"><strong>Button</strong></button> -->
 
 </template>
 

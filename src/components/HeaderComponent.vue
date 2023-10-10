@@ -1,6 +1,13 @@
 <script>
+// import YellowRoundedBtn from './buttons/YellowRoundedBtn.vue';
+// import RedRoundedBtn from './buttons/'
+
+
 export default {
     name: "HeaderComponent",
+    components:[
+        // YellowRoundedBtn,
+    ],
     data() {
     return{
 
@@ -20,6 +27,9 @@ export default {
             </div>
             <div class="link"> 
                 <ul>
+
+                    <YellowRoundedBtn> Test </YellowRoundedBtn>
+
                     <li><a href="">altro</a></li>
                     <li><a href="">carrello</a></li>
                     <li class="login"><a href="">login</a>/<a href="">register</a></li>
