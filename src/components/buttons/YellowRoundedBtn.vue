@@ -16,7 +16,7 @@ export default {
 
 <template>
 
-    <button  id="btn-1" type="button" class="btn btn-warning border border-dark px-3 mx-2">
+    <button  id="btn-1" type="button" class="btn btn-warning border-2 border-dark px-3 mx-2">
         <strong>
             <slot />
         </strong>
