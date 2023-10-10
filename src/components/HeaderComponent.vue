@@ -14,17 +14,20 @@ export default {
 
 <template>
 
-    <header>
-    HEADER
-    </header>
+    <nav>
+
+    </nav>
 
 </template>
 
 <style lang="scss" scoped>
 
-header{
-    padding: 40px;
-    text-align: center;
+nav{
+    position: fixed;
+    background-color: #FFC93C;
+    width: 100%;
+    height: 60px;
+    border-bottom: 2px solid black;
 }
 
 </style>
