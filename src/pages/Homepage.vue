@@ -1,6 +1,5 @@
 <script>
 export default {
-    name: "MainComponent",
     data() {
     return{
 
@@ -15,16 +14,13 @@ export default {
 <template>
 
     <main>
-        <router-view></router-view>
+        <h1>Homepage</h1>
     </main>
 
 </template>
 
-<style lang="scss" scoped>
 
-main{
-    padding: 40px;
-    text-align: center;
-}
+
+<style scoped lang="scss">
 
 </style>
