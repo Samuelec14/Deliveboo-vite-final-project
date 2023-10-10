@@ -18,7 +18,7 @@ export default {
 
     <button  id="btn-1" type="button" class="btn btn-warning border border-dark px-3 mx-2">
         <strong>
-            <slot></slot>
+            <slot />
         </strong>
     </button>
 

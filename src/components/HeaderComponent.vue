@@ -1,13 +1,13 @@
 <script>
 // import YellowRoundedBtn from './buttons/YellowRoundedBtn.vue';
 // import RedRoundedBtn from './buttons/'
-
+import YellowRoundedBtn from './buttons/YellowRoundedBtn.vue';
 
 export default {
     name: "HeaderComponent",
-    components:[
-        // YellowRoundedBtn,
-    ],
+    components:{
+        YellowRoundedBtn,
+    },
     data() {
     return{
 
