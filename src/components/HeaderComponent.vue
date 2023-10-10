@@ -1,6 +1,15 @@
 <script>
+import RedRoundedBtn from './buttons/RedRoundedBtn.vue';
+import YellowRoundedBtn from './buttons/YellowRoundedBtn.vue';
+import RedPillBtn from './buttons/RedPillBtn.vue';
+
 export default {
     name: "HeaderComponent",
+    components:{
+        YellowRoundedBtn,
+        RedRoundedBtn,
+        RedPillBtn
+    },
     data() {
     return{
 
@@ -20,6 +29,10 @@ export default {
             </div>
             <div class="link"> 
                 <ul>
+
+                    <!-- <YellowRoundedBtn> Test </YellowRoundedBtn> -->
+                    <!-- <RedPillBtn> Test </RedPillBtn> -->
+
                     <li><a href="">altro</a></li>
                     <li><a href="">carrello</a></li>
                     <li class="login"><a href="">login</a>/<a href="">register</a></li>
