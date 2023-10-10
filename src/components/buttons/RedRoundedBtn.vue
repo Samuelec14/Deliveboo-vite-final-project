@@ -1,7 +1,7 @@
 <script>
 
 export default {
-    name: "RedRoundedBtn",
+    name: "RedPillBtn",
 
     data() {
     return{
