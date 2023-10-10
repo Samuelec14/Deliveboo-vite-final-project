@@ -2,21 +2,23 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import Homepage from './Homepage.vue';
 import RestaurantPage from './RestaurantsPage.vue';
 
 
 export default {
+    name: "App",
     components: {
-        HeaderComponent,
-        MainComponent,
-        FooterComponent,
-        RestaurantPage
-
-    },
+    HeaderComponent,
+    MainComponent,
+    FooterComponent,
+    Homepage,
+    RestaurantPage
+},
     data() {
-    return{
+        return{
 
-    }
+        }
     },
     methods: {
 
@@ -25,16 +27,15 @@ export default {
 </script>
 
 <template>
+    <router-view>
 
-        <HeaderComponent />
         
-        <MainComponent />
-        
+    </router-view>
 
 </template>
 
-
-
-<style scoped lang="scss">
+<style lang="scss">
+@use "../assets/scss/main.scss";
+@use "../assets/scss/partials/variables.scss" as *;
 
 </style>

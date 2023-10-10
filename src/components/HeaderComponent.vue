@@ -23,7 +23,7 @@ export default {
 
 <template>
 
-        <nav class="px-5 d-flex align-items-center">
+        <nav class="d-flex align-items-center">
             <div class="h-100 w-100">
                 <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
             </div>
@@ -33,9 +33,9 @@ export default {
                     <!-- <YellowRoundedBtn> Test </YellowRoundedBtn> -->
                     <!-- <RedPillBtn> Test </RedPillBtn> -->
 
-                    <li><a href="">altro</a></li>
-                    <li><a href="">carrello</a></li>
-                    <li class="login"><a href="">login</a>/<a href="">register</a></li>
+                    <li><a href="">Lavora con noi</a></li>
+                    <li><a href="">contatti</a></li>
+                    <li class="login"><a href="">login</a>/<a href="">chi siamo</a></li>
                 </ul>
             </div>
         </nav>
@@ -55,7 +55,7 @@ nav{
     border-bottom: 6px solid black;
     display: flex;
     justify-content: space-around;
-    // padding: 0 10%;
+    padding: 0 8%;
 
     div{
         img{
