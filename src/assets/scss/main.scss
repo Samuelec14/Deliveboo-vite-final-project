@@ -1,0 +1,15 @@
+@use "partials/variables" as *;
+@use "partials/mixin" as *;
+// @use "partials/reset" as *;
+
+// Import all of Bootstrap's CSS
+@import "bootstrap/scss/bootstrap";
+
+
+main{
+    color: $main-color;
+}
+
+p{
+    @include main-coloring;
+}

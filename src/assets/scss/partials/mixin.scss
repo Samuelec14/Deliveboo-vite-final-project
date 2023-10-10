@@ -1,0 +1,8 @@
+// --------------- MIXIN -----------------
+
+@use "variables" as *;
+
+@mixin main-coloring{
+    background-color: $main-color;
+    color: $secondary-color;
+}
