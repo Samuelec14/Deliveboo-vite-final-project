@@ -132,5 +132,6 @@ export default {
 .copyright {
   color:white;
   text-align:center;
+  margin-bottom: 0;
 }
 </style>
