@@ -34,5 +34,6 @@ export default {
 <style lang="scss">
 @use "assets/scss/main.scss";
 @use "./assets/scss/partials/variables.scss" as *;
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
 
 </style>
