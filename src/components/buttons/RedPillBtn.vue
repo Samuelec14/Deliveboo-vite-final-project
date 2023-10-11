@@ -16,7 +16,7 @@ export default {
 
 <template>
 
-    <button id="btn-1" type="button" class="btn btn-warning px-4 mx-3">
+    <button id="btn-1" type="button" class="btn btn-warning rounded-pill px-4 mx-3">
         <strong>
             <slot />
         </strong>
@@ -31,16 +31,17 @@ export default {
 
 
 button{
-    background-color: $yellow-primary;
+    background-color: $red-primary;
     transition: all 0.25s ease;
-    border: 4px solid $yellow-primary;
+    border: 4px solid $red-primary;
+    color: $bg-color;
 }
 
 #btn-1:hover {    
     transform: translateY(-3px);
     background-color: $bg-color;
-    // color: black;
-    border: 4px solid $yellow-primary;
+    color: black;
+    border: 4px solid $red-primary;
     // text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
 }
 
@@ -48,7 +49,7 @@ button{
     // transform: translateY(-3px);
     background-color: rgba(0, 0, 0, 0.904);
     // color: #ffbe23;
-    border: 1px solid $yellow-primary;
+    border: 1px solid $red-primary;
 
 }
 

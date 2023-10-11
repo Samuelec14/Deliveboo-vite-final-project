@@ -2,7 +2,6 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
-import RestaurantPage from './RestaurantsPage.vue';
 
 
 export default {
@@ -10,8 +9,6 @@ export default {
         HeaderComponent,
         MainComponent,
         FooterComponent,
-        RestaurantPage
-
     },
     data() {
     return{
@@ -26,10 +23,11 @@ export default {
 
 <template>
 
-        <HeaderComponent />
+
         
         <MainComponent />
         
+
 
 </template>
 
