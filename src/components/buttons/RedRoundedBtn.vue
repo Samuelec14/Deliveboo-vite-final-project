@@ -26,6 +26,7 @@ export default {
 button{
     background-color: #db320f;
     transition: all 0.25s ease;
+    // color: red;
 }
 
 #btn-1:hover {    
