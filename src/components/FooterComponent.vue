@@ -112,6 +112,14 @@ export default {
   margin-top:50px;
 }
 
+.footer-image {
+    transition: transform 0.3s ease-in-out;
+}
+
+.footer-image:hover {
+    transform: scale(1.1); 
+}
+
 
 .footer-newsletter input,
 .footer-newsletter textarea {
@@ -127,6 +135,14 @@ export default {
 .footer-newsletter textarea {
     height: 70px;
     
+}
+#btn-2 {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Aggiunge transizione per sfumatura */
+}
+
+#btn-2:hover {
+    background-color: #ff9800; 
+    color: #fff; 
 }
 
 .copyright {
