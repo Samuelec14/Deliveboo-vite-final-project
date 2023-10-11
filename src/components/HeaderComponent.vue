@@ -35,7 +35,7 @@ export default {
 
                     <li><a href="">Lavora con noi</a></li>
                     <li><a href="">contatti</a></li>
-                    <li class="login"><a href="">login</a>/<a href="">chi siamo</a></li>
+                    <li class="login"><a href="http://127.0.0.1:8000/login">login</a>/<a href="">chi siamo</a></li>
                 </ul>
             </div>
         </nav>
