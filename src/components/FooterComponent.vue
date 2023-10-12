@@ -18,7 +18,7 @@ export default {
       <div class="row">
         <div class="col-12 col-md-6 col-lg-3">
           <div class="footer-list mt-3">
-            <h3 class="dark-text">DeliveBoo</h3>
+            <h3 class="light-text">DeliveBoo</h3>
             <ul>
               <li><a href="#">Chi siamo</a></li>
               <li><a href="#">Ristoranti</a></li>
@@ -28,7 +28,7 @@ export default {
         </div>
         <div class="col-12 col-md-6 col-lg-3">
           <div class="footer-list mt-3">
-            <h3 class="dark-text">Note legali</h3>
+            <h3 class="light-text">Note legali</h3>
             <ul>
               <li><a href="#">Temini & condizioni</a></li>
               <li><a href="#">Informativa sulla privacy</a></li>
@@ -38,7 +38,7 @@ export default {
         </div>
         <div class="col-12 col-md-6 col-lg-3">
           <div class="footer-list mt-3">
-            <h3 class="white-text">Aiuto</h3>
+            <h3 class="light-text">Aiuto</h3>
             <ul>
               <li><a href="#">Contatti</a></li>
               <li><a href="#">Faq</a></li>
@@ -48,15 +48,15 @@ export default {
         </div>
         <div class="col-12 col-md-6 col-lg-3">
           <div class="image-card">
-            <a href="#"><img class="footer-image m-2" src="public/img/apple.png" alt="app-store-badge"></a>
-            <a href="#"><img class="footer-image m-2" src="public/img/play-store.png" alt="play-store-badge"></a>
+            <a href="#"><img class="footer-image m-2" src="/img/apple.png" alt="app-store-badge"></a>
+            <a href="#"><img class="footer-image m-2" src="/img/play-store.png" alt="play-store-badge"></a>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <div class="footer-newsletter">
-            <h3 class="footer-list">Newsletter</h3>
+            <h3 class="footer-list light-text">Newsletter</h3>
             <input type="text" placeholder="Email">
             <textarea placeholder="Enter your text"></textarea>
             <button id="btn-2" type="button" class="btn btn-warning border border-dark px-3">
@@ -83,6 +83,7 @@ export default {
 
 .footer-list {
     color: white;
+   
 }
 
 .footer-list ul {
@@ -98,6 +99,10 @@ export default {
     margin-bottom: 10px;
 }
 
+.light-text {
+  font-size: 15pt;
+}
+
 .footer-list ul li a {
     font-size: smaller;
     text-decoration:underline;
@@ -110,14 +115,6 @@ export default {
 
 .image-card{
   margin-top:50px;
-}
-
-.footer-image {
-    transition: transform 0.3s ease-in-out;
-}
-
-.footer-image:hover {
-    transform: scale(1.1); 
 }
 
 
@@ -136,8 +133,23 @@ export default {
     height: 70px;
     
 }
+
+.copyright {
+  color:white;
+  text-align:center;
+  margin-bottom: 0;
+}
+
+.footer-image {
+    transition: transform 0.3s ease-in-out; 
+}
+
+.footer-image:hover {
+    transform: scale(1.1); 
+}
+
 #btn-2 {
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Aggiunge transizione per sfumatura */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; 
 }
 
 #btn-2:hover {
@@ -145,9 +157,5 @@ export default {
     color: #fff; 
 }
 
-.copyright {
-  color:white;
-  text-align:center;
-  margin-bottom: 0;
-}
+
 </style>
