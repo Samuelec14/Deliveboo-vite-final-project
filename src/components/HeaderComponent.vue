@@ -22,32 +22,25 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-lg d-flex align-items-center">
-        <div class="navbar-brand">
-            <a href="#"><img src="deli ve boo copia.png" alt="Logo"></a>
-        </div>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <button class="transparent-button nav-link">Home</button>
-                </li>
-                <li class="nav-item">
-                    <button class="transparent-button nav-link">Product</button>
-                </li>
-                <li class="nav-item">
-                    <button class="transparent-button nav-link">Pricing</button>
-                </li>
-                <li class="nav-item">
-                    <button class="transparent-button nav-link">Contact</button>
-                </li>
-            </ul>
-        </div>
-    </nav>
+
+        <nav class="d-flex align-items-center">
+            <div class="h-100 w-100">
+                <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
+            </div>
+            <div class="link"> 
+                <ul>
+
+                    <!-- <YellowRoundedBtn> Test </YellowRoundedBtn> -->
+                    <!-- <RedPillBtn> Test </RedPillBtn> -->
+
+                    <li><a href="">Lavora con noi</a></li>
+                    <li><a href="">contatti</a></li>
+                    <li class="login"><a href="">login</a>/<a href="">chi siamo</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
 </template>
     
 
