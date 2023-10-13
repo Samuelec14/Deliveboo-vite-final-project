@@ -5,6 +5,8 @@ import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
 import { store } from '../store';
 
+
+
 export default {
     components: {
         HeaderComponent,
