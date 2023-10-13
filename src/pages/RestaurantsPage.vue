@@ -36,12 +36,13 @@ export default {
 
     <HeaderComponent></HeaderComponent>
     <div class="container d-flex flex-wrap">
-    <div v-for="restaurant in restaurants" :key="restaurant.id" class="card " style="width: 18rem;">
+    <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;">
       <img :src="restaurant.thumb" class="card-img-top" alt="...">
       <div class="card-body">
-        <h5 class="card-title">{{ restaurant.name }}</h5>
-        <p class="card-text">{{ restaurant.adress }}</p>
-        <h3>{{ restaurant.price }}€</h3>
+        <h2 class="card-title">{{ restaurant.name }}</h2>
+        <h4 class="card-text">tipologie del ristorante</h4>
+        <p class="card-text">{{ restaurant.address }}</p>
+        <h3>{{ restaurant.phone_number }}</h3>
       </div>
     </div>
 </div>
