@@ -3,12 +3,14 @@ export default {
     name: "MainComponent",
     data() {
     return{
-
+        adress: '',
     }
     },
     methods: {
-
-    }
+        send() {
+    this.$router.push({ name: 'restaurants' });
+  },
+    },
 }
 
 </script>
@@ -19,7 +21,7 @@ export default {
             <div id="left-side" class="col-12 col-md-6 col-lg-6">
                 <div class="box py-5 h-100">
                     <h1 class="slogan">Il gusto, <br> a casa tua!</h1>
-                <input type="text"  class="form-control" placeholder="Inserisci indirizzo di spedizione">
+                <input type="text"  class="form-control" placeholder="Inserisci indirizzo di spedizione" @keyup.enter="send">
             </div>
         </div>
             <div class="col-12 col-md-6 col-lg-6 image-container d-flex align-items-center justify-content-start">
