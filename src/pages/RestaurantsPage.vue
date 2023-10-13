@@ -43,7 +43,6 @@ export default {
 </script>
 
 <template>
-
     <HeaderComponent></HeaderComponent>
     <h2 class="text-center my-4">I PIÙ VICINI A TE</h2>
     <div class="container d-flex flex-wrap">
