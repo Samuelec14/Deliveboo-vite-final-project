@@ -2,7 +2,7 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
-
+import axios from 'axios';
 
 export default {
     components: {
@@ -12,20 +12,69 @@ export default {
     },
     data() {
     return{
-
+        restaurants: [],
     }
     },
-    methods: {
-
-    }
-}
+    mounted() {
+    this.fetchRestaurants();
+    this.fetchTypes();
+  },
+  methods: {
+    fetchRestaurants() {
+        axios.get('http://127.0.0.1:8000/api/restaurant/restaurant')
+            .then(response => {
+                this.restaurants = response.data.results;
+            })
+            .catch(error => {
+        console.error(error);
+    })
+  },
+        fetchTypes() {
+            axios.get('http://127.0.0.1:8000/api/type/type')
+                .then(response => {
+                    this.types = response.data.results;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+    },
+};
 </script>
 
 <template>
 
+    <HeaderComponent></HeaderComponent>
+    <h2 class="text-center my-4">I PIÙ VICINI A TE</h2>
+    <div class="container d-flex flex-wrap">
+      
+    <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;">
+      <img :src="restaurant.thumb" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h2 class="card-title">{{ restaurant.name }}</h2>
+        <h4 class="card-text">tipologie del ristorante</h4>
+        <p class="card-text">{{ restaurant.address }}</p>
+        <h3>{{ restaurant.phone_number }}</h3>
+      </div>
+    </div>
+</div>
 
+<div class="container">
+  <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
+  <div class="container d-flex flex-wrap justify-content-center mb-4">
+      
+      <div v-for="type in types" :key="type.id" class="card m-2" style="width: 18rem;" >  
+        <img :src="type.thumb" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h2 class="card-title">{{ type.name }}</h2>
+          <h4>vedi i più vicini a te </h4>
+        </div>
+      </div>
+  </div>
+</div>
+    <FooterComponent></FooterComponent>
         
-        <MainComponent />
+       
         
 
 
