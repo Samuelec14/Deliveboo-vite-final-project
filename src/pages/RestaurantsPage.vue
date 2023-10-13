@@ -35,7 +35,9 @@ export default {
 <template>
 
     <HeaderComponent></HeaderComponent>
+    <h2 class="text-center my-4">I PIÙ VICINI A TE</h2>
     <div class="container d-flex flex-wrap">
+      
     <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;">
       <img :src="restaurant.thumb" class="card-img-top" alt="...">
       <div class="card-body">
@@ -45,6 +47,11 @@ export default {
         <h3>{{ restaurant.phone_number }}</h3>
       </div>
     </div>
+</div>
+
+<div class="container">
+  <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
+
 </div>
     <FooterComponent></FooterComponent>
         
