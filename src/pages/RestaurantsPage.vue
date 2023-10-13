@@ -3,6 +3,7 @@ import HeaderComponent from '../components/HeaderComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
+import { store } from '../store';
 
 export default {
     components: {
@@ -13,6 +14,7 @@ export default {
     data() {
     return{
         restaurants: [],
+        store
     }
     },
     mounted() {
@@ -48,7 +50,7 @@ export default {
     <div class="container d-flex flex-wrap">
       
     <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;">
-      <img :src="restaurant.thumb" class="card-img-top" alt="...">
+      <img :src="store.imgPath+restaurant.thumb" class="card-img-top" alt="...">
       <div class="card-body">
         <h2 class="card-title">{{ restaurant.name }}</h2>
         <h4 class="card-text">tipologie del ristorante</h4>
@@ -63,7 +65,7 @@ export default {
   <div class="container d-flex flex-wrap justify-content-center mb-4">
       
       <div v-for="type in types" :key="type.id" class="card m-2" style="width: 18rem;" >  
-        <img :src="type.thumb" class="card-img-top" alt="...">
+        <img :src="store.imgPath+type.thumb" class="card-img-top" alt="...">
         <div class="card-body">
           <h2 class="card-title">{{ type.name }}</h2>
           <h4>vedi i più vicini a te </h4>
