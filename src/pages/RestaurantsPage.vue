@@ -3,6 +3,7 @@ import HeaderComponent from '../components/HeaderComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
+import { store } from '../store';
 
 export default {
     components: {
@@ -14,6 +15,7 @@ export default {
         return {
             restaurants: [],
             types: [],
+            store
         };
     },
     methods: {
@@ -47,7 +49,7 @@ export default {
         <h2 class="text-center my-4">I PIÙ VICINI A TE</h2>
         <div class="container d-flex flex-wrap">
             <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;" v-if="restaurants.length > 0" @click="navigateToDish(restaurant.id)">
-                <img :src="restaurant.thumb" class="card-img-top" alt="...">
+                <img :src="store.imgPath+restaurant.thumb" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h2 class="card-title">{{ restaurant.name }}</h2>
                     <h4 class="card-text">tipologie del ristorante</h4>
@@ -61,7 +63,7 @@ export default {
             <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
             <div class="container d-flex flex-wrap justify-content-center mb-4">
                 <div v-for="type in types" :key="type.id" class="card m-2" style="width: 18rem;" v-if="types.length > 0">
-                    <img :src="type.thumb" class="card-img-top" alt="...">
+                    <img :src="store.imgPath+type.thumb" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h2 class="card-title">{{ type.name }}</h2>
                         <h4>vedi i più vicini a te</h4>
