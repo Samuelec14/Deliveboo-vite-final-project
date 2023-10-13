@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             restaurants: [],
-            dishes: [], // Corretto: utilizza "dishes" invece di "dishs"
+            dishes: [], 
         };
     },
     mounted() {
@@ -40,12 +40,7 @@ export default {
                 });
         },
     },
-    computed: {
-        filteredDishes() {
-            // Filtra i piatti in base all'ID del ristorante selezionato
-            return this.dishes.filter(dish => dish.restaurant_id === this.$route.params.restaurant_id);
-        }
-    }
+  
 };
 </script>
 
@@ -54,7 +49,7 @@ export default {
         <HeaderComponent></HeaderComponent>
         <h2 class="text-center my-4">Lista Piatti</h2>
         <div class="container d-flex flex-wrap">
-            <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;">
+            <div v-for="dish in dishes" :key="dish.id" class="card m-2" style="width: 18rem;">
                 <img :src="dish.thumb" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h2 class="card-title">{{ dish.name }}</h2>
