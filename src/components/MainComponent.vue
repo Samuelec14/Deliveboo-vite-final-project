@@ -19,7 +19,7 @@ export default {
             <div id="left-side" class="col-12 col-md-6 col-lg-6">
                 <div class="box py-5 h-100">
                     <h1 class="slogan">Il gusto, <br> a casa tua!</h1>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="Inserisci indirizzo di spedizione">
+                <input type="text"  class="form-control" placeholder="Inserisci indirizzo di spedizione">
             </div>
         </div>
             <div class="col-12 col-md-6 col-lg-6 image-container d-flex align-items-center justify-content-start">
@@ -60,7 +60,9 @@ main {
             align-items: center; // Centra orizzontalmente
         }
 
+
         #left-side {
+            z-index: 1;
             .box {
                 display: flex;
                 flex-direction: column;
@@ -98,6 +100,7 @@ main {
                 max-width: 200%; 
                 position:absolute;
                 right:0px;
+                z-index: 0;
                 
                 
 
