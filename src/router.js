@@ -19,9 +19,10 @@ const router = createRouter({
             component: RestaurantsPage
         },
         {
-            path: '/restaurants/dish',
+            path: '/dish/:restaurant_id',
             name: 'dish',
-            component: Dishpage
+            component: Dishpage,
+            props: true,
         },
     ]
 });

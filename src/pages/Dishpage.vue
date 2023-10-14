@@ -1,46 +1,51 @@
 <script>
 import HeaderComponent from '../components/HeaderComponent.vue';
-import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
 
 export default {
     components: {
         HeaderComponent,
-        MainComponent,
         FooterComponent,
     },
     data() {
         return {
-            restaurants: [],
-            dishes: [], 
+            dishes: [],
+            restaurantId: null,
         };
     },
-    mounted() {
-        this.fetchRestaurants();
-        this.fetchDish();
+    props: {
+  restaurant_id: {
+    type: Number, // o il tipo di dato corretto del tuo ID del ristorante
+    required: true,
+  },
+},
+watch: {
+  restaurant_id(newValue, oldValue) {
+    this.fetchDishes();
+  },
+},
+    created() {
+        const routeRestaurantId = this.$route.params.restaurant_id;
+        this.restaurantId = parseInt(routeRestaurantId);
+        this.fetchDishes();
     },
     methods: {
-        fetchRestaurants() {
-            axios.get('http://127.0.0.1:8000/api/restaurant/restaurant')
+        fetchDishes() {
+            axios.get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
                 .then(response => {
-                    this.restaurants = response.data.results;
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        },
-        fetchDish() {
-            axios.get('http://127.0.0.1:8000/api/dish/dish')
-                .then(response => {
-                    this.dishes = response.data.results; // Utilizza "dishes" invece di "dishs"
+                    this.dishes = response.data.results;
                 })
                 .catch(error => {
                     console.error(error);
                 });
         },
     },
-  
+    computed: {
+        filteredDishes() {
+            return this.dishes.filter(dish => dish.restaurant_id === this.restaurantId);
+        },
+    },
 };
 </script>
 
@@ -49,7 +54,7 @@ export default {
         <HeaderComponent></HeaderComponent>
         <h2 class="text-center my-4">Lista Piatti</h2>
         <div class="container d-flex flex-wrap">
-            <div v-for="dish in dishes" :key="dish.id" class="card m-2" style="width: 18rem;">
+            <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;">
                 <img :src="dish.thumb" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h2 class="card-title">{{ dish.name }}</h2>
@@ -61,7 +66,6 @@ export default {
         <FooterComponent></FooterComponent>
     </div>
 </template>
-
 <style scoped lang="scss">
 
 </style>

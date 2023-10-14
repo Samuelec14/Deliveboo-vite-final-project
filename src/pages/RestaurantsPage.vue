@@ -33,8 +33,8 @@ export default {
             }
         },
         navigateToDish(restaurantId) {
-    this.$router.push({ name: 'dish', params: { restaurant_id: restaurantId } });
-},
+            this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
+        },
 
     },
     mounted() {
