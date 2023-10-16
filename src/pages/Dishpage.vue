@@ -42,15 +42,18 @@ export default {
 
   methods: {
     addToCartHandler(dish) {
-        if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
-      store.addToCart(dish);
-      console.log('Piatto aggiunto al carrello:', dish);
-      this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
-    } else if (store.cart.length > 0) {
-      this.errorMessage = 'Impossibile fare un ordine da più ristoranti.';
-    } else {
-      this.errorMessage = '';
-    }
+      if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
+        store.addToCart(dish);
+        console.log('Piatto aggiunto al carrello:', dish);
+        this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
+      } else if (store.cart.length > 0) {
+        this.errorMessage = 'Impossibile effettuare un ordine da più ristoranti.';
+      } else {
+        this.errorMessage = '';
+      }
+    },
+    resetError() {
+      this.errorMessage = ''; // Resetta il messaggio di errore
     },
     fetchDishes() {
       axios
@@ -74,19 +77,26 @@ export default {
     <div>
       <HeaderComponent></HeaderComponent>
       <h2 class="text-center my-4">Lista Piatti</h2>
-      <div class="container d-flex flex-wrap">
-        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;">
+    <div class="container d-flex flex-wrap">
+      <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;">
           <img :src="dish.thumb" class="card-img-top" alt="...">
           <div class="card-body">
             <h2 class="card-title">{{ dish.name }}</h2>
             <h4 class="card-text">{{ dish.price }}€</h4>
             <p class="card-text">{{ dish.description }}</p>
             <button type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
-            <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
 
           </div>
         </div>
       </div>
+       <!-- Messaggio di errore -->
+       <div class="overlay" v-if="errorMessage">
+      <div class="error-message">
+        {{ errorMessage }}
+        <button @click="resetError">Ho capito</button>
+      </div>
+    </div>
+
       <FooterComponent></FooterComponent>
     </div>
   </template>
@@ -105,5 +115,33 @@ button:hover{
 }
 .error-message{
     color: red;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Opacità dello sfondo */
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Assicura che l'overlay sia sopra gli altri elementi */
+}
+
+.error-message {
+    font-size: 2rem;
+    height: 30vh;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  text-align: center;
+  z-index: 5; 
+  button{
+margin: 0 20px;
+  }
 }
 </style>
