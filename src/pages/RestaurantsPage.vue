@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    
         <HeaderComponent></HeaderComponent>
         <h2 class="text-center my-4">I PIÙ VICINI A TE</h2>
         <div class="container d-flex flex-wrap">
@@ -73,8 +73,9 @@ export default {
                 </div>
             </div>
         </div>
+
         <FooterComponent></FooterComponent>
-    </div>
+    
 </template>
 
 <style scoped lang="scss">

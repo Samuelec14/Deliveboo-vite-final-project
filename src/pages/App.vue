@@ -4,6 +4,7 @@ import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import Homepage from './Homepage.vue';
 import RestaurantPage from './RestaurantsPage.vue';
+import { store } from '../store';
 
 
 export default {
@@ -13,7 +14,10 @@ export default {
     MainComponent,
     FooterComponent,
     Homepage,
-    RestaurantPage
+    RestaurantPage,
+    setup() {
+        return { store };
+    }
 },
     data() {
         return{
