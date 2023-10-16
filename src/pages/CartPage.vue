@@ -29,9 +29,8 @@ export default {
     }
 },
     methods: {
-        ...mapMutations(['removeFromCart']),
-    removeFromCartHandler(index) {
-      this.removeFromCart(index);
+        removeFromCartHandler(index) {
+            store.removeFromCart(index);
         }
     }
 };

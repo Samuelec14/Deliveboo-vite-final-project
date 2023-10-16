@@ -1,14 +1,12 @@
 <script>
 import HeaderComponent from '../components/HeaderComponent.vue';
-import { mapMutations } from 'vuex';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
 import { store } from '../store';
 
 export default {
   props: {
-    dish: Object 
-    required: true
+    dish: Object,
   },
   components: {
     HeaderComponent,
@@ -27,8 +25,8 @@ export default {
     },
     dish: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   watch: {
     restaurant_id(newValue, oldValue) {
@@ -41,34 +39,30 @@ export default {
     this.fetchDishes();
   },
   methods: {
-    ...mapMutations(['addToCart']),
     addToCartHandler(dish) {
-    console.log('Piatto aggiunto al carrello:', this.dish);
-    store.cart.push(this.dish);
-    this.addToCart(dish);
-    this.$router.push({ name: 'cart', params: { dish: dish } });
-    console.log('Dishes in cart:', store.cart);
-    this.$emit('addToCart', this.dish);
-  },
+      console.log('Piatto aggiunto al carrello:', this.dish);
+      store.cart.push(this.dish);
+      console.log('Dishes in cart:', store.cart);
+      this.$emit('addToCart', this.dish);
+    },
     fetchDishes() {
-      axios.get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
-        .then(response => {
+      axios
+        .get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
+        .then((response) => {
           this.dishes = response.data.results;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     },
-   
   },
   computed: {
     filteredDishes() {
-      return this.dishes.filter(dish => dish.restaurant_id === this.restaurantId);
+      return this.dishes.filter((dish) => dish.restaurant_id === this.restaurantId);
     },
   },
 };
 </script>
-
 <template>
     <div>
       <HeaderComponent></HeaderComponent>
@@ -80,7 +74,7 @@ export default {
             <h2 class="card-title">{{ dish.name }}</h2>
             <h4 class="card-text">{{ dish.price }}€</h4>
             <p class="card-text">{{ dish.description }}</p>
-            <button @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
+            <button type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
 
           </div>
         </div>
