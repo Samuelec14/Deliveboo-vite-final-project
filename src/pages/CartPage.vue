@@ -3,12 +3,7 @@ import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import { store } from '../store';
 export default {
-    props: {
-    dish: {
-        type: Object,
-        required: true
-    }
-},
+   
     components: {
         HeaderComponent,
         FooterComponent,
