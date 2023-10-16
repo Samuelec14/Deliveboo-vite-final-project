@@ -2,7 +2,6 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import { store } from '../store';
-import { mapState, mapMutations } from 'vuex';
 export default {
     props: {
     dish: {
@@ -19,9 +18,6 @@ export default {
             return store.cart;
         }
     },
-    computed: {
-    ...mapState(['cart']),
-  },
     created() {
         if (this.$route.params.dish) {
     this.dish = this.$route.params.dish;

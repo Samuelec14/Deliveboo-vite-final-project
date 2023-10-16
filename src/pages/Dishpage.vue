@@ -3,6 +3,8 @@ import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
 import { store } from '../store';
+import { inject } from 'vue';
+
 
 export default {
   props: {
@@ -12,6 +14,7 @@ export default {
     HeaderComponent,
     FooterComponent,
   },
+  
   data() {
     return {
       dishes: [],
@@ -38,12 +41,13 @@ export default {
     this.restaurantId = parseInt(routeRestaurantId);
     this.fetchDishes();
   },
+  setup() {
+  const store = inject('store');
+  // Ora puoi utilizzare store.commit e altre funzioni dello store Vuex
+},
   methods: {
     addToCartHandler(dish) {
-      console.log('Piatto aggiunto al carrello:', this.dish);
-      store.cart.push(this.dish);
-      console.log('Dishes in cart:', store.cart);
-      this.$emit('addToCart', this.dish);
+        console.log('Piatto aggiunto al carrello:', dish);
     },
     fetchDishes() {
       axios

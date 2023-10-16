@@ -2,6 +2,8 @@
 import RedRoundedBtn from './buttons/RedRoundedBtn.vue';
 import YellowRoundedBtn from './buttons/YellowRoundedBtn.vue';
 import RedPillBtn from './buttons/RedPillBtn.vue';
+import { inject } from 'vue';
+
 
 export default {
     name: "HeaderComponent",
@@ -10,6 +12,7 @@ export default {
         RedRoundedBtn,
         RedPillBtn
     },
+    
     data() {
     return{
         dishes: [],
@@ -17,6 +20,12 @@ export default {
         isCartEmpty: true,
     }
     },
+    
+    computed: {
+    cartItemCount() {
+        return this.$store.state.cart.length;
+    }
+},
     methods: {
         fetchDishes() {
     axios.get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
@@ -31,7 +40,9 @@ export default {
   navigateToCart() {
       this.$router.push({ name: 'cart' });
     },
-    }
+    },
+    
+    
 }
 </script>
 

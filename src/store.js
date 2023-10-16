@@ -12,3 +12,5 @@ export const store = reactive({
     store.cart.splice(index, 1);
   }
 });
+
+
