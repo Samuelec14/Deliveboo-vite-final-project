@@ -19,6 +19,7 @@ export default {
     return {
       dishes: [],
       restaurantId: null,
+      errorMessage: '', 
     };
   },
   props: {
@@ -41,8 +42,15 @@ export default {
 
   methods: {
     addToCartHandler(dish) {
-        store.addToCart(dish);
-        console.log('Piatto aggiunto al carrello:', dish);
+        if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
+      store.addToCart(dish);
+      console.log('Piatto aggiunto al carrello:', dish);
+      this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
+    } else if (store.cart.length > 0) {
+      this.errorMessage = 'Impossibile fare un ordine da più ristoranti.';
+    } else {
+      this.errorMessage = '';
+    }
     },
     fetchDishes() {
       axios
@@ -74,6 +82,7 @@ export default {
             <h4 class="card-text">{{ dish.price }}€</h4>
             <p class="card-text">{{ dish.description }}</p>
             <button type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
+            <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
 
           </div>
         </div>
@@ -93,5 +102,8 @@ button{
 button:hover{
     cursor: pointer;
     border: 1px solid black;
+}
+.error-message{
+    color: red;
 }
 </style>
