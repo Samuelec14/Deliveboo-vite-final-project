@@ -41,6 +41,7 @@ export default {
 
   methods: {
     addToCartHandler(dish) {
+        store.addToCart(dish);
         console.log('Piatto aggiunto al carrello:', dish);
     },
     fetchDishes() {
