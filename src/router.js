@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from './pages/Homepage.vue';
 import RestaurantsPage from './pages/RestaurantsPage.vue';
 import Dishpage from './pages/Dishpage.vue';
+import CartPage from './pages/CartPage.vue';
 
 
 const router = createRouter({
@@ -23,6 +24,11 @@ const router = createRouter({
             name: 'dish',
             component: Dishpage,
             props: true,
+        },
+        {
+            path: '/cart',
+            name: 'cart',
+            component: CartPage,
         },
     ]
 });
