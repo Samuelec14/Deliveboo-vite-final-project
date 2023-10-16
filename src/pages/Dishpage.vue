@@ -1,39 +1,40 @@
 <script>
 import HeaderComponent from '../components/HeaderComponent.vue';
-import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
 
 export default {
     components: {
         HeaderComponent,
-        MainComponent,
         FooterComponent,
     },
     data() {
         return {
-            restaurants: [],
-            dishes: [], // Corretto: utilizza "dishes" invece di "dishs"
+            dishes: [],
+            restaurantId: null,
         };
     },
-    mounted() {
-        this.fetchRestaurants();
-        this.fetchDish();
+    props: {
+  restaurant_id: {
+    type: Number, // o il tipo di dato corretto del tuo ID del ristorante
+    required: true,
+  },
+},
+watch: {
+  restaurant_id(newValue, oldValue) {
+    this.fetchDishes();
+  },
+},
+    created() {
+        const routeRestaurantId = this.$route.params.restaurant_id;
+        this.restaurantId = parseInt(routeRestaurantId);
+        this.fetchDishes();
     },
     methods: {
-        fetchRestaurants() {
-            axios.get('http://127.0.0.1:8000/api/restaurant/restaurant')
+        fetchDishes() {
+            axios.get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
                 .then(response => {
-                    this.restaurants = response.data.results;
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        },
-        fetchDish() {
-            axios.get('http://127.0.0.1:8000/api/dish/dish')
-                .then(response => {
-                    this.dishes = response.data.results; // Utilizza "dishes" invece di "dishs"
+                    this.dishes = response.data.results;
                 })
                 .catch(error => {
                     console.error(error);
@@ -42,10 +43,9 @@ export default {
     },
     computed: {
         filteredDishes() {
-            // Filtra i piatti in base all'ID del ristorante selezionato
-            return this.dishes.filter(dish => dish.restaurant_id === this.$route.params.restaurant_id);
-        }
-    }
+            return this.dishes.filter(dish => dish.restaurant_id === this.restaurantId);
+        },
+    },
 };
 </script>
 
@@ -66,7 +66,6 @@ export default {
         <FooterComponent></FooterComponent>
     </div>
 </template>
-
 <style scoped lang="scss">
 
 </style>

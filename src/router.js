@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from './pages/Homepage.vue';
 import RestaurantsPage from './pages/RestaurantsPage.vue';
 import Dishpage from './pages/Dishpage.vue';
+import RestaurantsPerType from './pages/RestaurantsPerType.vue';
 
 
 const router = createRouter({
@@ -19,10 +20,17 @@ const router = createRouter({
             component: RestaurantsPage
         },
         {
-            path: '/restaurants/dish',
+            path: '/dish/:restaurant_id',
             name: 'dish',
-            component: Dishpage
+            component: Dishpage,
+            props: true,
         },
+        {
+            path: '/restaurant/:type',
+            name: 'restaurantsType',
+            component: RestaurantsPerType,
+            props: true,
+        }
     ]
 });
 

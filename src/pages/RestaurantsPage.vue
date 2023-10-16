@@ -33,9 +33,11 @@ export default {
             }
         },
         navigateToDish(restaurantId) {
-    this.$router.push({ name: 'dish', params: { restaurant_id: restaurantId } });
-},
-
+            this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
+        },
+        navigateToRestaurants(type) {
+            this.$router.push({ name: 'restaurantsType', params: { type: type } });
+        }
     },
     mounted() {
         this.fetchData();
@@ -67,10 +69,9 @@ export default {
 
         <div class="container">
             <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
-            <div class="row"> 
-                <div v-for="type in types" :key="type.id" class="col-md-4 col-sm-6 mb-4" v-if="types.length > 0">
-                <div class="card"  style="width: 18rem;" >
-                  <img :src="store.imgPath+type.thumb" class="card-img-top" alt="...">
+            <div class="container d-flex flex-wrap justify-content-center mb-4">
+                <div v-for="type in types" :key="type.id" @click="navigateToRestaurants(type.name)" class="card m-2" style="width: 18rem;" v-if="types.length > 0">
+                    <img :src="store.imgPath+type.thumb" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h2 class="card-title">{{ type.name }}</h2>
                         <h4>vedi i più vicini a te</h4>
