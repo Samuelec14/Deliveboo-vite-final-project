@@ -26,10 +26,7 @@ export default {
       type: Number,
       required: true,
     },
-    dish: {
-      type: Object,
-      required: true,
-    },
+
   },
   watch: {
     restaurant_id(newValue, oldValue) {
@@ -41,10 +38,7 @@ export default {
     this.restaurantId = parseInt(routeRestaurantId);
     this.fetchDishes();
   },
-  setup() {
-  const store = inject('store');
-  // Ora puoi utilizzare store.commit e altre funzioni dello store Vuex
-},
+
   methods: {
     addToCartHandler(dish) {
         console.log('Piatto aggiunto al carrello:', dish);
