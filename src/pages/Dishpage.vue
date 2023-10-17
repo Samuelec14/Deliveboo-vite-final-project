@@ -53,6 +53,26 @@ export default {
 },
 
   methods: {
+    async submitPaymentForm() {
+    try {
+      const response = await axios.post('/api/orders', {
+        name: this.name,
+        last_name: this.lastName,
+        phone_number: this.phoneNumber,
+        email: this.email,
+        address: this.address,
+        credit_card_number: this.creditCardNumber,
+        expiry_date: this.expiryDate,
+        security_code: this.securityCode,
+        total_price: this.totalPriceInCart // Invia anche il totale del prezzo
+      });
+
+      console.log('Ordine creato con successo:', response.data);
+      // Resetta il form o fai altre azioni necessarie dopo la creazione dell'ordine
+    } catch (error) {
+      console.error('Errore durante la creazione dell\'ordine:', error);
+    }
+  },
     addToCartHandler(dish) {
     if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
       store.addToCart(dish);

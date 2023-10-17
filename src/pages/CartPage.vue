@@ -60,9 +60,35 @@ export default {
             return total + dish.price;
         }, 0);
         return parseFloat(totalPrice.toFixed(2));
-    }
+    },
   
+    submitPaymentForm() {
+      // Crea un oggetto con i dati del pagamento
+      const paymentData = {
+        name: this.name,
+        last_name: this.last_Name,
+        phone_number: this.phone_number,
+        email: this.email,
+        address: this.address,
+        creditCardNumber: this.creditCardNumber,
+        expiryDate: this.expiryDate,
+        securityCode: this.securityCode,
+        total_price: this.totalPriceInCart // Aggiungi il prezzo totale
+      };
+
+      // Invia i dati al backend usando Axios
+      axios.post('/api/orders', paymentData)
+        .then(response => {
+          // Gestisci la risposta del backend
+          console.log('Ordine inviato con successo:', response.data);
+          // Esegui altre azioni come il reindirizzamento alla pagina di conferma
+        })
+        .catch(error => {
+          // Gestisci gli errori della richiesta
+          console.error('Errore durante l\'invio dell\'ordine:', error);
+        });
     }
+  }
 };
 </script>
 
@@ -111,7 +137,7 @@ export default {
       </div>
       <div class="mb-3">
         <label for="last_name" class="form-label">Cognome</label>
-        <input type="text" class="form-control" v-model="lastName" required>
+        <input type="text" class="form-control" v-model="last_Name" required>
       </div>
       <div class="mb-3">
         <label for="phone_number" class="form-label">numero di telefono</label>
