@@ -12,6 +12,9 @@ export default {
       phone_number:'',
       email:'',
       address:'',
+      creditCardNumber: '',
+      expiryDate: '',
+      securityCode: ''
     
     };
   },
@@ -122,6 +125,18 @@ export default {
         <label for="address" class="form-label">indirizzo</label>
         <input type="text" min="10" class="form-control" v-model="address" required>
       </div>
+      <div class="mb-3">
+      <label for="creditCardNumber" class="form-label">Numero della Carta di Credito</label>
+      <input type="text" class="form-control" v-model="creditCardNumber" >
+    </div>
+    <div class="mb-3">
+      <label for="expiryDate" class="form-label">Data di Scadenza</label>
+      <input type="text" class="form-control" v-model="expiryDate" placeholder="MM/YY" >
+    </div>
+    <div class="mb-3">
+      <label for="securityCode" class="form-label">Codice di Sicurezza</label>
+      <input type="text" class="form-control" v-model="securityCode" >
+    </div>
       <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
       <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
       <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
