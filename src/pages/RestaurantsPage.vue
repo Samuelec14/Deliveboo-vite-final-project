@@ -16,8 +16,7 @@ export default {
     },
     data() {
         return {
-            restaurantsPerType: [],
-            restaurantsPerName: [],
+            restaurants: [],
             types: [],
             store,
             searchValue: '',
@@ -25,7 +24,7 @@ export default {
         };
     },
     methods: {
-        // SEARCH RESTAURANTS -> gives 2 arrays of restaurants, one per type, one per name
+        // SEARCH RESTAURANTS
         async fetchRestaurants(param) {
 
             this.loading = true;
@@ -35,9 +34,9 @@ export default {
             }
             axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant/results/${param}`)
             .then(response => {
-                this.restaurantsPerType = response.data.restaurantsByType;
-                this.restaurantsPerName = response.data.restaurantsByName;
+                this.restaurants = response.data.restaurants;
                 this.loading = false;
+                console.log(response)
             })
             .catch(error => {
                 console.error(error);
@@ -66,7 +65,7 @@ export default {
         navigateToDish(restaurantId) {
             this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
         },
-        
+
         // Gets value from searchbar and performs a search with said value
         getValue(value) {
             this.searchValue = value;
@@ -89,29 +88,8 @@ export default {
         <!-- Print of Restaurants -->
 
             <!-- PER TYPE -->
-            <template v-if="restaurantsPerType.length > 0 && loading == false">
-                <div v-for="restaurant in restaurantsPerType" :key="restaurant.id" class="card m-2" style="width: 18rem;" @click="navigateToDish(restaurant.id)">
-                    <img :src="store.imgPath+restaurant.thumb" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h2 class="card-title">
-                            {{ restaurant.name }}
-                        </h2>
-                        <h4 class="card-text">
-                            tipologie del ristorante
-                        </h4>
-                        <p class="card-text">
-                            {{ restaurant.address }}
-                        </p>
-                        <h3 class="phone-number p-3">
-                            {{ restaurant.phone_number }}
-                        </h3>
-                    </div>
-                </div>
-            </template>
-
-            <!-- PER NAME -->
-            <template v-if="restaurantsPerName.length > 0 && loading == false">
-                <div v-for="restaurant in restaurantsPerName" :key="restaurant.id" class="card m-2" style="width: 18rem;" @click="navigateToDish(restaurant.id)">
+            <template v-if="restaurants.length > 0 && loading == false">
+                <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;" @click="navigateToDish(restaurant.id)">
                     <img :src="store.imgPath+restaurant.thumb" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h2 class="card-title">
@@ -131,7 +109,7 @@ export default {
             </template>
 
             <!-- Error Message -->
-            <div v-if="restaurantsPerType.length == 0 && restaurantsPerName.length == 0 && loading == false">
+            <div v-if="restaurants.length == 0 && loading == false">
                 <h2>
                     Nessun ristorante corrisponde a questa tipologia
                 </h2>
