@@ -2,8 +2,19 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import { store } from '../store';
+import axios from 'axios';
 export default {
-   
+  data() {
+    return {
+      showPaymentForm: false,
+      name: '',
+      last_Name: '',
+      phone_number:'',
+      email:'',
+      address:'',
+    
+    };
+  },
     components: {
         HeaderComponent,
         FooterComponent,
@@ -30,16 +41,21 @@ export default {
     }
 },
     methods: {
+      openPaymentForm() {
+      this.showPaymentForm = true;
+    },
+
         removeFromCartHandler(index) {
             store.removeFromCart(index);
         },
         calculateTotalPrice() {
         const totalPrice = this.dishesInCart.reduce((total, dish) => {
-            console.log('Prezzo del piatto: ' + dish.price); // Debug: stampa il prezzo nel console.log
+            console.log('Prezzo del piatto: ' + dish.price); //
             return total + dish.price;
         }, 0);
         return parseFloat(totalPrice.toFixed(2));
     }
+  
     }
 };
 </script>
@@ -64,8 +80,41 @@ export default {
       <div class="recap-order">
         <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }}  ) </h4>
         <h2 class="text-center">{{ totalPriceInCart }} €</h2>
-        <div class="text-center "> <button>Procedi all'Ordine</button></div>
+        <div class="text-center "> <button @click="openPaymentForm">Procedi all'Ordine</button></div>
       </div>
+    </div>
+
+    <!-- pagamento -->
+    
+    <div v-if="showPaymentForm">
+        <div class="overlay"></div> <!-- Aggiungi l'overlay qui -->
+        <div class="payment-form">
+    <h2>Dettagli Pagamento</h2>
+    <form @submit.prevent="submitPaymentForm">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <input type="text" class="form-control" v-model="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="last_name" class="form-label">Cognome</label>
+        <input type="text" class="form-control" v-model="lastName" required>
+      </div>
+      <div class="mb-3">
+        <label for="phone_number" class="form-label">numero di telefono</label>
+        <input type="number" min="10" class="form-control" v-model="phone_number" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">email</label>
+        <input type="email" class="form-control" v-model="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="address" class="form-label">indirizzo</label>
+        <input type="text" min="10" class="form-control" v-model="address" required>
+      </div>
+      <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
+      <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
+    </form>
+</div>
     </div>
       <FooterComponent></FooterComponent>
     
@@ -77,5 +126,32 @@ export default {
 <style scoped lang="scss">
 .my-container{
     width: 70%;
+    position: relative;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 998; 
+}
+
+.payment-form {
+    width: 60%;
+    min-width: 400px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
 </style>
