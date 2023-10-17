@@ -4,6 +4,7 @@ import HomePage from './pages/Homepage.vue';
 import RestaurantsPage from './pages/RestaurantsPage.vue';
 import Dishpage from './pages/Dishpage.vue';
 import RestaurantsPerType from './pages/RestaurantsPerType.vue';
+import CartPage from './pages/CartPage.vue';
 
 
 const router = createRouter({
@@ -30,8 +31,14 @@ const router = createRouter({
             name: 'restaurantsType',
             component: RestaurantsPerType,
             props: true,
-        }
+        },
+        {
+            path: '/cart',
+            name: 'cart',
+            component: CartPage,
+        },
     ]
 });
 
 export { router };
+

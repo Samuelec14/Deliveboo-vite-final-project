@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    
         <HeaderComponent></HeaderComponent>
         <h2 class="text-center my-4">I PIÙ VICINI A TE</h2>
         <div class="container">
@@ -77,12 +77,13 @@ export default {
           <h2 class="card-title">{{ type.name }}</h2>
           <h4>vedi i più vicini a te</h4>
         </div>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-  </div>
-  <FooterComponent></FooterComponent>
+
+
+        <FooterComponent></FooterComponent>
     
 </template>
 
