@@ -36,7 +36,6 @@ export default {
             .then(response => {
                 this.restaurants = response.data.restaurants;
                 this.loading = false;
-                console.log(response)
             })
             .catch(error => {
                 console.error(error);
