@@ -2,6 +2,8 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import MainComponent from '../components/MainComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import Searchbar from '../components/Searchbar.vue';
+
 import axios from 'axios';
 import { store } from '../store';
 
@@ -10,6 +12,7 @@ export default {
         HeaderComponent,
         MainComponent,
         FooterComponent,
+        Searchbar
     },
     data() {
         return {
@@ -36,7 +39,7 @@ export default {
             this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
         },
         navigateToRestaurants(type) {
-            this.$router.push({ name: 'restaurantsType', params: { type: type } });
+            this.$router.push({ name: 'restaurantsFilter', params: { search: type } });
         }
     },
     mounted() {
@@ -48,6 +51,9 @@ export default {
 <template>
     
         <HeaderComponent></HeaderComponent>
+
+        <Searchbar />
+        
         <h2 class="text-center my-4">I PIÙ VICINI A TE</h2>
         <div class="container d-flex flex-wrap">
             <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;" v-if="restaurants.length > 0" @click="navigateToDish(restaurant.id)">

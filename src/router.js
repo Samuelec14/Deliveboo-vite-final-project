@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from './pages/Homepage.vue';
 import RestaurantsPage from './pages/RestaurantsPage.vue';
 import Dishpage from './pages/Dishpage.vue';
-import RestaurantsPerType from './pages/RestaurantsPerType.vue';
+import RestaurantsPerFilter from './pages/RestaurantsPerFilter.vue';
 import CartPage from './pages/CartPage.vue';
 
 
@@ -27,16 +27,16 @@ const router = createRouter({
             props: true,
         },
         {
-            path: '/restaurant/:type',
-            name: 'restaurantsType',
-            component: RestaurantsPerType,
-            props: true,
-        },
-        {
             path: '/cart',
             name: 'cart',
             component: CartPage,
         },
+        {
+            path: '/restaurant/results/:search',
+            name: 'restaurantsFilter',
+            component: RestaurantsPerFilter,
+            props: true
+        }
     ]
 });
 
