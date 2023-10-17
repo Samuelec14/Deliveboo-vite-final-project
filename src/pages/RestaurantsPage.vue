@@ -25,6 +25,7 @@ export default {
         };
     },
     methods: {
+        // SEARCH RESTAURANTS -> gives 2 arrays of restaurants, one per type, one per name
         async fetchRestaurants(param) {
 
             this.loading = true;
@@ -43,22 +44,33 @@ export default {
             });
         },
 
+        // SEARCH TYPES -> gives an array of types
         async fetchTypes() {
+            this.loading = true;
             axios.get(`http://127.0.0.1:8000/api/type/type`)
             .then(response => {
-                this.types = response.data.results;                
+                this.types = response.data.results; 
+                this.loading = false;               
             })
             .catch(error => {
                 console.error(error);
             });
         },
 
+        // Makes the page scroll to top (duh)
+        scrollToTop() {
+            document.body.scrollIntoView();
+        },
+
+        // Go to the dish page of each restaurant
         navigateToDish(restaurantId) {
             this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
         },
-
-        navigateToRestaurants(type) {
-            this.$router.push({ name: 'restaurantsFilter', params: { search: type } });
+        
+        // Gets value from searchbar and performs a search with said value
+        getValue(value) {
+            this.searchValue = value;
+            this.fetchRestaurants(this.searchValue);
         }
     },
     mounted() {
@@ -72,12 +84,12 @@ export default {
     
         <HeaderComponent></HeaderComponent>
 
-        <Searchbar />
+        <Searchbar @value="getValue" />
         <div class="container d-flex flex-wrap">
         <!-- Print of Restaurants -->
 
             <!-- PER TYPE -->
-            <template v-if="restaurantsPerType.length > 0">
+            <template v-if="restaurantsPerType.length > 0 && loading == false">
                 <div v-for="restaurant in restaurantsPerType" :key="restaurant.id" class="card m-2" style="width: 18rem;" @click="navigateToDish(restaurant.id)">
                     <img :src="store.imgPath+restaurant.thumb" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -98,7 +110,7 @@ export default {
             </template>
 
             <!-- PER NAME -->
-            <template v-if="restaurantsPerName.length > 0">
+            <template v-if="restaurantsPerName.length > 0 && loading == false">
                 <div v-for="restaurant in restaurantsPerName" :key="restaurant.id" class="card m-2" style="width: 18rem;" @click="navigateToDish(restaurant.id)">
                     <img :src="store.imgPath+restaurant.thumb" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -123,24 +135,31 @@ export default {
                 <h2>
                     Nessun ristorante corrisponde a questa tipologia
                 </h2>
-                <button @click="goback()" class="btn btn-primary">
-                    Torna Indietro
-                </button>
             </div>
         </div>
 
-        <div class="container">
-            <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
-            <div class="container d-flex flex-wrap justify-content-center mb-4">
-                <div v-for="type in types" :key="type.id" @click="navigateToRestaurants(type.name)" class="card m-2" style="width: 18rem;" v-if="types.length > 0">
-                    <img :src="store.imgPath+type.thumb" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ type.name }}</h2>
-                        <h4>vedi i più vicini a te</h4>
+        <template v-if="types.length > 0">
+            <div class="container">
+                <h3 class="text-center my-4">
+                    SCEGLI PER TIPOLOGIA
+                </h3>
+                <div class="container d-flex flex-wrap justify-content-center mb-4">
+                    
+                    <div v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();"  class="card m-2" style="width: 18rem;">
+                        <img :src="store.imgPath+type.thumb" class="card-img-top" :alt="type.name">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                {{ type.name }}
+                            </h2>
+                            <h4>
+                                vedi i più vicini a te
+                            </h4>
+                        </div>
                     </div>
+
                 </div>
             </div>
-        </div>
+        </template>
 
         <FooterComponent></FooterComponent>
     
