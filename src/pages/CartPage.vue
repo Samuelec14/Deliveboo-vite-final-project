@@ -44,6 +44,9 @@ export default {
       openPaymentForm() {
       this.showPaymentForm = true;
     },
+    closePaymentForm() {
+      this.showPaymentForm = false;
+    },
 
         removeFromCartHandler(index) {
             store.removeFromCart(index);
@@ -65,22 +68,30 @@ export default {
       <HeaderComponent></HeaderComponent>
       <h2 class="text-center my-4">Lista ordini</h2>
       <div class="container d-flex ">
-      <div class="my-container d-flex flex-wrap">
-        <div v-for="(dish, index) in dishesInCart" :key="index" class="card m-2" style="width: 18rem;">
-          <div v-if="dish"> <!-- Utilizza v-if su un div o span -->
-            <div class="card-body">
-              <h2 class="card-title">{{ dish.name }}</h2>
-              <h4 class="card-text">{{ dish.price }}€</h4>
-              <p class="card-text">{{ dish.description }}</p>
-              <button @click="removeFromCartHandler(index)">Rimuovi dal carrello</button>
-            </div>
-          </div>
-        </div>
+        <div class="my-container d-flex flex-wrap" v-if="dishesInCart.length > 0">
+  <!-- Mostra i piatti nel carrello solo se ci sono piatti -->
+  <div v-for="(dish, index) in dishesInCart" :key="index" class="card m-2" style="width: 18rem;">
+    <div v-if="dish"> <!-- Utilizza v-if su un div o span -->
+      <div class="card-body">
+        <h2 class="card-title">{{ dish.name }}</h2>
+        <h4 class="card-text">{{ dish.price }}€</h4>
+        <p class="card-text">{{ dish.description }}</p>
+        <button @click="removeFromCartHandler(index)">Rimuovi dal carrello</button>
       </div>
+    </div>
+  </div>
+</div>
+<div v-else class="not-order my-5" >
+  <!-- Messaggio quando il carrello è vuoto -->
+  <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
+</div>
       <div class="recap-order">
         <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }}  ) </h4>
         <h2 class="text-center">{{ totalPriceInCart }} €</h2>
-        <div class="text-center "> <button @click="openPaymentForm">Procedi all'Ordine</button></div>
+        <div class="text-center" v-if="dishesInCart.length > 0">
+          <button @click="openPaymentForm">Procedi all'Ordine</button>
+        </div>
+
       </div>
     </div>
 
@@ -113,6 +124,7 @@ export default {
       </div>
       <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
       <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
+      <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
     </form>
 </div>
     </div>
@@ -152,6 +164,11 @@ export default {
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     z-index: 999;
+}
+
+.not-order{
+  width: 70%;
+  min-height: 300px;
 }
 
 </style>
