@@ -63,7 +63,6 @@ export default {
     },
   
     submitPaymentForm() {
-      // Crea un oggetto con i dati del pagamento
       const paymentData = {
         name: this.name,
         last_name: this.last_Name,
@@ -73,19 +72,20 @@ export default {
         creditCardNumber: this.creditCardNumber,
         expiryDate: this.expiryDate,
         securityCode: this.securityCode,
-        total_price: this.totalPriceInCart // Aggiungi il prezzo totale
+        total_price: this.totalPriceInCart,
+        status: 'inviato', // Imposta lo stato a 'inviato'
+        dishes: this.dishesInCart.map(dish => dish.id), // Invia solo gli ID dei piatti
       };
+
 
       // Invia i dati al backend usando Axios
       axios.post('/api/orders', paymentData)
         .then(response => {
-          // Gestisci la risposta del backend
           console.log('Ordine inviato con successo:', response.data);
           // Esegui altre azioni come il reindirizzamento alla pagina di conferma
         })
         .catch(error => {
-          // Gestisci gli errori della richiesta
-          console.error('Errore durante l\'invio dell\'ordine:', error);
+          console.error("Errore durante l'invio dell'ordine:", error);
         });
     }
   }
