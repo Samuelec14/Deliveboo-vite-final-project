@@ -60,7 +60,10 @@ export default {
         }, 0);
         return parseFloat(totalPrice.toFixed(2));
     },
-  
+    redirectToHome() {
+      // Naviga alla home page
+      router.push({ name: 'home' });
+    },
     submitPaymentForm() {
       const paymentData = {
         name: this.name,
@@ -79,16 +82,16 @@ export default {
 
       // Invia i dati al backend usando Axios
       axios.post('http://localhost:8000/api/orders', paymentData)
-      .then(response => {
-        console.log('Ordine inviato con successo:', response.data);
-        this.orderStatus = 'success'; // Imposta lo stato dell'ordine su 'success'
-        store.clearCart(); // Svuota il carrello
-        router.push({ name: 'home' }); // Naviga alla home page
-      })
-      .catch(error => {
-        console.error("Errore durante l'invio dell'ordine:", error);
-        this.orderStatus = 'error'; // Imposta lo stato dell'ordine su 'error'
-      });
+        .then(response => {
+          console.log('Ordine inviato con successo:', response.data);
+          this.orderStatus = 'success'; // Imposta lo stato dell'ordine su 'success'
+          store.clearCart(); // Svuota il carrello
+          this.showSuccessMessage = true; // Mostra il messaggio di successo
+        })
+        .catch(error => {
+          console.error("Errore durante l'invio dell'ordine:", error);
+          this.orderStatus = 'error'; // Imposta lo stato dell'ordine su 'error'
+        });
     }
   }
 };
@@ -169,9 +172,10 @@ export default {
       <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
       <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
     </form>
-    <div v-if="orderStatus === 'success'" class="success-message">
+    
+  <div v-if="orderStatus === 'success' && showSuccessMessage" class="success-message">
     L'ordine è stato inviato con successo!
-    <button type="button" >Torna alla home</button>
+    <button type="button" @click="redirectToHome">Torna alla home</button>
   </div>
 
   <div v-if="orderStatus === 'error'" class="error-message">
