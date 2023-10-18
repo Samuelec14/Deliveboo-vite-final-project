@@ -8,14 +8,10 @@ export default {
     return {
       showPaymentForm: false,
       name: '',
-      last_Name: '',
+      last_name: '',
       phone_number:'',
       email:'',
       address:'',
-      creditCardNumber: '',
-      expiryDate: '',
-      securityCode: ''
-    
     };
   },
     components: {
@@ -65,8 +61,8 @@ export default {
     submitPaymentForm() {
       const paymentData = {
         name: this.name,
-        last_name: this.last_Name,
-        phone_number: this.phone_number,
+        last_name: this.last_name,
+        phone_number: this.phone_number.toString(),
         email: this.email,
         address: this.address,
         creditCardNumber: this.creditCardNumber,
@@ -79,13 +75,14 @@ export default {
 
 
       // Invia i dati al backend usando Axios
-      axios.post('/api/orders', paymentData)
+      axios.post('http://localhost:8000/api/orders', paymentData)
         .then(response => {
           console.log('Ordine inviato con successo:', response.data);
           // Esegui altre azioni come il reindirizzamento alla pagina di conferma
         })
         .catch(error => {
           console.error("Errore durante l'invio dell'ordine:", error);
+          console.log(this.name,this.last_Name, this.phone_number, this.email, this.address,this.totalPriceInCart, this.dishesInCart.map(dish => dish.id))
         });
     }
   }
@@ -137,11 +134,11 @@ export default {
       </div>
       <div class="mb-3">
         <label for="last_name" class="form-label">Cognome</label>
-        <input type="text" class="form-control" v-model="last_Name" required>
+        <input type="text" class="form-control" v-model="last_name" required>
       </div>
       <div class="mb-3">
         <label for="phone_number" class="form-label">numero di telefono</label>
-        <input type="number" min="10" class="form-control" v-model="phone_number" required>
+        <input type="number" min="9" class="form-control" v-model="phone_number" required>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">email</label>
@@ -153,15 +150,15 @@ export default {
       </div>
       <div class="mb-3">
       <label for="creditCardNumber" class="form-label">Numero della Carta di Credito</label>
-      <input type="text" class="form-control" v-model="creditCardNumber" >
+      <input type="text" class="form-control" >
     </div>
     <div class="mb-3">
       <label for="expiryDate" class="form-label">Data di Scadenza</label>
-      <input type="text" class="form-control" v-model="expiryDate" placeholder="MM/YY" >
+      <input type="text" class="form-control"  placeholder="MM/YY" >
     </div>
     <div class="mb-3">
       <label for="securityCode" class="form-label">Codice di Sicurezza</label>
-      <input type="text" class="form-control" v-model="securityCode" >
+      <input type="text" class="form-control"  >
     </div>
       <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
       <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
