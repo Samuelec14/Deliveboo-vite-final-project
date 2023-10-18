@@ -199,7 +199,7 @@ export default {
 
 <style scoped lang="scss">
 .my-container{
-    width: 70%;
+    width: 80%;
     position: relative;
 }
 
