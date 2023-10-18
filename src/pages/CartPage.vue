@@ -81,7 +81,7 @@ export default {
 
 
       // Invia i dati al backend usando Axios
-      axios.post('http://localhost:8000/api/orders', paymentData)
+        axios.post('http://localhost:8000/api/orders', paymentData)
         .then(response => {
           console.log('Ordine inviato con successo:', response.data);
           this.orderStatus = 'success'; // Imposta lo stato dell'ordine su 'success'
@@ -148,7 +148,7 @@ export default {
       </div>
       <div class="mb-3">
         <label for="phone_number" class="form-label">numero di telefono</label>
-        <input type="number" min="9" max='13' class="form-control" v-model="phone_number" required>
+        <input type="number" min="111111111" max='9999999999999'   class="form-control" v-model="phone_number" required>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">email</label>
@@ -156,7 +156,7 @@ export default {
       </div>
       <div class="mb-3">
         <label for="address" class="form-label">indirizzo</label>
-        <input type="text" min="10" class="form-control" v-model="address" required>
+        <input type="text"  class="form-control" v-model="address" required>
       </div>
       <div class="mb-3">
       <label for="creditCardNumber" class="form-label">Numero della Carta di Credito</label>
@@ -181,7 +181,7 @@ export default {
   </div>
 
   <div v-if="orderStatus === 'error'" class="error-message">
-    Si è verificato un errore durante l'invio dell'ordine. ricarica la pagina e riprova più tardi.
+    Si è verificato un errore durante l'invio dell'ordine. Riprova più tardi.
     <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
   </div>
 </div>
