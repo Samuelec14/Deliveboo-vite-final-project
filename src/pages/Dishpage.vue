@@ -53,6 +53,7 @@ export default {
 },
 
   methods: {
+    
     addToCartHandler(dish) {
     if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
       store.addToCart(dish);
