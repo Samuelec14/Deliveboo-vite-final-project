@@ -1,11 +1,14 @@
 import { reactive, watch } from 'vue';
 
+const initialCart = JSON.parse(localStorage.getItem('cart')) || [];
+
 export const store = reactive({
   imgPath: 'http://127.0.0.1:8000/storage',
-  cart: JSON.parse(localStorage.getItem('cart')) || [],
+  cart: initialCart,
 
   clearCart() {
     this.cart = []; 
+    localStorage.setItem('cart', JSON.stringify(store.cart));
   },
   addToCart(dish) {
     store.cart.push(dish);
