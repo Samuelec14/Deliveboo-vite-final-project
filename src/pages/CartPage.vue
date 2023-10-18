@@ -87,10 +87,12 @@ export default {
           this.orderStatus = 'success'; // Imposta lo stato dell'ordine su 'success'
           store.clearCart(); // Svuota il carrello
           this.showSuccessMessage = true; // Mostra il messaggio di successo
+          this.showErrorMessage = false; // Nascondi il messaggio di errore
         })
         .catch(error => {
           console.error("Errore durante l'invio dell'ordine:", error);
           this.orderStatus = 'error'; // Imposta lo stato dell'ordine su 'error'
+          this.showErrorMessage = true; // Mostra il messaggio di errore
         });
     }
   }
@@ -146,7 +148,7 @@ export default {
       </div>
       <div class="mb-3">
         <label for="phone_number" class="form-label">numero di telefono</label>
-        <input type="number" min="9" class="form-control" v-model="phone_number" required>
+        <input type="number" min="9" max='13' class="form-control" v-model="phone_number" required>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">email</label>
@@ -179,7 +181,7 @@ export default {
   </div>
 
   <div v-if="orderStatus === 'error'" class="error-message">
-    Si è verificato un errore durante l'invio dell'ordine. Riprova più tardi.
+    Si è verificato un errore durante l'invio dell'ordine. ricarica la pagina e riprova più tardi.
     <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
   </div>
 </div>
