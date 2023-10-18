@@ -3,6 +3,8 @@ import RedRoundedBtn from './buttons/RedRoundedBtn.vue';
 import YellowRoundedBtn from './buttons/YellowRoundedBtn.vue';
 import RedPillBtn from './buttons/RedPillBtn.vue';
 import { inject } from 'vue';
+import { ref, watch } from 'vue';
+import { store } from '../store'; 
 
 
 export default {
@@ -18,9 +20,23 @@ export default {
         dishes: [],
         restaurantId: null,
         isCartEmpty: true,
+        
     }
     },
-    
+    setup() {
+    // Calcola il numero totale di piatti nel carrello utilizzando un riferimento reattivo
+    const cartTotal = ref(store.cart.length);
+
+    // Aggiorna il numero totale di piatti nel carrello quando il carrello cambia
+    watch(() => store.cart, () => {
+      cartTotal.value = store.cart.length;
+    });
+
+    // Restituisci cartTotal per renderlo disponibile nel template
+    return {
+      cartTotal
+    };
+  },
     computed: {
     cartItemCount() {
         return this.$store.state.cart.length;
@@ -53,9 +69,12 @@ export default {
                 <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
             </div>
             
-                <button class="cart d-flex " @click="navigateToCart">
+                <button class="cart d-flex" @click="navigateToCart">
                     <img class="cart-img" src="https://media.istockphoto.com/id/1371799921/vector/shopping-cart-icon-with-long-shadow-on-blank-background-flat-design.jpg?s=612x612&w=0&k=20&c=2IxbpxSInsWm30hUV7-WcScSjdJYt20k5Gfg7G77mYk=" alt="">
-                    <span class="number-cart d-flex justify-content-center align-items-center">2</span>
+                    <span class="number-cart d-flex justify-content-center align-items-center" v-if="cartTotal > 0">
+      {{ cartTotal }}
+    </span>
+
                 </button>
             
             <div class="link"> 
