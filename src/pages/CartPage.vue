@@ -140,35 +140,35 @@ export default {
     <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
       <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
-        <input type="text" class="form-control" v-model="name" required>
+        <input type="text" class="form-control" id="name" v-model="name" required>
       </div>
       <div class="mb-3">
         <label for="last_name" class="form-label">Cognome</label>
-        <input type="text" class="form-control" v-model="last_name" required>
+        <input type="text" class="form-control" id="last_name" v-model="last_name" required>
       </div>
       <div class="mb-3">
         <label for="phone_number" class="form-label">numero di telefono</label>
-        <input type="number" min="111111111" max='9999999999999'   class="form-control" v-model="phone_number" required>
+        <input type="number" min="111111111" max='9999999999999' id="phone_number"  class="form-control" v-model="phone_number" required>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">email</label>
-        <input type="email" class="form-control" v-model="email" required>
+        <input type="email" class="form-control" id="email" v-model="email" required>
       </div>
       <div class="mb-3">
         <label for="address" class="form-label">indirizzo</label>
-        <input type="text"  class="form-control" v-model="address" required>
+        <input type="text"  class="form-control" id="address" v-model="address" required>
       </div>
       <div class="mb-3">
       <label for="creditCardNumber" class="form-label">Numero della Carta di Credito</label>
-      <input type="text" class="form-control" >
+      <input type="text" id="creditCardNumber" class="form-control" >
     </div>
     <div class="mb-3">
       <label for="expiryDate" class="form-label">Data di Scadenza</label>
-      <input type="text" class="form-control"  placeholder="MM/YY" >
+      <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" >
     </div>
     <div class="mb-3">
       <label for="securityCode" class="form-label">Codice di Sicurezza</label>
-      <input type="text" class="form-control"  >
+      <input type="text" id="securityCode" class="form-control"  >
     </div>
       <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
       <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
