@@ -4,6 +4,9 @@ export const store = reactive({
   imgPath: 'http://127.0.0.1:8000/storage',
   cart: JSON.parse(localStorage.getItem('cart')) || [],
 
+  clearCart() {
+    this.cart = []; 
+  },
   addToCart(dish) {
     store.cart.push(dish);
     localStorage.setItem('cart', JSON.stringify(store.cart));

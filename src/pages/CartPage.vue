@@ -2,7 +2,9 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import { store } from '../store';
+import { router } from '../router';
 import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -12,6 +14,7 @@ export default {
       phone_number:'',
       email:'',
       address:'',
+      orderStatus: null,
     };
   },
     components: {
@@ -76,14 +79,16 @@ export default {
 
       // Invia i dati al backend usando Axios
       axios.post('http://localhost:8000/api/orders', paymentData)
-        .then(response => {
-          console.log('Ordine inviato con successo:', response.data);
-          // Esegui altre azioni come il reindirizzamento alla pagina di conferma
-        })
-        .catch(error => {
-          console.error("Errore durante l'invio dell'ordine:", error);
-          console.log(this.name,this.last_Name, this.phone_number, this.email, this.address,this.totalPriceInCart, this.dishesInCart.map(dish => dish.id))
-        });
+      .then(response => {
+        console.log('Ordine inviato con successo:', response.data);
+        this.orderStatus = 'success'; // Imposta lo stato dell'ordine su 'success'
+        store.clearCart(); // Svuota il carrello
+        router.push({ name: 'home' }); // Naviga alla home page
+      })
+      .catch(error => {
+        console.error("Errore durante l'invio dell'ordine:", error);
+        this.orderStatus = 'error'; // Imposta lo stato dell'ordine su 'error'
+      });
     }
   }
 };
@@ -127,7 +132,7 @@ export default {
         <div class="overlay"></div> <!-- Aggiungi l'overlay qui -->
         <div class="payment-form">
     <h2>Dettagli Pagamento</h2>
-    <form @submit.prevent="submitPaymentForm">
+    <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
       <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
         <input type="text" class="form-control" v-model="name" required>
@@ -164,8 +169,21 @@ export default {
       <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
       <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
     </form>
+    <div v-if="orderStatus === 'success'" class="success-message">
+    L'ordine è stato inviato con successo!
+    <button type="button" >Torna alla home</button>
+  </div>
+
+  <div v-if="orderStatus === 'error'" class="error-message">
+    Si è verificato un errore durante l'invio dell'ordine. Riprova più tardi.
+    <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
+  </div>
 </div>
+<!-- risultato invio ordine -->
+
     </div>
+
+
       <FooterComponent></FooterComponent>
     
   </template>
@@ -208,5 +226,21 @@ export default {
   width: 70%;
   min-height: 300px;
 }
+.success-message {
+  background-color: #dff0d8; /* Colore di sfondo verde per il messaggio di successo */
+  color: #3c763d; /* Colore del testo verde scuro */
+  padding: 10px;
+  border: 1px solid #d6e9c6; /* Bordo verde chiaro */
+  border-radius: 5px;
+  margin-top: 20px;
+}
 
+.error-message {
+  background-color: #f2dede; /* Colore di sfondo rosso per il messaggio di errore */
+  color: #a94442; /* Colore del testo rosso scuro */
+  padding: 10px;
+  border: 1px solid #ebccd1; /* Bordo rosso chiaro */
+  border-radius: 5px;
+  margin-top: 20px;
+}
 </style>
