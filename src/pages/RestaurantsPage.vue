@@ -79,67 +79,55 @@ export default {
 </script>
 
 <template>
-    
-        <HeaderComponent></HeaderComponent>
+  <div>
+    <!-- Header Component -->
+    <HeaderComponent></HeaderComponent>
 
-        <Searchbar @value="getValue" />
-        <div class="container d-flex flex-wrap">
-        <!-- Print of Restaurants -->
+    <!-- Searchbar Component -->
+    <Searchbar @value="getValue" />
 
-            <!-- PER TYPE -->
-            <template v-if="restaurants.length > 0 && loading == false">
-                <div v-for="restaurant in restaurants" :key="restaurant.id" class="card m-2" style="width: 18rem;" @click="navigateToDish(restaurant.id)">
-                    <img :src="store.imgPath+restaurant.thumb" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h2 class="card-title">
-                            {{ restaurant.name }}
-                        </h2>
-                        <h4 class="card-text">
-                            tipologie del ristorante
-                        </h4>
-                        <p class="card-text">
-                            {{ restaurant.address }}
-                        </p>
-                        <h3 class="phone-number p-3">
-                            {{ restaurant.phone_number }}
-                        </h3>
-                    </div>
-                </div>
-            </template>
+    <div class="container">
+      <div class="row">
 
-            <!-- Error Message -->
-            <div v-if="restaurants.length == 0 && loading == false">
-                <h2>
-                    Nessun ristorante corrisponde a questa tipologia
-                </h2>
+        <!-- Print Restaurants by Type -->
+        <div v-for="restaurant in restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 my-3">
+          <div class="card" style="width: 100%;" @click="navigateToDish(restaurant.id)">
+            <img :src="store.imgPath + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
+            <div class="card-body">
+              <h2 class="card-title">{{ restaurant.name }}</h2>
+              <h4 class="card-text">Tipologie del ristorante</h4>
+              <p class="card-text">{{ restaurant.address }}</p>
+              <h3 class="phone-number p-3">{{ restaurant.phone_number }}</h3>
             </div>
+          </div>
         </div>
 
-        <template v-if="types.length > 0">
-            <div class="container">
-                <h3 class="text-center my-4">
-                    SCEGLI PER TIPOLOGIA
-                </h3>
-                <div class="container d-flex flex-wrap justify-content-center mb-4">
-                    
-                    <div v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();"  class="card m-2" style="width: 18rem;">
-                        <img :src="store.imgPath+type.thumb" class="card-img-top" :alt="type.name">
-                        <div class="card-body">
-                            <h2 class="card-title">
-                                {{ type.name }}
-                            </h2>
-                            <h4>
-                                vedi i più vicini a te
-                            </h4>
-                        </div>
-                    </div>
+        <!-- Error Message -->
+        <div v-if="restaurants.length === 0 && !loading" class="col-12 text-center">
+          <h2>Nessun ristorante corrisponde a questa tipologia</h2>
+        </div>
+      </div>
+    </div>
 
-                </div>
+    <div class="container">
+      <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
+      <div class="row">
+        <!-- Display Types -->
+        <div v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();" class="col-12 col-md-6 col-lg-4 my-3">
+          <div class="card" style="width: 100%;">
+            <img :src="store.imgPath + type.thumb" class="card-img-top" :alt="type.name">
+            <div class="card-body">
+              <h2 class="card-title">{{ type.name }}</h2>
+              <h4>vedi i più vicini a te</h4>
             </div>
-        </template>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <FooterComponent></FooterComponent>
-    
+    <!-- Footer Component -->
+    <FooterComponent></FooterComponent>
+  </div>
 </template>
 
 <style scoped lang="scss">
