@@ -2,8 +2,7 @@
 import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
-import { store } from '../store';
-import { inject } from 'vue';
+import { store } from '../store'
 
 
 export default {
@@ -40,12 +39,7 @@ export default {
   this.fetchDishes();
   store.cart = JSON.parse(localStorage.getItem('cart')) || [];
   const savedCart = localStorage.getItem('cart');
-  if (savedCart) {
-    const parsedCart = JSON.parse(savedCart);
-    parsedCart.forEach(dish => {
-      store.addToCart(dish);
-    });
-  }
+ 
 
   if (this.$route.params.dish) {
     this.dish = this.$route.params.dish;
@@ -55,22 +49,21 @@ export default {
   methods: {
     
     addToCartHandler(dish) {
-    if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
-      store.addToCart(dish);
-      localStorage.setItem('cart', JSON.stringify(store.cart));
-      console.log('Piatto aggiunto al carrello:', dish);
-      this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
-    } else if (store.cart.length > 0) {
-      this.errorMessage = 'Impossibile effettuare un ordine da più ristoranti.';
-    } else {
-      this.errorMessage = '';
+      if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
+        store.addToCart(dish);
+        localStorage.setItem('cart', JSON.stringify(store.cart));
+        console.log('Piatto aggiunto al carrello:', dish);
+        this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
+      } else if (store.cart.length > 0) {
+        this.errorMessage = 'Impossibile effettuare un ordine da più ristoranti.';
+      } else {
+        this.errorMessage = '';
     }
   },
-    removeFromCartHandler(index) {
-      store.removeFromCart(index);
-      
-      localStorage.setItem('cart', JSON.stringify(store.cart));
-    },
+  removeFromCartHandler(index) {
+    store.removeFromCart(index);
+    localStorage.setItem('cart', JSON.stringify(store.cart));
+  },
     resetError() {
       this.errorMessage = ''; // Resetta il messaggio di errore
     },
