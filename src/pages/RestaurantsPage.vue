@@ -113,15 +113,15 @@ export default {
     <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
     <div class="row">
     <!-- Display Types -->
-    <div v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();" class="col-12 col-md-6 col-lg-4 my-3">
-        <div class="card" style="width: 100%;">
-        <img :src="store.imgPath + type.thumb" class="card-img-top" :alt="type.name">
-        <div class="card-body">
-            <h2 class="card-title">{{ type.name }}</h2>
-            <h4>vedi i più vicini a te</h4>
+        <div v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();" class="col-12 col-md-6 col-lg-4 my-3">
+            <div class="card w-100">
+                <img :src="store.imgPath + type.thumb" class="card-img-top" :alt="type.name">
+                <div class="card-body">
+                    <h2 class="card-title">{{ type.name }}</h2>
+                    <h4>vedi i più vicini a te</h4>
+                </div>
+            </div>
         </div>
-        </div>
-    </div>
     </div>
 </div>
 
