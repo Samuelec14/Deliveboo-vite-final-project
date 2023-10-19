@@ -64,31 +64,29 @@ export default {
 
 <template>
 
-        <nav class="d-flex align-items-center">
-            <div class="h-100 w-100">
-                <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
-            </div>
-            
-                <button class="cart d-flex" @click="navigateToCart">
-                    <img class="cart-img" src="https://media.istockphoto.com/id/1371799921/vector/shopping-cart-icon-with-long-shadow-on-blank-background-flat-design.jpg?s=612x612&w=0&k=20&c=2IxbpxSInsWm30hUV7-WcScSjdJYt20k5Gfg7G77mYk=" alt="">
-                    <span class="number-cart d-flex justify-content-center align-items-center" v-if="cartTotal > 0">
-      {{ cartTotal }}
-    </span>
+    <nav class="d-flex align-items-center pt-2">
+        <div class="h-100 w-100">
+            <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
+        </div>
+        
+        <span class="cart d-flex">
+            <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
+            <span class="number-cart d-flex justify-content-center align-items-center" v-if="cartTotal > 0">
+                {{ cartTotal }}
+            </span>
+        </span>
+        
+        <div class="link"> 
+            <ul class="ps-3">
+                <!-- <YellowRoundedBtn> Test </YellowRoundedBtn> -->
+                <!-- <RedPillBtn> Test </RedPillBtn> -->
 
-                </button>
-            
-            <div class="link"> 
-                <ul>
-
-                    <!-- <YellowRoundedBtn> Test </YellowRoundedBtn> -->
-                    <!-- <RedPillBtn> Test </RedPillBtn> -->
-
-                    <li><a href="">Lavora con noi</a></li>
-                    <li><a href="">contatti</a></li>
-                    <li class="login"><a href="http://127.0.0.1:8000/login">login</a>/<a href="">chi siamo</a></li>
-                </ul>
-            </div>
-        </nav>
+                <li class="fs-5"><a href="http://127.0.0.1:8000/register">Lavora con noi</a></li>
+                <li class="fs-5"><a href="">Contatti</a></li>
+                <!-- <li class="login fs-5"><a href="http://127.0.0.1:8000/login">login</a>/<a href="">chi siamo</a></li> -->
+            </ul>
+        </div>
+    </nav>
 
 
 
