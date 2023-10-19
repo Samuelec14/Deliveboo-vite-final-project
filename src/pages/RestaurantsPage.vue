@@ -81,7 +81,7 @@ export default {
 <template>
     
         <HeaderComponent></HeaderComponent>
-
+        
         <Searchbar @value="getValue" />
         <div class="container d-flex flex-wrap">
         <!-- Print of Restaurants -->
