@@ -64,26 +64,28 @@ export default {
 
 <template>
 
-    <nav class="d-flex align-items-center pt-2">
+    <nav class="d-flex align-items-center py-1 shadow">
         <div class="h-100 w-100">
-            <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
+            <a href="/">
+                <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
+            </a>
         </div>
         
-        <span class="cart d-flex">
+        <!-- ELEMENTO CARRELLO  -->
+        <!-- <span class="cart d-flex">
             <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
             <span class="number-cart d-flex justify-content-center align-items-center" v-if="cartTotal > 0">
                 {{ cartTotal }}
             </span>
-        </span>
+        </span> -->
         
         <div class="link"> 
-            <ul class="ps-3">
+            <ul class="ps-3 pt-2">
                 <!-- <YellowRoundedBtn> Test </YellowRoundedBtn> -->
                 <!-- <RedPillBtn> Test </RedPillBtn> -->
 
                 <li class="fs-5"><a href="http://127.0.0.1:8000/register">Lavora con noi</a></li>
                 <li class="fs-5"><a href="">Contatti</a></li>
-                <!-- <li class="login fs-5"><a href="http://127.0.0.1:8000/login">login</a>/<a href="">chi siamo</a></li> -->
             </ul>
         </div>
     </nav>
@@ -133,11 +135,10 @@ nav {
                 margin: 0 10px;
                 background-color: transparent;
                 padding: 5px;
-                
+                cursor: pointer;
             a {
                 text-decoration: none;
             }
-            
             
             
             
@@ -157,6 +158,9 @@ nav {
                         border-radius: 30px;
                     }
                 }
+            }
+            li:hover{
+                font-weight: 600;
             }
         }
     }
