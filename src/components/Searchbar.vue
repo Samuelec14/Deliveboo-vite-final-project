@@ -1,7 +1,28 @@
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+import axios from 'axios';
+import { store } from '../store';
+
 export default {
+    name:'App',
+    components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
+    },
     data() {
         return {
+            // storage dinamico 
+            restaurants: [],
+            types: [],
+            store,
+            searchValue: '',
+            loading: false,
+
+            // storage statico 
             search: "",
             currentIndex: 0,
             imageContainerWidth: 0,
@@ -32,13 +53,20 @@ export default {
             ],
         };
     },
+
     mounted() {
+        // per carosello 
         if (this.$refs.imageContainer) {
             this.imageContainerWidth = this.$refs.imageContainer.offsetWidth;
             this.scrollImages();
         }
+
+        // per luca memb 
+        this.fetchRestaurants(this.searchValue);
+        this.fetchTypes();
     },
     methods: {
+        // metodi carosello 
         scrollLeft() {
             if (this.currentIndex > 0) {
                 this.currentIndex--;
@@ -73,8 +101,56 @@ export default {
         emitValue(value) {
             this.$emit("value", value);
         },
-    },
-};
+
+        // metodi luca memb 
+        // SEARCH RESTAURANTS
+        async fetchRestaurants(param) {
+
+        this.loading = true;
+
+        if (param == '') {
+            param = 'all';
+        }
+        axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant/results/${param}`)
+        .then(response => {
+            this.restaurants = response.data.restaurants;
+            this.loading = false;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        },
+
+        // SEARCH TYPES -> gives an array of types
+        async fetchTypes() {
+        this.loading = true;
+        axios.get(`http://127.0.0.1:8000/api/type/type`)
+        .then(response => {
+            this.types = response.data.results; 
+            this.loading = false;               
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        },
+
+        // Makes the page scroll to top (duh)
+        scrollToTop() {
+        document.body.scrollIntoView();
+        },
+
+        // Go to the dish page of each restaurant
+        navigateToDish(restaurantId) {
+        this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
+        },
+
+        // Gets value from searchbar and performs a search with said value
+        getValue(value) {
+        this.searchValue = value;
+        this.fetchRestaurants(this.searchValue);
+        }
+            },
+        };
 </script>
 
 
@@ -97,14 +173,47 @@ export default {
         </div>
     </main>
 
-    <h2 class="d-flex align-items-center justify-content-center mt-4" >Cosa vuoi mangiare?</h2>
+    <h2 class="d-flex align-items-center justify-content-center mt-5" >Cosa vuoi mangiare?</h2>
+
+    <div class="px-5 py-2 sticky bg-white">
+        <div class="mx-4">
+            <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" :snap-align="center" touch-drag="true">
+
+                <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
+                    <a href="" class="text-decoration-none text-black">
+                        <div class="img-container d-block h-100" style="width: 90%;"> 
+                            <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
+                            <figcaption class="image-caption mt-2">{{ imageInfo.caption }}</figcaption>
+                        </div>
+                    </a>
+                </slide> -->
+
+                
+                <slide v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();">
+                        <div class="img-container d-block h-100" style="width: 70%;"> 
+                                <img :src="store.imgPath + type.thumb" :alt="type.name" class="image">
+                                <figcaption class="image-caption mt-2">{{ type.name }}</figcaption>
+                        </div>
+                </slide> 
+        
+
+                <template #addons>
+                    <navigation />
+                    <pagination />
+                </template>
+            </carousel>
+        </div>
+    </div>
 
     <div class="image-typologies">
         <figure v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
-            <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
-                <figcaption class="image-caption">{{ imageInfo.caption }}</figcaption>
+            <div class="d-block">
+                <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
+            </div>
+            <figcaption class="image-caption">{{ imageInfo.caption }}</figcaption>
         </figure>
     </div>
+
 
     <h2 class="d-flex align-items-center justify-content-center mt-4" >Scegli il tuo ristorante preferito</h2>
     <div class="restourants">
@@ -129,6 +238,15 @@ export default {
 
 * {
     font-family: "Alfa Slab One", serif;
+}
+
+.carousel__next{
+    background-color: lightblue !important;
+}
+
+.sticky{
+    position: sticky;
+    top: 0;
 }
 
 main {
@@ -217,14 +335,15 @@ main {
   align-items: center;
   max-width: 1000px; /* Larghezza massima del contenitore */
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 
 .image {
-  width: 30%; /* Larghezza di ogni immagine */
-  margin: 10px;
+  width: 100%; /* Larghezza di ogni immagine */
+//   margin: 10px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  object-fit:cover;
 }
 
 .image-figure {
