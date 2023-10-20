@@ -67,7 +67,9 @@ export default {
                     <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 my-3">
                         
                         <div class="card" style="width: 100%;" @click="navigateToDish(restaurant.id)">
-                            <img :src="store.imgPath + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
+                            <template v-if="restaurant.thumb">
+                                <img :src="store.imgPath+'/' + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
+                            </template>
                             <div class="card-body">
                                 <h2 class="card-title">{{ restaurant.name }}</h2>
                                 <h4 class="card-text">Tipologie del ristorante</h4>

@@ -40,6 +40,7 @@ export default {
             this.scrollImages();
         }
         this.fetchTypes();
+        this.store.restaurants = [];
     },
     methods: {
         // metodi carosello 
@@ -102,7 +103,8 @@ export default {
                 values.push(element.value);
             });            
 
-            axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
+            if (values.length > 0) {
+                axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
                 params: {
                     search: values
                 }
@@ -114,6 +116,9 @@ export default {
             .catch(error => {
                 console.error(error);
             });
+            } else {
+                this.store.restaurants = [];
+            }
         }
     }
 }
@@ -142,7 +147,7 @@ export default {
 
     <div class="px-5 py-2 sticky bg-white">
         <div class="mx-4">
-            <form @submit.prevent="submitForm">
+           
                 <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
                     <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
@@ -157,9 +162,9 @@ export default {
 
                     <template v-if="types.length > 0">
                             <slide v-for="type in types" :key="type.id">
-
-                                <Checkbox :type="type" />
-
+                                <div @click="submitForm">
+                                    <Checkbox  :type="type" />
+                                </div>
                             </slide> 
                     </template>
 
@@ -176,8 +181,7 @@ export default {
                     </template>
                     
                 </carousel>
-                <input type="submit" value="Cerca" />
-            </form>
+
         </div>
     </div>
     
