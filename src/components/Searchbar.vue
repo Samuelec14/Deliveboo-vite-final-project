@@ -212,14 +212,6 @@ export default {
     padding: 10px;
 }
 
-.carousel__prev,
-.carousel__next{
-    box-sizing: content-box;
-    border: 5px solid white;
-    background-color: red;
-    width: 140px;
-}
-
 .sticky{
     position: sticky;
     top: 0;

@@ -123,7 +123,7 @@ export default {
 </div>
       <div class="recap-order">
         <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }}  ) </h4>
-        <h2 class="text-center">{{ totalPriceInCart }} €</h2>
+        <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
         <div class="text-center" v-if="dishesInCart.length > 0">
           <button @click="openPaymentForm">Procedi all'Ordine</button>
         </div>
