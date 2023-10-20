@@ -21,7 +21,6 @@ export default {
             restaurants: [],
             types: [],
             store,
-            searchValue: '',
             loading: false,
 
             // storage statico 
@@ -30,29 +29,7 @@ export default {
             imageContainerWidth: 0,
             dragging: false,
             dragStartX: 0,
-            sliderPosition: 0,
-            imagesInfo: [
-                { src: "typologies/pizza.jpeg", alt: "Pizza", caption: "Pizza" },
-                { src: "typologies/italiana.jpeg", alt: "Italiana", caption: "Cucina italiana" },
-                { src: "typologies/burger.jpeg", alt: "Hamburger", caption: "Hamburger Gourmet" },
-                { src: "typologies/cinese.jpeg", alt: "cinese", caption: "Cucina Cinese" },
-                { src: "typologies/messicana.jpeg", alt: "messicana", caption: "Cucina Messicana" },
-                { src: "typologies/sushi.jpeg", alt: "sushi", caption: "Sushi" },
-                { src: "typologies/cucinathai.jpeg", alt: "HamThailandia", caption: "Cucina Thailandese" },
-                { src: "typologies/vegana2.jpeg", alt: "vegana", caption: "Vegano" },
-                { src: "typologies/vegetariana.jpeg", alt: "vegetariana", caption: "Vegetariano" },
-            ],
-            cards: [
-                { name: "Bella Napoli", image: "restourants/bellanapoli.png", id: 1 },
-                { name: "Dolce Tavola", image: "restourants/la-dolce-tavola.jpeg", id: 2 },
-                { name: "Buns", image: "restourants/buns.jpeg", id: 3 },
-                { name: "Sakura", image: "restourants/sakura.jpeg", id: 4 },
-                { name: "Pancho Villa", image: "restourants/panchovilla.png", id: 5 },
-                { name: "Sushi Eatery", image: "restourants/sushi-eatery.jpeg", id: 6 },
-                { name: "Pagoda", image: "restourants/pagoda.jpeg", id: 7 },
-                { name: "Veggie", image: "restourants/veggie.jpeg", id: 8 },
-                { name: "Verde Eden", image: "restourants/verdeeden.png", id: 9 },
-            ],
+            sliderPosition: 0
         };
     },
 
@@ -63,8 +40,6 @@ export default {
             this.scrollImages();
         }
 
-        // per luca memb 
-        this.fetchRestaurants(this.searchValue);
         this.fetchTypes();
     },
     methods: {
@@ -100,28 +75,7 @@ export default {
         endDrag() {
             this.dragging = false;
         },
-        emitValue(value) {
-            this.$emit("value", value);
-        },
 
-        // metodi luca memb 
-        // SEARCH RESTAURANTS
-        async fetchRestaurants(param) {
-
-        this.loading = true;
-
-        if (param == '') {
-            param = 'all';
-        }
-        axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant/results/${param}`)
-        .then(response => {
-            this.restaurants = response.data.restaurants;
-            this.loading = false;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-        },
 
         // SEARCH TYPES -> gives an array of types
         async fetchTypes() {
@@ -136,22 +90,10 @@ export default {
         });
         },
 
-        // Makes the page scroll to top (duh)
-        scrollToTop() {
-        document.body.scrollIntoView();
-        },
-
         // Go to the dish page of each restaurant
         navigateToDish(restaurantId) {
         this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
-        },
-
-        // Gets value from searchbar and performs a search with said value
-        getValue(value) {
-        this.searchValue = value;
-        this.fetchRestaurants(this.searchValue);
-        },
-
+        }
     },
         };
 </script>
@@ -166,7 +108,6 @@ export default {
                         Il gusto, <br />
                         a casa tua!
                     </h1>
-                    <input type="text" v-model="search" @keyup.enter="emitValue(search)" />
                 </div>
             </div>
     
@@ -180,7 +121,8 @@ export default {
 
     <div class="px-5 py-2 sticky bg-white">
         <div class="mx-4">
-            <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" :snap-align="center" touch-drag="true">
+            
+            <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
                 <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
                     <a href="" class="text-decoration-none text-black">
@@ -191,11 +133,13 @@ export default {
                     </a>
                 </slide> -->
 
-                
-                <slide v-for="type in types" :key="type.id">
-                    <Checkbox :type="type"/>
-                </slide> 
-        
+
+                <template v-if="types.length > 0">
+                    <slide v-for="type in types" :key="type.id">
+                        <Checkbox :type="type"/>
+                    </slide> 
+                </template>
+
 
                 <template #addons>
                     <navigation>
@@ -207,39 +151,14 @@ export default {
                         </template>
                     </navigation>
                 </template>
+                
             </carousel>
         </div>
     </div>
 
-    <div class="text-center p-5">
-    <input type="checkbox">
-    </div>
-
-    <div class="image-typologies">
-        <figure v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
-            <div class="d-block">
-                <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
-            </div>
-            <figcaption class="image-caption">{{ imageInfo.caption }}</figcaption>
-        </figure>
-    </div>
 
 
-    <h2 class="d-flex align-items-center justify-content-center mt-4" >Scegli il tuo ristorante preferito</h2>
-    <div class="restourants">
-        <div class="grid">
-            <div
-            v-for="(card, index) in cards"
-            :key="index"
-            class="card custom-card"
-            :style="{ backgroundImage: `url(${card.image})` }"
-            >
-                <router-link :to="'/pagina/' + card.id">
-                    <span class="custom-name">{{ card.name }}</span>
-                </router-link>
-            </div>
-        </div>
-    </div>
+    
 </template>
 
 <style lang="scss">
