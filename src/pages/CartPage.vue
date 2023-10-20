@@ -67,11 +67,20 @@ export default {
         }, 0);
         return parseFloat(totalPrice.toFixed(2));
     },
+    clearCart() {
+      // Svuota il carrello nell'oggetto store
+      store.clearCart();
+
+      // Svuota anche il carrello nel localStorage
+      localStorage.removeItem('cart');
+    },
     redirectToHome() {
       // Naviga alla home page
       router.push({ name: 'home' });
     },
     submitPaymentForm() {
+      console.log('Piatti nel carrello:', this.dishesInCart);
+      console.log('Dati del carrello:', this.dishesInCart);
       const paymentData = {
         name: this.name,
         last_name: this.last_name,
@@ -161,7 +170,7 @@ export default {
 <template>
     <HeaderComponent></HeaderComponent>
     <h2 class="text-center my-4">Lista ordini</h2>
-
+<div class="big-container">
     <div class="my-container d-flex flex-wrap">
       <div v-for="(dish, index) in dishesInCart" :key="index" class="card m-2" style="width: 18rem;">
         <div class="card-body" v-if="dish">
@@ -171,6 +180,7 @@ export default {
           <button @click="removeFromCartHandler(index)" class="btn btn-danger">Rimuovi dal carrello</button>
         </div>
       </div>
+      
     </div>
 
     <div v-if="dishesInCart.length === 0" class="not-order my-5">
@@ -182,9 +192,10 @@ export default {
       <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
       <div class="text-center" v-if="dishesInCart.length > 0">
         <button @click="openPaymentForm" class="btn btn-primary">Procedi all'Ordine</button>
+        <button @click="clearCart" class="btn btn-danger">Svuota Carrello</button>
       </div>
     </div>
-
+  </div>
 
     <!-- pagamento -->
     
@@ -260,7 +271,16 @@ export default {
     width: 80%;
     position: relative;
 }
-
+.big-container{
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+}
+.recap-order{
+  padding: 10px;
+  height: 200px;
+  border: 1px solid black;
+}
 .overlay {
     position: fixed;
     top: 0;
