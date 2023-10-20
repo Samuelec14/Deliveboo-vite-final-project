@@ -5,6 +5,7 @@ const initialCart = JSON.parse(localStorage.getItem('cart')) || [];
 export const store = reactive({
   imgPath: 'http://127.0.0.1:8000/storage',
   cart: initialCart,
+  restaurants: [],
 
   clearCart() {
     this.cart = []; 

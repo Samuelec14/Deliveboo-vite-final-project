@@ -14,15 +14,14 @@ export default {
     Pagination,
     Navigation,
     Checkbox,
-    activeSlides: []
     },
     data() {
         return {
             // storage dinamico 
-            restaurants: [],
             types: [],
             store,
             loading: false,
+            selected: [],
 
             // storage statico 
             search: "",
@@ -40,7 +39,6 @@ export default {
             this.imageContainerWidth = this.$refs.imageContainer.offsetWidth;
             this.scrollImages();
         }
-
         this.fetchTypes();
     },
     methods: {
@@ -77,28 +75,48 @@ export default {
             this.dragging = false;
         },
                 
-    
-
-
         // SEARCH TYPES -> gives an array of types
         async fetchTypes() {
-        this.loading = true;
-        axios.get(`http://127.0.0.1:8000/api/type/type`)
-        .then(response => {
-            this.types = response.data.results; 
-            this.loading = false;               
-        })
-        .catch(error => {
-            console.error(error);
-        });
+            this.loading = true;
+            axios.get(`http://127.0.0.1:8000/api/type/type`)
+            .then(response => {
+                this.types = response.data.results; 
+                this.loading = false;               
+            })
+            .catch(error => {
+                console.error(error);
+            });
         },
 
         // Go to the dish page of each restaurant
         navigateToDish(restaurantId) {
             this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
-            }
         },
-    };
+        submitForm() {
+            this.loading = true;
+
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+            const values = [];
+            checked.forEach(element => {
+                values.push(element.value);
+            });            
+
+            axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
+                params: {
+                    search: values
+                }
+            })
+            .then(response => {
+                this.store.restaurants = response.data.restaurants; 
+                this.loading = false;               
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+    }
+}
 </script>
 
 
@@ -124,45 +142,44 @@ export default {
 
     <div class="px-5 py-2 sticky bg-white">
         <div class="mx-4">
-            
-            <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
+            <form @submit.prevent="submitForm">
+                <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
-                <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
-                    <a href="" class="text-decoration-none text-black">
-                        <div class="img-container d-block h-100" style="width: 90%;"> 
-                            <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
-                            <figcaption class="image-caption mt-2">{{ imageInfo.caption }}</figcaption>
-                        </div>
-                    </a>
-                </slide> -->
-
-
-                <template v-if="types.length > 0">
-                    <slide v-for="type in types" :key="type.id">
-
-                        <Checkbox :type="type" />
-
-                    </slide> 
-                </template>
+                    <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
+                        <a href="" class="text-decoration-none text-black">
+                            <div class="img-container d-block h-100" style="width: 90%;"> 
+                                <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
+                                <figcaption class="image-caption mt-2">{{ imageInfo.caption }}</figcaption>
+                            </div>
+                        </a>
+                    </slide> -->
 
 
-                <template #addons>
-                    <navigation>
-                        <template #prev>
-                            <span> <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
-                        </template>
-                        <template #next>
-                            <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
-                        </template>
-                    </navigation>
-                </template>
-                
-            </carousel>
+                    <template v-if="types.length > 0">
+                            <slide v-for="type in types" :key="type.id">
+
+                                <Checkbox :type="type" />
+
+                            </slide> 
+                    </template>
+
+
+                    <template #addons>
+                        <navigation>
+                            <template #prev>
+                                <span> <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                            </template>
+                            <template #next>
+                                <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                            </template>
+                        </navigation>
+                    </template>
+                    
+                </carousel>
+                <input type="submit" value="Cerca" />
+            </form>
         </div>
     </div>
-
-
-
     
 </template>
 

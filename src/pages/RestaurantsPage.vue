@@ -16,7 +16,6 @@ export default {
     },
     data() {
         return {
-            restaurants: [],
             types: [],
             store,
             searchValue: '',
@@ -41,15 +40,17 @@ export default {
         // Go to the dish page of each restaurant
         navigateToDish(restaurantId) {
             this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
-        },
+        }
     },
     mounted() {
         this.fetchTypes();
+
     },
 };
 </script>
 
 <template>
+
     <div>
         <!-- Header Component -->
         <HeaderComponent></HeaderComponent>
@@ -61,9 +62,9 @@ export default {
             <div class="row">
 
             <!-- Print Restaurants by Type -->
-                <template v-if="restaurants">
+                <template v-if="store.restaurants">
 
-                    <div v-for="restaurant in restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 my-3">
+                    <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 my-3">
                         
                         <div class="card" style="width: 100%;" @click="navigateToDish(restaurant.id)">
                             <img :src="store.imgPath + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
@@ -80,7 +81,7 @@ export default {
                 </template>
 
                 <!-- Error Message -->
-                <div v-if="restaurants.length === 0 && !loading" class="col-12 text-center">
+                <div v-if="store.restaurants && !loading" class="col-12 text-center">
                     <h2>Nessun ristorante corrisponde a questa tipologia</h2>
                 </div>
                 
