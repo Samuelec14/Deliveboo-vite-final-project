@@ -1,6 +1,7 @@
 <script>
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import Checkbox from './Checkbox.vue';
 
 import axios from 'axios';
 import { store } from '../store';
@@ -12,6 +13,7 @@ export default {
     Slide,
     Pagination,
     Navigation,
+    Checkbox
     },
     data() {
         return {
@@ -148,8 +150,9 @@ export default {
         getValue(value) {
         this.searchValue = value;
         this.fetchRestaurants(this.searchValue);
-        }
-            },
+        },
+
+    },
         };
 </script>
 
@@ -189,20 +192,27 @@ export default {
                 </slide> -->
 
                 
-                <slide v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();">
-                        <div class="img-container d-block h-100" style="width: 70%;"> 
-                                <img :src="store.imgPath + type.thumb" :alt="type.name" class="image">
-                                <figcaption class="image-caption mt-2">{{ type.name }}</figcaption>
-                        </div>
+                <slide v-for="type in types" :key="type.id">
+                    <Checkbox :type="type"/>
                 </slide> 
         
 
                 <template #addons>
-                    <navigation />
-                    <pagination />
+                    <navigation>
+                        <template #prev>
+                            <span> <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                        </template>
+                        <template #next>
+                            <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                        </template>
+                    </navigation>
                 </template>
             </carousel>
         </div>
+    </div>
+
+    <div class="text-center p-5">
+    <input type="checkbox">
     </div>
 
     <div class="image-typologies">
@@ -232,7 +242,7 @@ export default {
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @use "../assets/scss/partials/variables.scss" as *;
 
@@ -240,8 +250,55 @@ export default {
     font-family: "Alfa Slab One", serif;
 }
 
+.img_active{
+    border: 2px solid yellow;
+}
+.checkbox-overlay{
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 40%;
+    right: 107%;
+}
+
+.prev_icon,
+.next-icon{
+    position: absolute;
+    // transform: translate(0 , 10%);
+}
+.prev_icon{
+    bottom: 50%;
+    right: 120%;
+
+}
+.next_icon{
+    transform: rotate(180deg);
+    position: absolute;
+    bottom: 50%;
+    left: 120%;
+}
+.carousel__item {
+    min-height: 200px;
+    width: 100%;
+    background-color: var(--vc-clr-primary);
+    color: var(--vc-clr-white);
+    font-size: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel__slide {
+    padding: 10px;
+}
+
+.carousel__prev,
 .carousel__next{
-    background-color: lightblue !important;
+    box-sizing: content-box;
+    border: 5px solid white;
+    background-color: red;
+    width: 140px;
 }
 
 .sticky{
@@ -341,8 +398,8 @@ main {
 .image {
   width: 100%; /* Larghezza di ogni immagine */
 //   margin: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   border: 1px solid #ccc;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   object-fit:cover;
 }
 
