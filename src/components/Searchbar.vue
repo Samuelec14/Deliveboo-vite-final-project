@@ -96,8 +96,11 @@ export default {
         submitForm() {
             this.loading = true;
 
+            this.store.restaurants = [];
+
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+            
             const values = [];
             checked.forEach(element => {
                 values.push(element.value);

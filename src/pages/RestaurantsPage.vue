@@ -36,6 +36,17 @@ export default {
                 console.error(error);
             });
         },
+        async fetchRandomRestaurants() {
+            this.loading = true;
+            axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant`)
+            .then(response => {
+                this.store.restaurants = response.data.results; 
+                this.loading = false;               
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        },
 
         // Go to the dish page of each restaurant
         navigateToDish(restaurantId) {
@@ -44,6 +55,7 @@ export default {
     },
     mounted() {
         this.fetchTypes();
+        this.fetchRandomRestaurants();
 
     },
 };
