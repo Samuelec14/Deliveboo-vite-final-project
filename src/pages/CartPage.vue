@@ -14,7 +14,11 @@ export default {
       phone_number:'',
       email:'',
       address:'',
+      creditCardNumber: '',
+      expiryDate: '',
+      securityCode: '',
       orderStatus: null,
+      dishesInCart: store.cart,
     };
   },
     components: {
@@ -22,20 +26,23 @@ export default {
         FooterComponent,
     },
     computed: {
-        dishesInCart() {
-            return store.cart;
-        },
-        numberOfItemsInCart() {
-        return this.dishesInCart.length;
-        },
-        totalPriceInCart() {
-          const total = this.dishesInCart.reduce((accumulator, dish) => {
-              const price = parseFloat(dish.price); // Converti il prezzo in un numero
-              return accumulator + price;
-          }, 0);
-          return parseFloat(total.toFixed(2));
-}
+      numberOfItemsInCart() {
+      return this.dishesInCart.length;
     },
+    totalPriceInCart() {
+  const total = this.dishesInCart.reduce((accumulator, dish) => {
+    if (dish && dish.price !== null && dish.price !== undefined) {
+      const price = parseFloat(dish.price);
+      // Verifica se price è un numero valido
+      if (!isNaN(price)) {
+        accumulator += price;
+      }
+    }
+    return accumulator;
+  }, 0);
+  return total;
+}
+},
     created() {
         if (this.$route.params.dish) {
     this.dish = this.$route.params.dish;
@@ -152,36 +159,32 @@ export default {
 </script>
 
 <template>
-   
-      <HeaderComponent></HeaderComponent>
-      <h2 class="text-center my-4">Lista ordini</h2>
-      <div class="container d-flex ">
-        <div class="my-container d-flex flex-wrap" v-if="dishesInCart.length > 0">
-  <!-- Mostra i piatti nel carrello solo se ci sono piatti -->
-  <div v-for="(dish, index) in dishesInCart" :key="index" class="card m-2" style="width: 18rem;">
-    <div v-if="dish"> <!-- Utilizza v-if su un div o span -->
-      <div class="card-body">
-        <h2 class="card-title">{{ dish.name }}</h2>
-        <h4 class="card-text">{{ dish.price }}€</h4>
-        <p class="card-text">{{ dish.description }}</p>
-        <button @click="removeFromCartHandler(index)">Rimuovi dal carrello</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div v-else class="not-order my-5" >
-  <!-- Messaggio quando il carrello è vuoto -->
-  <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
-</div>
-      <div class="recap-order">
-        <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }}  ) </h4>
-        <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
-        <div class="text-center" v-if="dishesInCart.length > 0">
-          <button @click="openPaymentForm">Procedi all'Ordine</button>
-        </div>
+    <HeaderComponent></HeaderComponent>
+    <h2 class="text-center my-4">Lista ordini</h2>
 
+    <div class="my-container d-flex flex-wrap">
+      <div v-for="(dish, index) in dishesInCart" :key="index" class="card m-2" style="width: 18rem;">
+        <div class="card-body" v-if="dish">
+          <h2 class="card-title">{{ dish.name }}</h2>
+          <h4 class="card-text">{{ dish.price }}€</h4>
+          <p class="card-text">{{ dish.description }}</p>
+          <button @click="removeFromCartHandler(index)" class="btn btn-danger">Rimuovi dal carrello</button>
+        </div>
       </div>
     </div>
+
+    <div v-if="dishesInCart.length === 0" class="not-order my-5">
+      <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
+    </div>
+
+    <div class="recap-order">
+      <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }})</h4>
+      <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
+      <div class="text-center" v-if="dishesInCart.length > 0">
+        <button @click="openPaymentForm" class="btn btn-primary">Procedi all'Ordine</button>
+      </div>
+    </div>
+
 
     <!-- pagamento -->
     
