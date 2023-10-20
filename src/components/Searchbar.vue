@@ -100,11 +100,13 @@ export default {
 
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-            
+
             const values = [];
             checked.forEach(element => {
                 values.push(element.value);
             });            
+
+            this.store.checkboxNames = values;
 
             if (values.length > 0) {
                 axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
@@ -120,7 +122,15 @@ export default {
                 console.error(error);
             });
             } else {
-                this.store.restaurants = [];
+                this.loading = true;
+                axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant`)
+                .then(response => {
+                    this.store.restaurants = response.data.results; 
+                    this.loading = false;               
+                })
+                .catch(error => {
+                    console.error(error);
+                });
             }
         }
     }

@@ -6,6 +6,7 @@ export const store = reactive({
   imgPath: 'http://127.0.0.1:8000/storage',
   cart: initialCart,
   restaurants: [],
+  checkboxNames: [],
 
   clearCart() {
     this.cart = []; 
