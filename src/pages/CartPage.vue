@@ -94,6 +94,58 @@ export default {
           this.orderStatus = 'error'; // Imposta lo stato dell'ordine su 'error'
           this.showErrorMessage = true; // Mostra il messaggio di errore
         });
+        axios.post('https://payments.sandbox.braintree-api.com/graphql', {
+            query: `
+                mutation ExampleVaultWithTypeFragment($input: VaultPaymentMethodInput!) {
+                    vaultPaymentMethod(input: $input) {
+                        paymentMethod {
+                            id
+                            usage
+                            details {
+                                __typename
+                                ... on CreditCardDetails {
+                                    cardholderName
+                                }
+                                ... on PaypalAccountDetails {
+                                    payer {
+                                        email
+                                    }
+                                }
+                                ... on VenmoAccountDetails {
+                                    username
+                                }
+                                ... on UsBankAccountDetails {
+                                    accountHolderName
+                                }
+                            }
+                        }
+                        verification {
+                            status
+                        }
+                    }
+                }
+            `,
+            variables: {
+                input: {
+                    paymentMethodId: "<single-use-payment-method-id>"
+                }
+            }
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic BASE64_ENCODED(PUBLIC_KEY:PRIVATE_KEY)',
+                'Braintree-Version': '2019-01-01'
+            }
+        })
+        .then(response => {
+            console.log('Risposta GraphQL:', response.data);
+
+            console.log('successo')
+        })
+        .catch(error => {
+            console.error("Errore durante la richiesta GraphQL:", error);
+            // Gestisci l'errore qui
+        });
     }
   }
 };
@@ -123,7 +175,7 @@ export default {
 </div>
       <div class="recap-order">
         <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }}  ) </h4>
-        <h2 class="text-center">{{ totalPriceInCart }} €</h2>
+        <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
         <div class="text-center" v-if="dishesInCart.length > 0">
           <button @click="openPaymentForm">Procedi all'Ordine</button>
         </div>
@@ -159,17 +211,20 @@ export default {
         <input type="text"  class="form-control" id="address" v-model="address" required>
       </div>
       <div class="mb-3">
-      <label for="creditCardNumber" class="form-label">Numero della Carta di Credito</label>
-      <input type="text" id="creditCardNumber" class="form-control" >
-    </div>
-    <div class="mb-3">
-      <label for="expiryDate" class="form-label">Data di Scadenza</label>
-      <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" >
-    </div>
-    <div class="mb-3">
-      <label for="securityCode" class="form-label">Codice di Sicurezza</label>
-      <input type="text" id="securityCode" class="form-control"  >
-    </div>
+  <label for="creditCardNumber" class="form-label">Numero della Carta di Credito</label>
+  <input type="text" id="creditCardNumber" maxlength="16" class="form-control" required pattern="[0-9]{16}" placeholder="0000-0000-0000-0000">
+</div>
+
+<div class="mb-3">
+  <label for="expiryDate" class="form-label">Data di Scadenza (MM/YY)</label>
+  <input type="text" class="form-control" id="expiryDate" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="(MM/YY)">
+</div>
+
+<div class="mb-3">
+  <label for="securityCode" class="form-label">Codice di Sicurezza</label>
+  <input type="text" id="securityCode" class="form-control" required pattern="[0-9]{3}" placeholder="***">
+</div>
+
       <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
       <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
       <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
