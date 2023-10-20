@@ -13,7 +13,8 @@ export default {
     Slide,
     Pagination,
     Navigation,
-    Checkbox
+    Checkbox,
+    activeSlides: []
     },
     data() {
         return {
@@ -75,6 +76,8 @@ export default {
         endDrag() {
             this.dragging = false;
         },
+                
+    
 
 
         // SEARCH TYPES -> gives an array of types
@@ -92,10 +95,10 @@ export default {
 
         // Go to the dish page of each restaurant
         navigateToDish(restaurantId) {
-        this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
-        }
-    },
-        };
+            this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
+            }
+        },
+    };
 </script>
 
 
@@ -136,7 +139,9 @@ export default {
 
                 <template v-if="types.length > 0">
                     <slide v-for="type in types" :key="type.id">
-                        <Checkbox :type="type"/>
+
+                        <Checkbox :type="type" />
+
                     </slide> 
                 </template>
 
@@ -169,9 +174,6 @@ export default {
     font-family: "Alfa Slab One", serif;
 }
 
-.img_active{
-    border: 2px solid yellow;
-}
 .checkbox-overlay{
     width: 100%;
     height: 100%;
