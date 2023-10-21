@@ -11,61 +11,67 @@ export default {
       showPaymentForm: false,
       name: '',
       last_name: '',
-      phone_number:'',
-      email:'',
-      address:'',
+      phone_number: '',
+      email: '',
+      address: '',
       creditCardNumber: '',
       expiryDate: '',
       securityCode: '',
       orderStatus: null,
       dishesInCart: store.cart,
+      showSuccessMessage: false,
+      showErrorMessage: false,
     };
   },
-    components: {
-        HeaderComponent,
-        FooterComponent,
-    },
-    computed: {
-      numberOfItemsInCart() {
+  components: {
+    HeaderComponent,
+    FooterComponent,
+  },
+  computed: {
+    numberOfItemsInCart() {
       return this.dishesInCart.length;
     },
+    quantityForDishInCart() {
+      return (dishId) => {
+        const cartItem = this.dishesInCart.find(item => item.id === dishId);
+        return cartItem ? cartItem.quantity : 1; // Ritorna 1 se non è trovato nel carrello
+      };
+    },
     totalPriceInCart() {
-  const total = this.dishesInCart.reduce((accumulator, dish) => {
-    if (dish && dish.price !== null && dish.price !== undefined) {
-      const price = parseFloat(dish.price);
-      // Verifica se price è un numero valido
-      if (!isNaN(price)) {
-        accumulator += price;
-      }
+      // Calcola il prezzo totale basandosi sulle quantità dei piatti
+      return this.dishesInCart.reduce((total, dish) => {
+        return total + (dish.price * this.quantityForDishInCart(dish.id));
+      }, 0).toFixed(2);
+    },
+    totalItemsInCart() {
+      // Calcola il numero totale di articoli nel carrello basandosi sulle quantità dei piatti
+      return this.dishesInCart.reduce((total, dish) => {
+        return total + this.quantityForDishInCart(dish.id);
+      }, 0);
+    },
+  },
+  created() {
+    if (this.$route.params.dish) {
+      this.dish = this.$route.params.dish;
+      // Puoi fare qualcosa con this.dish qui
     }
-    return accumulator;
-  }, 0);
-  return total;
-}
-},
-    created() {
-        if (this.$route.params.dish) {
-    this.dish = this.$route.params.dish;
-        // Puoi fare qualcosa con this.dish qui
-    }
-},
-    methods: {
-      openPaymentForm() {
+  },
+  methods: {
+    openPaymentForm() {
       this.showPaymentForm = true;
     },
     closePaymentForm() {
       this.showPaymentForm = false;
     },
-
-        removeFromCartHandler(index) {
-            store.removeFromCart(index);
-        },
-        calculateTotalPrice() {
-        const totalPrice = this.dishesInCart.reduce((total, dish) => {
-            console.log('Prezzo del piatto: ' + dish.price); //
-            return total + dish.price;
-        }, 0);
-        return parseFloat(totalPrice.toFixed(2));
+    removeFromCartHandler(index) {
+      store.removeFromCart(index);
+    },
+    calculateTotalPrice() {
+      const totalPrice = this.dishesInCart.reduce((total, dish) => {
+        console.log('Prezzo del piatto: ' + dish.price);
+        return total + dish.price;
+      }, 0);
+      return parseFloat(totalPrice.toFixed(2));
     },
     clearCart() {
       // Svuota il carrello nell'oggetto store
@@ -81,6 +87,7 @@ export default {
     submitPaymentForm() {
       console.log('Piatti nel carrello:', this.dishesInCart);
       console.log('Dati del carrello:', this.dishesInCart);
+
       const paymentData = {
         name: this.name,
         last_name: this.last_name,
@@ -95,9 +102,8 @@ export default {
         dishes: this.dishesInCart.map(dish => dish.id), // Invia solo gli ID dei piatti
       };
 
-
       // Invia i dati al backend usando Axios
-        axios.post('http://localhost:8000/api/orders', paymentData)
+      axios.post('http://localhost:8000/api/orders', paymentData)
         .then(response => {
           console.log('Ordine inviato con successo:', response.data);
           this.orderStatus = 'success'; // Imposta lo stato dell'ordine su 'success'
@@ -163,7 +169,7 @@ export default {
             // Gestisci l'errore qui
         });
     }
-  }
+  },
 };
 </script>
 
@@ -173,13 +179,17 @@ export default {
 <div class="big-container">
     <div class="my-container d-flex flex-wrap">
       <div v-for="(dish, index) in dishesInCart" :key="index" class="card m-2" style="width: 18rem;">
-        <div class="card-body" v-if="dish">
-          <h2 class="card-title">{{ dish.name }}</h2>
-          <h4 class="card-text">{{ dish.price }}€</h4>
-          <p class="card-text">{{ dish.description }}</p>
-          <button @click="removeFromCartHandler(index)" class="btn btn-danger">Rimuovi dal carrello</button>
-        </div>
-      </div>
+  <div class="card-body" v-if="dish">
+    <h2 class="card-title">{{ dish.name }}</h2>
+    <h4 class="card-text">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
+    <div class="mb-3">
+      <label for="quantity">Quantità:</label>
+      <input type="number" id="quantity" class="form-control quantity" v-model="dish.quantity" min="1" required>
+    </div>
+    <p class="card-text">{{ dish.description }}</p>
+    <button @click="removeFromCartHandler(index)" class="btn btn-danger">Rimuovi dal carrello</button>
+  </div>
+</div>
       
     </div>
 
@@ -188,13 +198,15 @@ export default {
     </div>
 
     <div class="recap-order">
-      <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }})</h4>
-      <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
-      <div class="text-center" v-if="dishesInCart.length > 0">
-        <button @click="openPaymentForm" class="btn btn-primary">Procedi all'Ordine</button>
-        <button @click="clearCart" class="btn btn-danger">Svuota Carrello</button>
-      </div>
+    <h4>
+      Totale provvisorio ({{ totalItemsInCart }} {{ totalItemsInCart === 1 ? 'articolo' : 'articoli' }})
+    </h4>
+    <h2 class="text-center">{{ totalPriceInCart }} €</h2>
+    <div class="text-center" v-if="dishesInCart.length > 0">
+      <button @click="openPaymentForm" class="btn btn-primary">Procedi all'Ordine</button>
+      <button @click="clearCart" class="btn btn-danger">Svuota Carrello</button>
     </div>
+  </div>
   </div>
 
     <!-- pagamento -->
@@ -290,7 +302,9 @@ export default {
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 998; 
 }
-
+.quantity{
+  width: 60px;
+}
 .payment-form {
     width: 60%;
     min-width: 400px;

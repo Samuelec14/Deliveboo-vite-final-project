@@ -47,19 +47,27 @@ export default {
 },
 
   methods: {
-    
     addToCartHandler(dish) {
-      if (store.cart.length === 0 || (store.cart[0] && store.cart[0].restaurant_id === dish.restaurant_id)) {
-        store.addToCart(dish);
-        localStorage.setItem('cart', JSON.stringify(store.cart));
-        console.log('Piatto aggiunto al carrello:', dish);
-        this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
-      } else if (store.cart.length > 0) {
-        this.errorMessage = 'Impossibile effettuare un ordine da più ristoranti.';
-      } else {
-        this.errorMessage = '';
-    }
-  },
+  const existingDishIndex = store.cart.findIndex(item => item.id === dish.id);
+
+  if (existingDishIndex !== -1) {
+    // Se il piatto è già nel carrello, aggiorna solo la quantità
+    store.cart[existingDishIndex].quantity++;
+  } else {
+    // Se il piatto non è nel carrello, aggiungilo con quantità 1
+    store.addToCart({
+      id: dish.id,
+      name: dish.name,
+      price: dish.price,
+      description: dish.description,
+      quantity: 1, // Imposta la quantità iniziale a 1
+    });
+  }
+
+  localStorage.setItem('cart', JSON.stringify(store.cart));
+  console.log('Piatto aggiunto al carrello:', dish);
+  this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
+},
   removeFromCartHandler(index) {
     store.removeFromCart(index);
     localStorage.setItem('cart', JSON.stringify(store.cart));
