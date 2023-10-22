@@ -48,26 +48,33 @@ export default {
 
   methods: {
     addToCartHandler(dish) {
-  const existingDishIndex = store.cart.findIndex(item => item.id === dish.id);
+      // Verifica se il carrello è vuoto o se il ristorante del piatto corrisponde al ristorante nel carrello
+      if (store.cart.length === 0 || store.cart[0].restaurant_id === dish.restaurant_id) {
+        const existingDishIndex = store.cart.findIndex(item => item.id === dish.id);
 
-  if (existingDishIndex !== -1) {
-    // Se il piatto è già nel carrello, aggiorna solo la quantità
-    store.cart[existingDishIndex].quantity++;
-  } else {
-    // Se il piatto non è nel carrello, aggiungilo con quantità 1
-    store.addToCart({
-      id: dish.id,
-      name: dish.name,
-      price: dish.price,
-      description: dish.description,
-      quantity: 1, // Imposta la quantità iniziale a 1
-    });
-  }
+        if (existingDishIndex !== -1) {
+          // Se il piatto è già nel carrello, aggiorna solo la quantità
+          store.cart[existingDishIndex].quantity++;
+        } else {
+          // Se il piatto non è nel carrello, aggiungilo con quantità 1
+          store.addToCart({
+            id: dish.id,
+            name: dish.name,
+            price: dish.price,
+            description: dish.description,
+            quantity: 1,
+            restaurant_id: dish.restaurant_id // Aggiungi l'ID del ristorante al piatto nel carrello
+          });
+        }
 
-  localStorage.setItem('cart', JSON.stringify(store.cart));
-  console.log('Piatto aggiunto al carrello:', dish);
-  this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
-},
+        localStorage.setItem('cart', JSON.stringify(store.cart));
+        console.log('Piatto aggiunto al carrello:', dish);
+        this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
+      } else {
+        // Mostra un messaggio di errore se il ristorante del piatto è diverso dal ristorante nel carrello
+        this.errorMessage = 'Impossibile effettuare un ordine da più ristoranti.';
+      }
+    },
   removeFromCartHandler(index) {
     store.removeFromCart(index);
     localStorage.setItem('cart', JSON.stringify(store.cart));
@@ -111,11 +118,11 @@ export default {
       </div>
        <!-- Messaggio di errore -->
        <div class="overlay" v-if="errorMessage">
-      <div class="error-message">
-        {{ errorMessage }}
-        <button @click="resetError">Ho capito</button>
-      </div>
+    <div class="error-message">
+      {{ errorMessage }}
+      <button @click="resetError">Ho capito</button>
     </div>
+  </div>
 
       <FooterComponent></FooterComponent>
     
