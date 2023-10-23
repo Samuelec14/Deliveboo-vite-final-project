@@ -214,20 +214,23 @@ export default {
   </div>
 </div>
       
-    </div>
+    
 
-    <div v-if="dishesInCart.length === 0" class="not-order my-5">
-      <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
+    <div v-if="dishesInCart.length === 0" class="not-order my-5 d-flex my-error">
+      <h3 class="text-center">Il tuo carrello Delivebool è vuoto. <br > aggiungi piatti al tuo carrello</h3>
     </div>
+  </div>
+
+
 
     <div class="recap-order">
     <h4>
-      Totale provvisorio ({{ totalItemsInCart }} {{ totalItemsInCart === 1 ? 'articolo' : 'articoli' }})
+      Totale provvisorio <br>({{ totalItemsInCart }}  {{ totalItemsInCart === 1 ? 'articolo' : 'articoli' }})
     </h4>
     <h2 class="text-center">{{ totalPriceInCart }} €</h2>
-    <div class="text-center" v-if="dishesInCart.length > 0">
+    <div class="text-center button-container" v-if="dishesInCart.length > 0">
       <button @click="openPaymentForm" class="btn btn-primary me-3">Procedi all'Ordine</button>
-      <button @click="clearCart" class="btn btn-danger">Svuota Carrello</button>
+      <button @click="clearCart" class=" remove">Svuota Carrello</button>
     </div>
   </div>
   </div>
@@ -317,6 +320,7 @@ export default {
 <style scoped lang="scss">
 .my-container{
     width: 80%;
+    min-height: 350px;
     position: relative;
 }
 .big-container{
@@ -325,9 +329,30 @@ export default {
   display: flex;
 }
 .recap-order{
-  padding: 10px;
-  height: 200px;
-  border: 1px solid black;
+  text-align: center;
+  padding: 20px;
+  height: 320px;
+  border: 20px solid #EF6C00;
+  border-radius: 30px;
+  width: 320px;
+  h4{
+    line-height:40px;
+  }
+  .remove{
+    background-color: transparent;
+    border: none;
+    margin-top: 25px;
+    font-size: 0.8rem;
+  }
+  .remove:hover{
+    color: red;
+    
+  }
+    button{
+      margin: 10px auto;
+      font-weight: lighter;
+    }
+  
 }
 .overlay {
     position: fixed;
@@ -337,6 +362,15 @@ export default {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 998; 
+}
+.my-error{
+  width:100%;
+  position: relative;
+  text-align: center;
+  left: -4vw;
+  h3{
+    font-size: 4rem
+  }
 }
 .quantity{
   width: 60px;
@@ -379,10 +413,6 @@ input{
     z-index: 999;
 }
 
-.not-order{
-  width: 70%;
-  min-height: 300px;
-}
 .success-message {
   background-color: #dff0d8; /* Colore di sfondo verde per il messaggio di successo */
   color: #3c763d; /* Colore del testo verde scuro */
