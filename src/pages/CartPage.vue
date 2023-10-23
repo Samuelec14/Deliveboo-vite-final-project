@@ -182,20 +182,21 @@ export default {
       </div>
       
     </div>
+  </div>
+</div>
+<div v-else class="not-order my-5" >
+  <!-- Messaggio quando il carrello è vuoto -->
+  <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
+</div>
+      <div class="recap-order">
+        <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }}  ) </h4>
+        <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
+        <div class="text-center" v-if="dishesInCart.length > 0">
+          <button @click="openPaymentForm">Procedi all'Ordine</button>
+        </div>
 
-    <div v-if="dishesInCart.length === 0" class="not-order my-5">
-      <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
-    </div>
-
-    <div class="recap-order">
-      <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }})</h4>
-      <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
-      <div class="text-center" v-if="dishesInCart.length > 0">
-        <button @click="openPaymentForm" class="btn btn-primary">Procedi all'Ordine</button>
-        <button @click="clearCart" class="btn btn-danger">Svuota Carrello</button>
       </div>
     </div>
-  </div>
 
     <!-- pagamento -->
     

@@ -1,44 +1,49 @@
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import Checkbox from './Checkbox.vue';
+
+import axios from 'axios';
+import { store } from '../store';
+
 export default {
+    name:'App',
+    components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
+    Checkbox,
+    },
     data() {
         return {
+            // storage dinamico 
+            types: [],
+            store,
+            loading: false,
+            selected: [],
+
+            // storage statico 
             search: "",
             currentIndex: 0,
             imageContainerWidth: 0,
             dragging: false,
             dragStartX: 0,
-            sliderPosition: 0,
-            imagesInfo: [
-                { src: "typologies/pizza.jpeg", alt: "Pizza", caption: "Pizza" },
-                { src: "typologies/italiana.jpeg", alt: "Italiana", caption: "Cucina italiana" },
-                { src: "typologies/burger.jpeg", alt: "Hamburger", caption: "Hamburger Gourmet" },
-                { src: "typologies/cinese.jpeg", alt: "cinese", caption: "Cucina Cinese" },
-                { src: "typologies/messicana.jpeg", alt: "messicana", caption: "Cucina Messicana" },
-                { src: "typologies/sushi.jpeg", alt: "sushi", caption: "Sushi" },
-                { src: "typologies/cucinathai.jpeg", alt: "HamThailandia", caption: "Cucina Thailandese" },
-                { src: "typologies/vegana2.jpeg", alt: "vegana", caption: "Vegano" },
-                { src: "typologies/vegetariana.jpeg", alt: "vegetariana", caption: "Vegetariano" },
-            ],
-            cards: [
-                { name: "Bella Napoli", image: "restourants/bellanapoli.png", id: 1 },
-                { name: "Dolce Tavola", image: "restourants/la-dolce-tavola.jpeg", id: 2 },
-                { name: "Buns", image: "restourants/buns.jpeg", id: 3 },
-                { name: "Sakura", image: "restourants/sakura.jpeg", id: 4 },
-                { name: "Pancho Villa", image: "restourants/panchovilla.png", id: 5 },
-                { name: "Sushi Eatery", image: "restourants/sushi-eatery.jpeg", id: 6 },
-                { name: "Pagoda", image: "restourants/pagoda.jpeg", id: 7 },
-                { name: "Veggie", image: "restourants/veggie.jpeg", id: 8 },
-                { name: "Verde Eden", image: "restourants/verdeeden.png", id: 9 },
-            ],
+            sliderPosition: 0
         };
     },
+
     mounted() {
+        // per carosello 
         if (this.$refs.imageContainer) {
             this.imageContainerWidth = this.$refs.imageContainer.offsetWidth;
             this.scrollImages();
         }
+        this.fetchTypes();
+        this.store.restaurants = [];
     },
     methods: {
+        // metodi carosello 
         scrollLeft() {
             if (this.currentIndex > 0) {
                 this.currentIndex--;
@@ -70,11 +75,66 @@ export default {
         endDrag() {
             this.dragging = false;
         },
-        emitValue(value) {
-            this.$emit("value", value);
+                
+        // SEARCH TYPES -> gives an array of types
+        async fetchTypes() {
+            this.loading = true;
+            axios.get(`http://127.0.0.1:8000/api/type/type`)
+            .then(response => {
+                this.types = response.data.results; 
+                this.loading = false;               
+            })
+            .catch(error => {
+                console.error(error);
+            });
         },
-    },
-};
+
+        // Go to the dish page of each restaurant
+        navigateToDish(restaurantId) {
+            this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
+        },
+        submitForm() {
+            this.loading = true;
+
+            this.store.restaurants = [];
+
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+            const values = [];
+            checked.forEach(element => {
+                values.push(element.value);
+            });            
+
+            this.store.checkboxNames = values;
+
+            if (values.length > 0) {
+                axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
+                params: {
+                    search: values
+                }
+            })
+            .then(response => {
+                this.store.restaurants = response.data.restaurants; 
+                this.loading = false;               
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            } else {
+                this.loading = true;
+                axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant`)
+                .then(response => {
+                    this.store.restaurants = response.data.results; 
+                    this.loading = false;               
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+        }
+    }
+}
 </script>
 
 
@@ -87,7 +147,6 @@ export default {
                         Il gusto, <br />
                         a casa tua!
                     </h1>
-                    <input type="text" v-model="search" @keyup.enter="emitValue(search)" />
                 </div>
             </div>
     
@@ -97,38 +156,101 @@ export default {
         </div>
     </main>
 
-    <h2 class="d-flex align-items-center justify-content-center mt-4" >Cosa vuoi mangiare?</h2>
+    <h2 class="d-flex align-items-center justify-content-center mt-5" >Cosa vuoi mangiare?</h2>
 
-    <div class="image-typologies">
-        <figure v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
-            <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
-                <figcaption class="image-caption">{{ imageInfo.caption }}</figcaption>
-        </figure>
-    </div>
+    <div class="px-5 py-2 sticky bg-white">
+        <div class="mx-4">
+           
+                <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
-    <h2 class="d-flex align-items-center justify-content-center mt-4" >Scegli il tuo ristorante preferito</h2>
-    <div class="restourants">
-        <div class="grid">
-            <div
-            v-for="(card, index) in cards"
-            :key="index"
-            class="card custom-card"
-            :style="{ backgroundImage: `url(${card.image})` }"
-            >
-                <router-link :to="'/pagina/' + card.id">
-                    <span class="custom-name">{{ card.name }}</span>
-                </router-link>
-            </div>
+                    <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
+                        <a href="" class="text-decoration-none text-black">
+                            <div class="img-container d-block h-100" style="width: 90%;"> 
+                                <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
+                                <figcaption class="image-caption mt-2">{{ imageInfo.caption }}</figcaption>
+                            </div>
+                        </a>
+                    </slide> -->
+
+
+                    <template v-if="types.length > 0">
+                            <slide v-for="type in types" :key="type.id">
+                                <div @click="submitForm">
+                                    <Checkbox  :type="type" />
+                                </div>
+                            </slide> 
+                    </template>
+
+
+                    <template #addons>
+                        <navigation>
+                            <template #prev>
+                                <span> <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                            </template>
+                            <template #next>
+                                <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                            </template>
+                        </navigation>
+                    </template>
+                    
+                </carousel>
+
         </div>
     </div>
+    
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 @use "../assets/scss/partials/variables.scss" as *;
 
 * {
     font-family: "Alfa Slab One", serif;
+}
+
+.checkbox-overlay{
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 40%;
+    right: 107%;
+}
+
+.prev_icon,
+.next-icon{
+    position: absolute;
+    // transform: translate(0 , 10%);
+}
+.prev_icon{
+    bottom: 50%;
+    right: 120%;
+
+}
+.next_icon{
+    transform: rotate(180deg);
+    position: absolute;
+    bottom: 50%;
+    left: 120%;
+}
+.carousel__item {
+    min-height: 200px;
+    width: 100%;
+    background-color: var(--vc-clr-primary);
+    color: var(--vc-clr-white);
+    font-size: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel__slide {
+    padding: 10px;
+}
+
+.sticky{
+    position: sticky;
+    top: 0;
 }
 
 main {
@@ -217,14 +339,15 @@ main {
   align-items: center;
   max-width: 1000px; /* Larghezza massima del contenitore */
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 
 .image {
-  width: 30%; /* Larghezza di ogni immagine */
-  margin: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Larghezza di ogni immagine */
+//   margin: 10px;
+//   border: 1px solid #ccc;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  object-fit:cover;
 }
 
 .image-figure {
