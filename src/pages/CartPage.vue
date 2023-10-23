@@ -52,11 +52,17 @@ export default {
     },
   },
   created() {
-    if (this.$route.params.dish) {
-      this.dish = this.$route.params.dish;
-      // Puoi fare qualcosa con this.dish qui
-    }
-  },
+    const savedCart = localStorage.getItem('cart');
+  if (savedCart) {
+    
+    this.dishesInCart = JSON.parse(savedCart);
+  }
+
+  if (this.$route.params.dish) {
+    this.dish = this.$route.params.dish;
+    
+  }
+},
   methods: {
     openPaymentForm() {
       this.showPaymentForm = true;
@@ -65,8 +71,12 @@ export default {
       this.showPaymentForm = false;
     },
     removeFromCartHandler(index) {
-      store.removeFromCart(index);
-    },
+    // Rimuovi l'elemento dal carrello
+    this.dishesInCart.splice(index, 1);
+
+    // Salva lo stato aggiornato nel localStorage
+    localStorage.setItem('cart', JSON.stringify(this.dishesInCart));
+  },
     calculateTotalPrice() {
       const totalPrice = this.dishesInCart.reduce((total, dish) => {
         console.log('Prezzo del piatto: ' + dish.price);
@@ -74,6 +84,13 @@ export default {
       }, 0);
       return parseFloat(totalPrice.toFixed(2));
     },
+    updateCartItemQuantity(index, newQuantity) {
+    // Aggiorna la quantità nel carrello
+    this.dishesInCart[index].quantity = newQuantity;
+
+    // Salva lo stato aggiornato nel localStorage
+    localStorage.setItem('cart', JSON.stringify(this.dishesInCart));
+  },
     clearCart() {
       // Svuota il carrello nell'oggetto store
       store.clearCart();
@@ -85,6 +102,10 @@ export default {
       // Naviga alla home page
       router.push({ name: 'home' });
     },
+  isDishInCart(dishId) {
+    return this.dishesInCart.some(item => item.id === dishId);
+  },
+
     submitPaymentForm() {
       console.log('Piatti nel carrello:', this.dishesInCart);
       console.log('Dati del carrello:', this.dishesInCart);
@@ -179,16 +200,17 @@ export default {
     <h2 class="text-center my-4">Lista ordini</h2>
 <div class="big-container">
     <div class="my-container d-flex flex-wrap">
-      <div v-for="(dish, index) in dishesInCart" :key="index" class="card m-2" style="width: 18rem;">
+      <div v-for="(dish, index) in dishesInCart" :key="dish.id" class="card m-2" style="width: 18rem;" :class="{ 'd-none': !isDishInCart(dish.id) }">
   <div class="card-body" v-if="dish">
     <h2 class="card-title">{{ dish.name }}</h2>
     <h4 class="card-text">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
     <div class="mb-3">
       <label for="quantity">Quantità:</label>
-      <input type="number" id="quantity" class="form-control quantity" v-model="dish.quantity" min="1" required>
+      <input type="number" id="quantity" class="form-control quantity" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
     </div>
     <p class="card-text">{{ dish.description }}</p>
     <button @click="removeFromCartHandler(index)" class="btn btn-danger">Rimuovi dal carrello</button>
+
   </div>
 </div>
       

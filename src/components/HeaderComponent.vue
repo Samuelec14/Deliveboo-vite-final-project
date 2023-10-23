@@ -3,7 +3,7 @@ import RedRoundedBtn from './buttons/RedRoundedBtn.vue';
 import YellowRoundedBtn from './buttons/YellowRoundedBtn.vue';
 import RedPillBtn from './buttons/RedPillBtn.vue';
 import { inject } from 'vue';
-import { ref, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { store } from '../store'; 
 
 
@@ -23,20 +23,21 @@ export default {
         
     }
     },
-    setup() {
-    // Calcola il numero totale di piatti nel carrello utilizzando un riferimento reattivo
-    const cartTotal = ref(store.cart.length);
+     setup() {
+    // Calcola la somma totale delle quantità di tutti i piatti nel carrello utilizzando computed
+    const cartTotal = computed(() => {
+      return store.cart.reduce((total, item) => total + item.quantity, 0);
+    });
 
     // Aggiorna il numero totale di piatti nel carrello quando il carrello cambia
     watch(() => store.cart, () => {
-      cartTotal.value = store.cart.length;
+      // Non è necessario fare nulla qui, computed si aggiornerà automaticamente
     });
 
-    // Restituisci cartTotal per renderlo disponibile nel template
     return {
       cartTotal
     };
-  },
+},
     computed: {
     cartItemCount() {
         return this.$store.state.cart.length;
@@ -75,8 +76,8 @@ export default {
          <span class="cart d-flex">
             <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
             <span class="number-cart d-flex justify-content-center align-items-center" v-if="cartTotal > 0">
-                {{ cartTotal }}
-            </span>
+    {{ cartTotal }}
+</span>
         </span> 
         
         <div class="link"> 
