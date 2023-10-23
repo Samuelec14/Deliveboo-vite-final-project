@@ -45,11 +45,11 @@ export default {
       }, 0).toFixed(2);
     },
     totalItemsInCart() {
-      // Calcola il numero totale di articoli nel carrello basandosi sulle quantità dei piatti
-      return this.dishesInCart.reduce((total, dish) => {
-        return total + this.quantityForDishInCart(dish.id);
-      }, 0);
-    },
+  // Calcola il numero totale di articoli nel carrello basandosi sulle quantità dei piatti
+  return this.dishesInCart.reduce((total, dish) => {
+    return total + parseInt(this.quantityForDishInCart(dish.id), 10);
+  }, 0);
+},
   },
   created() {
     const savedCart = localStorage.getItem('cart');

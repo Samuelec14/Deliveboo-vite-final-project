@@ -23,20 +23,20 @@ export default {
         
     }
     },
-     setup() {
-    // Calcola la somma totale delle quantità di tutti i piatti nel carrello utilizzando computed
-    const cartTotal = computed(() => {
-      return store.cart.reduce((total, item) => total + item.quantity, 0);
-    });
+    setup() {
+        // Calcola la somma totale delle quantità di tutti i piatti nel carrello utilizzando computed
+        const totalItemsInCart = computed(() => {
+            return store.cart.reduce((total, item) => total + parseInt(item.quantity), 0);
+        });
 
-    // Aggiorna il numero totale di piatti nel carrello quando il carrello cambia
-    watch(() => store.cart, () => {
-      // Non è necessario fare nulla qui, computed si aggiornerà automaticamente
-    });
+        // Aggiorna il numero totale di piatti nel carrello quando il carrello cambia
+        watch(() => store.cart, () => {
+            // Non è necessario fare nulla qui, computed si aggiornerà automaticamente
+        });
 
-    return {
-      cartTotal
-    };
+        return {
+            totalItemsInCart
+        };
 },
     computed: {
     cartItemCount() {
@@ -75,9 +75,9 @@ export default {
         <!-- ELEMENTO CARRELLO  -->
          <span class="cart d-flex">
             <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
-            <span class="number-cart d-flex justify-content-center align-items-center" v-if="cartTotal > 0">
-    {{ cartTotal }}
-</span>
+            <span class="number-cart d-flex justify-content-center align-items-center" v-if="totalItemsInCart > 0">
+        {{ totalItemsInCart }}
+    </span>
         </span> 
         
         <div class="link"> 
