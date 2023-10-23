@@ -21,6 +21,7 @@ export default {
       dishesInCart: store.cart,
       showSuccessMessage: false,
       showErrorMessage: false,
+      
     };
   },
   components: {
@@ -91,15 +92,14 @@ export default {
       const paymentData = {
         name: this.name,
         last_name: this.last_name,
-        phone_number: this.phone_number.toString(),
+        phone_number: this.phone_number,
         email: this.email,
         address: this.address,
-        creditCardNumber: this.creditCardNumber,
-        expiryDate: this.expiryDate,
-        securityCode: this.securityCode,
         total_price: this.totalPriceInCart,
-        status: 'inviato', // Imposta lo stato a 'inviato'
-        dishes: this.dishesInCart.map(dish => dish.id), // Invia solo gli ID dei piatti
+        dishes: this.dishesInCart.map(dish => ({
+            id: dish.id,
+            quantity: dish.quantity,
+        }))
       };
 
       // Invia i dati al backend usando Axios
