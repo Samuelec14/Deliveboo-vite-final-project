@@ -88,18 +88,19 @@ export default {
     submitPaymentForm() {
       console.log('Piatti nel carrello:', this.dishesInCart);
       console.log('Dati del carrello:', this.dishesInCart);
-
+      const dishesWithQuantities = this.dishesInCart.map(dish => ({
+  id: dish.id,
+  quantity: dish.quantity // Includi la quantità del piatto
+}));
       const paymentData = {
         name: this.name,
         last_name: this.last_name,
-        phone_number: this.phone_number,
+        phone_number: this.phone_number.toString(), 
         email: this.email,
         address: this.address,
         total_price: this.totalPriceInCart,
-        dishes: this.dishesInCart.map(dish => ({
-            id: dish.id,
-            quantity: dish.quantity,
-        }))
+        status: 'inviato',
+        dishes: dishesWithQuantities
       };
 
       // Invia i dati al backend usando Axios
