@@ -179,15 +179,16 @@ export default {
           <p class="card-text">{{ dish.description }}</p>
           <button @click="removeFromCartHandler(index)" class="btn btn-danger">Rimuovi dal carrello</button>
         </div>
+        <div v-else class="not-order my-5" >
+              <!-- Messaggio quando il carrello è vuoto -->
+              <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
+        </div>
       </div>
       
     </div>
   </div>
-</div>
-<div v-else class="not-order my-5" >
-  <!-- Messaggio quando il carrello è vuoto -->
-  <h3 class="text-center">Non ci sono ordini nel tuo carrello.</h3>
-</div>
+
+
       <div class="recap-order">
         <h4>Totale provvisorio ({{ numberOfItemsInCart }} {{ numberOfItemsInCart === 1 ? 'articolo' : 'articoli' }}  ) </h4>
         <h2 class="text-center">{{ totalPriceInCart.toFixed(2) }} €</h2>
@@ -196,7 +197,7 @@ export default {
         </div>
 
       </div>
-    </div>
+    
 
     <!-- pagamento -->
     
