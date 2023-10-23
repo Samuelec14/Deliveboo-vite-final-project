@@ -72,12 +72,12 @@ export default {
         </div>
         
         <!-- ELEMENTO CARRELLO  -->
-        <!-- <span class="cart d-flex">
+         <span class="cart d-flex">
             <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
             <span class="number-cart d-flex justify-content-center align-items-center" v-if="cartTotal > 0">
                 {{ cartTotal }}
             </span>
-        </span> -->
+        </span> 
         
         <div class="link"> 
             <ul class="ps-3 pt-2">
