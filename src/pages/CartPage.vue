@@ -226,7 +226,7 @@ export default {
     </h4>
     <h2 class="text-center">{{ totalPriceInCart }} €</h2>
     <div class="text-center" v-if="dishesInCart.length > 0">
-      <button @click="openPaymentForm" class="btn btn-primary">Procedi all'Ordine</button>
+      <button @click="openPaymentForm" class="btn btn-primary me-3">Procedi all'Ordine</button>
       <button @click="clearCart" class="btn btn-danger">Svuota Carrello</button>
     </div>
   </div>
@@ -238,10 +238,12 @@ export default {
     <div v-if="showPaymentForm">
         <div class="overlay"></div> <!-- Aggiungi l'overlay qui -->
         <div class="payment-form">
-    <h2>Dettagli Pagamento</h2>
+    <h2>Procedi al  Pagamento</h2>
     <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
+      <div class="d-flex">
+      <div class="info-container">
       <div class="mb-3">
-        <label for="name" class="form-label">Nome</label>
+        <label for="name" class="form-label ">Nome</label>
         <input type="text" class="form-control" id="name" v-model="name" required>
       </div>
       <div class="mb-3">
@@ -249,35 +251,45 @@ export default {
         <input type="text" class="form-control" id="last_name" v-model="last_name" required>
       </div>
       <div class="mb-3">
-        <label for="phone_number" class="form-label">numero di telefono</label>
+        <label for="phone_number" class="form-label">Numero di Telefono</label>
         <input type="number" min="111111111" max='9999999999999' id="phone_number"  class="form-control" v-model="phone_number" required>
       </div>
       <div class="mb-3">
-        <label for="email" class="form-label">email</label>
+        <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" v-model="email" required>
       </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">indirizzo</label>
+    
+    </div>
+      <div class="creditcard-container ">
+        <div class="mb-3">
+        <label for="address" class="form-label">Indirizzo</label>
         <input type="text"  class="form-control" id="address" v-model="address" required>
       </div>
+      <h3> Dati di  Pagamento</h3>
       <div class="mb-3">
-  <label for="creditCardNumber" class="form-label">Numero della Carta di Credito</label>
+        
+  <label for="creditCardNumber" class="form-label">Numero della Carta </label>
   <input type="text" id="creditCardNumber" maxlength="16" class="form-control" required pattern="[0-9]{16}" placeholder="0000-0000-0000-0000">
 </div>
-
-<div class="mb-3">
-  <label for="expiryDate" class="form-label">Data di Scadenza (MM/YY)</label>
-  <input type="text" class="form-control" id="expiryDate" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="(MM/YY)">
+<div class="d-flex justify-content-around card-data">
+<div class="mb-3 date">
+  <label for="expiryDate" class="form-label text-center">Data di Scadenza (MM/YY)</label>
+  <div class="d-flex justify-content-center"><input type="text" class="form-control" id="expiryDate" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="(MM/YY)"></div>
 </div>
 
-<div class="mb-3">
-  <label for="securityCode" class="form-label">Codice di Sicurezza</label>
-  <input type="text" id="securityCode" class="form-control" required pattern="[0-9]{3}" placeholder="***">
+<div class="mb-3 code text-center">
+  <label for="securityCode" class="form-label ">Codice di Sicurezza</label>
+  <div class="d-flex justify-content-center"><input type="text" id="securityCode" class="form-control" required pattern="[0-9]{3}" placeholder="***"></div>
 </div>
-
+</div>
+</div>
+</div>
       <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
-      <button type="submit" class="btn btn-primary">Conferma Pagamento</button>
-      <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-danger text-light me-4 fw-light" @click="closePaymentForm">Annulla Pagamento</button>
+        <button type="submit" class="btn btn-primary ms-4 fw-light">Conferma Pagamento</button>
+        
+    </div>
     </form>
     
   <div v-if="orderStatus === 'success' && showSuccessMessage" class="success-message">
@@ -328,6 +340,29 @@ export default {
 }
 .quantity{
   width: 60px;
+}
+.creditcard-container{
+  padding: 20px;
+.card-data{
+ .date{
+  margin-right: 20px;
+  input{
+    width: 120px;
+    text-align: center;
+  }
+ }
+ .code{
+  width: 200px;
+input{
+  width: 60px;
+  text-align: center;
+}
+ }
+}
+}
+.info-container{
+  padding: 20px;
+  min-width: 50%;
 }
 .payment-form {
     width: 60%;
