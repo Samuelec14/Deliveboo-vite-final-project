@@ -134,7 +134,7 @@ export default {
           this.showErrorMessage = false; // Nascondi il messaggio di errore
         })
         .catch(error => {
-          console.error("Errore durante l'invio dell'ordine:", error);
+          console.error("i dati non sono validi:", error);
           this.orderStatus = 'error'; // Imposta lo stato dell'ordine su 'error'
           this.showErrorMessage = true; // Mostra il messaggio di errore
         });
@@ -204,12 +204,12 @@ export default {
   <div class="card-body" v-if="dish">
     <h2 class="card-title">{{ dish.name }}</h2>
     <h4 class="card-text">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
-    <div class="mb-3">
-      <label for="quantity">Quantità:</label>
-      <input type="number" id="quantity" class="form-control quantity" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
+    <div class="mb-3 d-flex align-items-center  fs-4">
+      <label for="quantity" class="me-2">Quantità: </label>
+      <input type="number" id="quantity" class="form-control quantity mb-2" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
     </div>
     <p class="card-text">{{ dish.description }}</p>
-    <button @click="removeFromCartHandler(index)" class="btn btn-danger">Rimuovi dal carrello</button>
+    <button @click="removeFromCartHandler(index)" class="btn btn-danger fs-6">Rimuovi dal carrello</button>
 
   </div>
 </div>
@@ -300,9 +300,9 @@ export default {
     <button type="button" @click="redirectToHome">Torna alla home</button>
   </div>
 
-  <div v-if="orderStatus === 'error'" class="error-message">
-    Si è verificato un errore durante l'invio dell'ordine. Riprova più tardi.
-    <button type="button" class="btn btn-secondary" @click="closePaymentForm">Annulla Pagamento</button>
+  <div v-if="orderStatus === 'error'" class="error-message d-flex align-items-center justify-content-between fs-3">
+    I dati nell'ordine non sono validi.
+    <button type="button" class="btn btn-danger fw-light" @click="closePaymentForm">Annulla Pagamento</button>
   </div>
 </div>
 <!-- risultato invio ordine -->
