@@ -19,6 +19,7 @@ export default {
       dishes: [],
       restaurantId: null,
       errorMessage: '', 
+      showMessage: false,
     };
   },
   props: {
@@ -74,6 +75,11 @@ export default {
         // Mostra un messaggio di errore se il ristorante del piatto è diverso dal ristorante nel carrello
         this.errorMessage = 'Impossibile effettuare un ordine da più ristoranti.';
       }
+      this.showMessage = true;
+setTimeout(() => {
+  this.showMessage = false;
+  this.$refs.successMessage.classList.add('hidden');
+}, 2000);
     },
   removeFromCartHandler(index) {
     store.removeFromCart(index);
@@ -103,8 +109,13 @@ export default {
 <template>
     
       <HeaderComponent></HeaderComponent>
+      <div v-if="showMessage"  class="div-add-message">
+    <div class="success-message">
+      Piatto aggiunto al carrello!
+    </div>
+  </div>
       <h2 class="text-center my-4">Lista Piatti</h2>
-    <div class="container d-flex flex-wrap">
+    <div class="container d-flex flex-wrap min-height">
       <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;">
           <img :src="dish.thumb" class="card-img-top" alt="...">
           <div class="card-body">
@@ -129,6 +140,12 @@ export default {
   </template>
   
 <style scoped lang="scss">
+.min-height{
+  min-height: 400px;
+}
+.card{
+  max-height: 300px;
+}
 button{
     background-color: orange;
     color: black;
@@ -144,6 +161,59 @@ button:hover{
     color: red;
 }
 
+.div-add-message {
+  position: absolute;
+  z-index: 5;
+  top: 50px;
+  left: calc(50vw - 200px);
+  animation-name: myAnimation;
+    animation-duration: 2000ms;
+    animation-fill-mode: forwards;
+
+  .success-message {
+    width: 400px;
+    color: green;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid green;
+    text-align: center;
+    z-index: 5;
+    opacity: 1;
+  }
+}
+@keyframes myAnimation{
+  0%{
+    opacity: 1;
+    transform: rotateX(90deg);
+  }
+  50%{
+    opacity: 0.7;
+    transform: rotateX(0deg);
+  }
+  100%{
+    display: none;
+    opacity: 0.2;
+    transform: rotateX(90deg);
+  }
+}
+
+
+.success-message {
+  font-size: 2rem;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  text-align: center;
+  z-index: 5;
+}
 .overlay {
   position: fixed;
   width: 100%;
