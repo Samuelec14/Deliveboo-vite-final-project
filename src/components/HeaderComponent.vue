@@ -73,34 +73,32 @@ export default {
 
 <template>
 
-    <nav class="d-flex align-items-center py-1 shadow">
-        <div class="h-100 w-100">
-            <a href="/">
-                <img class="h-100 pb-2 pt-1" src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png?ex=65368bbd&is=652416bd&hm=3f2695ca5a4128db780fac44f0306cd4ab3b66ec0b812a1de3474d0c4efa3cae&" alt="">
-            </a>
-        </div>
+    <nav class="navbar navbar-expand-lg">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <a class="navbar-brand" href="/">
+          <img src="https://cdn.discordapp.com/attachments/1152273399687680124/1160956224053977218/Schermata_2023-10-09_alle_17.04.34.png" alt="Logo" class="logo">
+        </a>
         
-        <!-- ELEMENTO CARRELLO  -->
-        <span class="cart d-flex" v-if="!isCartPage">
-      <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
-      <span class="number-cart d-flex justify-content-center align-items-center" v-if="totalItemsInCart > 0">
-        {{ totalItemsInCart }}
-      </span>
-    </span>
-        
-        <div class="link"> 
-            <ul class="ps-3 pt-2">
-                <!-- <YellowRoundedBtn> Test </YellowRoundedBtn> -->
-                <!-- <RedPillBtn> Test </RedPillBtn> -->
+        <div class="d-flex align-items-center">
+          <span class="cart m-3" v-if="!isCartPage">
+            <img @click="navigateToCart" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="Carrello" class="cart-icon">
+            <span class="cart-count m-3" v-if="totalItemsInCart > 0">{{ totalItemsInCart }}</span>
+          </span>
 
-                <li class="fs-5"><a href="http://127.0.0.1:8000/register">Lavora con noi</a></li>
-                <li class="fs-5"><a href="">Contatti</a></li>
-            </ul>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item text-right"><a class="nav-link" href="http://127.0.0.1:8000/register">Lavora con noi</a></li>
+          <li class="nav-item text-right"><a class="nav-link" href="#">Contatti</a></li>
+        </ul>
+      </div>
     </nav>
-
-
-
+  
 </template>
 
 <style lang="scss" scoped>
@@ -108,6 +106,33 @@ export default {
 
 * {
     font-family: 'Montserrat', sans-serif;
+}
+
+.nav-link {
+  white-space: nowrap; 
+}
+
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navbar-brand {
+  margin-right: auto;
+}
+
+.cart {
+  z-index: 2;
+}
+
+.navbar-toggler {
+  z-index: 2;
+}
+
+#navbarNav {
+  z-index: 1;
 }
 
 nav {
@@ -148,11 +173,6 @@ nav {
             a {
                 text-decoration: none;
             }
-            
-            
-            
-                
-                
                 button.transparent-button {
                     background: transparent;
                     border: none;
@@ -181,64 +201,94 @@ nav {
     text-decoration: none; /* Rimuovi la sottolineatura dei link */
 }
 
+.navbar-toggler {
+    order: 2;
+    display: none;
+}
+
+.cart-icon {
+    width: 35px;
+    height: 35px;
+    
+    cursor: pointer;
+}
 
 
 .navbar-brand img {
     width: 80px;
 
-    @media (max-width: 768px) {
-        nav {
-            flex-direction: column; /* Imposta la direzione dei flex items su colonna */
-            align-items: center; /* Centra verticalmente */
-            padding: 10px; /* Aggiungi spazio ai lati */
-        }
-    
-        .h-100 {
-            width: 80px; /* Riduci la larghezza dell'immagine */
-            height: 80px; /* Riduci l'altezza dell'immagine */
-            margin-bottom: 10px; /* Aggiungi spazio tra l'immagine e i pulsanti */
-        }
-    
-        .link {
-            ul {
-                flex-direction: column; /* Imposta i pulsanti su colonna */
-                align-items: center; /* Centra orizzontalmente */
-                list-style: none;
-                padding: 0;
-                
-                li {
-                    margin: 5px 0; /* Aggiungi spazio tra i pulsanti */
-                }
-            }
-        }
-    
-        .login {
-            margin-top: 10px; /* Aggiungi spazio sopra il pulsante di login */
-        }
-    
-        .navbar-toggler {
-            order: 1; /* Cambia l'ordine dell'hamburger menu */
-        }
-    }
-    
 }
 
-@media (max-width: 992px) {
+    @media (max-width: 992px) {
     nav {
         
-        align-items: center; /* Centra i componenti verticalmente */
-        padding: 10px; /* Aggiungi spazio ai lati */
+        align-items: center; 
+        padding: 10px; 
 
         .link {
             ul {
                 
-                align-items: center; /* Centra i pulsanti verticalmente */
-                text-align: center; /* Centra il testo dei pulsanti */
+                align-items: center; 
+                text-align: center; 
             }
         }
     }
 }
 
+    @media (max-width: 768px) {
+        nav {
+        justify-content: space-between;
+
+        .cart {
+            order: 0;
+        }
+
+        .link {
+            display: none;
+        }
+
+        .navbar-toggler {
+            display: block;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    nav {
+        justify-content: space-between;
+
+        .cart {
+            order: 0;
+        }
+
+        .link {
+            display: none;
+        }
+
+        .navbar-toggler {
+            display: block;
+        }
+    }
+}
+
+
+@media (max-width: 400px) {
+    nav {
+        justify-content: space-between;
+
+        .cart {
+            order: 0;
+        }
+
+        .link {
+            display: none;
+        }
+
+        .navbar-toggler {
+            display: block;
+        }
+    }
+}
 
 
 
