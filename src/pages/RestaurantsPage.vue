@@ -134,6 +134,12 @@ export default {
     cursor: pointer;
 }
 
+.card-img-top{
+    max-height: 300px;
+    object-fit: cover;
+    object-position: center;
+
+}
 .phone-number {
     color: blue;
 }
