@@ -75,7 +75,7 @@ export default {
 
             <!-- Error Message -->
             <div v-if="store.restaurants && !loading" class="col-12 text-center">
-                <h2>Nessun ristorante corrisponde a questa tipologia</h2>
+                <h2 class="mt-3">Nessun ristorante corrisponde a questa tipologia</h2>
             </div>
 
             <!-- Print Restaurants by Type -->
