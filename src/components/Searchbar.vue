@@ -7,23 +7,23 @@ import axios from 'axios';
 import { store } from '../store';
 
 export default {
-    name:'App',
+    name: 'App',
     components: {
-    Carousel,
-    Slide,
-    Pagination,
-    Navigation,
-    Checkbox,
+        Carousel,
+        Slide,
+        Pagination,
+        Navigation,
+        Checkbox,
     },
     data() {
         return {
-            // storage dinamico 
+            // storage dinamico
             types: [],
             store,
             loading: false,
             selected: [],
 
-            // storage statico 
+            // storage statico
             search: "",
             currentIndex: 0,
             imageContainerWidth: 0,
@@ -34,7 +34,7 @@ export default {
     },
 
     mounted() {
-        // per carosello 
+        // per carosello
         if (this.$refs.imageContainer) {
             this.imageContainerWidth = this.$refs.imageContainer.offsetWidth;
             this.scrollImages();
@@ -43,7 +43,7 @@ export default {
         this.store.restaurants = [];
     },
     methods: {
-        // metodi carosello 
+        // metodi carosello
         scrollLeft() {
             if (this.currentIndex > 0) {
                 this.currentIndex--;
@@ -75,18 +75,18 @@ export default {
         endDrag() {
             this.dragging = false;
         },
-                
+
         // SEARCH TYPES -> gives an array of types
         async fetchTypes() {
             this.loading = true;
             axios.get(`http://127.0.0.1:8000/api/type/type`)
-            .then(response => {
-                this.types = response.data.results; 
-                this.loading = false;               
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                .then(response => {
+                    this.types = response.data.results;
+                    this.loading = false;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         },
 
         // Go to the dish page of each restaurant
@@ -104,38 +104,43 @@ export default {
             const values = [];
             checked.forEach(element => {
                 values.push(element.value);
-            });            
+            });
 
             this.store.checkboxNames = values;
 
             if (values.length > 0) {
                 axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
-                params: {
-                    search: values
-                }
-            })
-            .then(response => {
-                this.store.restaurants = response.data.restaurants; 
-                this.loading = false;               
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                        params: {
+                            search: values
+                        }
+                    })
+                    .then(response => {
+                        this.store.restaurants = response.data.restaurants;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             } else {
                 this.loading = true;
                 axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant`)
-                .then(response => {
-                    this.store.restaurants = response.data.results; 
-                    this.loading = false;               
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                    .then(response => {
+                        this.store.restaurants = response.data.results;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             }
+        },
+        scrollToCarousel() {
+            const carouselElement = document.querySelector('.sticky');
+            carouselElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 }
 </script>
+
 
 
 <template>
@@ -147,6 +152,13 @@ export default {
                         Il gusto, <br />
                         a casa tua!
                     </h1>
+                    
+                    <button class="scroll-down-btn" @click="scrollToCarousel">
+                        <h3 class="btn-text">
+                            Cosa vuoi mangiare?
+                        </h3>
+                        <i class="fa-solid fa-circle-arrow-down"></i>
+                    </button>
                 </div>
             </div>
     
@@ -216,6 +228,7 @@ export default {
     right: 107%;
 }
 
+
 .prev_icon,
 .next-icon{
     position: absolute;
@@ -246,11 +259,35 @@ export default {
 
 .carousel__slide {
     padding: 10px;
+    margin: 15px;
 }
 
 .sticky{
     position: sticky;
     top: 0;
+}
+
+.scroll-down-btn {
+  border: none;
+  background-color: transparent;
+  color:#F8BE32;
+  font-size: 6rem;
+  cursor: pointer;
+  padding: 10px;
+  margin: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-down-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-text {
+    color:#7A2113;
+    margin: 30px;
+    
 }
 
 main {
@@ -290,8 +327,11 @@ main {
                 margin-bottom: 1rem;
             
                 @media (max-width: 768px) {
-                    font-size: 3rem;
-                }
+                    .slogan {
+                 font-size: 3rem;
+                }  
+            }      
+               
             }
 
             input {
@@ -303,6 +343,7 @@ main {
                 @media (max-width: 768px) {
                     width: 80%;
                 }
+                
             }
         }
     }
@@ -322,7 +363,9 @@ main {
 
         @media (max-width: 768px) {
           display: none;
+        
         }
+       
 
         @media (max-width: 576px) {
           display: none;
@@ -343,7 +386,8 @@ main {
 }
 
 .image {
-  width: 100%; /* Larghezza di ogni immagine */
+  width: 100%;
+   /* Larghezza di ogni immagine */
 //   margin: 10px;
 //   border: 1px solid #ccc;
 //   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -405,5 +449,67 @@ main {
 .router-link-active,
 .router-link-exact-active {
   text-decoration: none !important;
+}
+/* Stili per tablet */
+@media (max-width: 992px) {
+  .carousel {
+    /* Riduci la dimensione del carosello */
+    height: 300px;
+  }
+
+  .slide {
+    /* Riduci la dimensione del testo o degli elementi nelle slide */
+    font-size: 14px;
+  }
+}
+
+/* Stili per dispositivi mobili */
+@media (max-width: 768px) {
+  .carousel {
+    /* Riduci ulteriormente la dimensione del carosello */
+    height: 200px;
+  }
+
+  .slide {
+    /* Riduci ulteriormente la dimensione del testo o degli elementi nelle slide */
+    font-size: 12px;
+    }
+    .carousel_slide {
+    margin: 0; 
+    }
+    
+}
+
+/* Stili per dispositivi con larghezza dello schermo fino a 576px */
+@media (max-width: 576px) {
+  .carousel {
+    /* Puoi modificare la dimensione del carosello se necessario */
+    height: 150px;
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin:0 40px;
+  }
+
+  .image-caption {
+    font-size: 12px; /* Riduci la dimensione del font come desideri */
+    margin-top: 5px;
+    text-align:center;
+  }
+}
+
+.carousel-image {
+  margin: 10px; /* Aggiunge un margine intorno a ciascuna immagine */
+}
+
+.carousel-caption {
+  margin-top: 5px; /* Aggiunge un margine sopra la didascalia */
+}
+
+.carousel_slide {
+  margin: 15px; 
 }
 </style>

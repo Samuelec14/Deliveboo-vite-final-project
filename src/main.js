@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'; // Importa il file CSS di Bootstrap
 import 'bootstrap/dist/js/bootstrap.bundle.min'; // Importa il file JS di Bootstrap
 
 
+
 createApp(App).use(router).mount('#app');
 
 
