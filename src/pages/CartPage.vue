@@ -217,7 +217,7 @@ export default {
     
 
     <div v-if="dishesInCart.length === 0" class="not-order my-5 d-flex my-error">
-      <h3 class="text-center">Il tuo carrello Delivebool è vuoto. <br > aggiungi piatti al tuo carrello</h3>
+      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello</h3>
     </div>
   </div>
 

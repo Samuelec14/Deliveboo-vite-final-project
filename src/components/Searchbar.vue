@@ -152,13 +152,15 @@ export default {
                         Il gusto, <br />
                         a casa tua!
                     </h1>
+                    <div class="container-button"> 
+                        <button class="scroll-down-btn" @click="scrollToCarousel">
+                            <h3 class="btn-text">
+                                Iniziamo?
+                            </h3>
+                            <i class="fa-solid fa-circle-arrow-down"></i>
+                        </button>
+                    </div>
                     
-                    <button class="scroll-down-btn" @click="scrollToCarousel">
-                        <h3 class="btn-text">
-                            Iniziamo?
-                        </h3>
-                        <i class="fa-solid fa-circle-arrow-down"></i>
-                    </button>
                 </div>
             </div>
     
@@ -275,7 +277,7 @@ export default {
   font-size: 6rem;
   cursor: pointer;
   padding: 10px;
-  margin: 30px;
+  margin: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -283,6 +285,57 @@ export default {
 
 .scroll-down-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+.container-button {
+    margin-bottom:30px;
+}
+
+.container-button,
+.btn-text,
+ {
+
+    @media (max-width: 1200px) {
+        font-size: 6rem;
+        
+    }
+
+    @media (max-width: 992px) {
+        font-size: 2rem;
+        
+        
+    }
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+
+    @media (max-width: 576px) {
+        font-size: 1rem;
+    }
+}
+
+.scroll-down-btn,{
+
+@media (max-width: 1200px) {
+    font-size: 6rem;
+    
+}
+
+@media (max-width: 992px) {
+    font-size: 3rem;
+    
+    
+}
+
+@media (max-width: 768px) {
+    font-size: 2rem;
+}
+
+@media (max-width: 576px) {
+    font-size: 2rem;
+}
 }
 
 .btn-text {
@@ -327,13 +380,24 @@ main {
                 margin-top: 1rem;
                 margin-bottom: 1rem;
             
+                @media (max-width: 1200px) {
+                    font-size: 5rem;
+                }
+
+                @media (max-width: 992px) {
+                    font-size: 4rem;
+                }
+
                 @media (max-width: 768px) {
-                    .slogan {
-                 font-size: 3rem;
-                }  
+                    font-size: 3rem;
+                }
+
+                @media (max-width: 576px) {
+                    font-size: 2rem;
+                }
             }      
                
-            }
+            
 
             input {
                 border: unset;
@@ -363,13 +427,13 @@ main {
         }
 
         @media (max-width: 768px) {
-          display: none;
+          max-width:200%;
         
         }
        
 
         @media (max-width: 576px) {
-          display: none;
+            display:none;
         }
       }
     }
@@ -470,6 +534,10 @@ main {
     
     /* Riduci ulteriormente la dimensione del carosello */
     height: 200px;
+  }
+
+  .panino-image{
+    display:none;
   }
 
   .slide {
