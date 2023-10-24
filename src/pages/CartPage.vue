@@ -196,7 +196,7 @@ export default {
 </script>
 
 <template>
-    <HeaderComponent></HeaderComponent>
+    <HeaderComponent :isCartPage="true"></HeaderComponent>
     <h2 class="text-center my-4">Lista ordini</h2>
 <div class="big-container">
     <div class="my-container d-flex flex-wrap">

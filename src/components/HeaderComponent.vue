@@ -8,6 +8,13 @@ import { store } from '../store';
 
 
 export default {
+    props: {
+    isCartPage: {
+      type: Boolean,
+      default: false,
+    },
+    // ... Altre opzioni del componente ...
+  },
     name: "HeaderComponent",
     components:{
         YellowRoundedBtn,
@@ -37,6 +44,7 @@ export default {
         return {
             totalItemsInCart
         };
+       
 },
     computed: {
     cartItemCount() {
@@ -73,12 +81,12 @@ export default {
         </div>
         
         <!-- ELEMENTO CARRELLO  -->
-         <span class="cart d-flex">
-            <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
-            <span class="number-cart d-flex justify-content-center align-items-center" v-if="totalItemsInCart > 0">
+        <span class="cart d-flex" v-if="!isCartPage">
+      <img class="mb-3" @click="navigateToCart" width="35" height="35" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="shopping-cart"/>
+      <span class="number-cart d-flex justify-content-center align-items-center" v-if="totalItemsInCart > 0">
         {{ totalItemsInCart }}
+      </span>
     </span>
-        </span> 
         
         <div class="link"> 
             <ul class="ps-3 pt-2">
