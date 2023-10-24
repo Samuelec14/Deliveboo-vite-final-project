@@ -7,8 +7,8 @@ import axios from 'axios';
 import { store } from '../store';
 
 export default {
-    name: 'App',
-    components: {
+        name:'App',
+        components: {
         Carousel,
         Slide,
         Pagination,
@@ -155,7 +155,7 @@ export default {
                     
                     <button class="scroll-down-btn" @click="scrollToCarousel">
                         <h3 class="btn-text">
-                            Cosa vuoi mangiare?
+                            Iniziamo?
                         </h3>
                         <i class="fa-solid fa-circle-arrow-down"></i>
                     </button>
@@ -265,6 +265,7 @@ export default {
 .sticky{
     position: sticky;
     top: 0;
+    z-index: 2;
 }
 
 .scroll-down-btn {
@@ -313,7 +314,7 @@ main {
     }
 
     #left-side {
-        z-index: 1;
+        z-index: 10;
         .box {
             display: flex;
             flex-direction: column;
@@ -466,6 +467,7 @@ main {
 /* Stili per dispositivi mobili */
 @media (max-width: 768px) {
   .carousel {
+    
     /* Riduci ulteriormente la dimensione del carosello */
     height: 200px;
   }
@@ -512,4 +514,8 @@ main {
 .carousel_slide {
   margin: 15px; 
 }
+
+
+
+
 </style>
