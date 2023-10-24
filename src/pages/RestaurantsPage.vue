@@ -70,8 +70,13 @@ export default {
         <!-- Searchbar Component -->
         <Searchbar />
 
-        <div class="container">
+        <div id="main-container" class="container">
             <div class="row">
+
+            <!-- Error Message -->
+            <div v-if="store.restaurants && !loading" class="col-12 text-center">
+                <h2>Nessun ristorante corrisponde a questa tipologia</h2>
+            </div>
 
             <!-- Print Restaurants by Type -->
                 <template v-if="store.restaurants">
@@ -94,10 +99,7 @@ export default {
 
                 </template>
 
-                <!-- Error Message -->
-                <div v-if="store.restaurants && !loading" class="col-12 text-center">
-                    <h2>Nessun ristorante corrisponde a questa tipologia</h2>
-                </div>
+
                 
             </div>
         </div>
@@ -124,6 +126,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
+
+.main-container{
+    min-height: 800px;
+}
 .card {
     cursor: pointer;
 }
