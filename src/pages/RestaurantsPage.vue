@@ -95,7 +95,7 @@ export default {
                 </template>
                 <div class="card-body">
                     <h2 class="card-title">{{ restaurant.name }}</h2>
-                    <h4 class="card-text">Tipologie del ristorante</h4>
+                    <!-- <h4 class="card-text">Tipologie del ristorante</h4> -->
                     <p class="card-text">{{ restaurant.address }}</p>
                     <h3 class="phone-number p-3">{{ restaurant.phone_number }}</h3>
                 </div>
@@ -111,23 +111,43 @@ export default {
       <!-- Footer Component -->
       <FooterComponent></FooterComponent>
     </div>
-  </template>
+</template>
 
 <style scoped lang="scss">
 
-#main-container{
-    min-height: 800px;
-}
-.card {
-    cursor: pointer;
+* {
+    font-family: helevtica;
 }
 
-.card-img-top{
+#main-container {
+    min-height: 800px;
+}
+
+.card {
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;  
+}
+
+.card-img-top {
+    height: 200px;
     max-height: 300px;
     object-fit: cover;
     object-position: center;
-
+    width: 100%;
 }
+
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;  
+    padding-bottom: 5px;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 .phone-number {
     color: blue;
 }
