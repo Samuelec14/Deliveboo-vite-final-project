@@ -207,7 +207,7 @@ export default {
                         <template v-if="types.length > 0">
                                 <slide v-for="type in types" :key="type.id">
                                     <div @click="submitForm">
-                                        <a class="text-dark" href="#test1"><Checkbox  :type="type" /></a>
+                                        <a class="text-dark text-capitalize" href="#test1"><Checkbox  :type="type" /></a>
                                     </div>
                                 </slide> 
                         </template>
