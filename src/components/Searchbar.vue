@@ -160,15 +160,10 @@ export default {
 
 
 <template>
-    <main>
-        <div class="row h-100">
-            <div id="left-side" class="col-12 col-md-6 col-lg-6">
-                <div class="box py-5 h-100">
-                    <h1 class="slogan">
-                        Il gusto, <br />
-                        a casa tua!
-                    </h1>
-                    <div class="container-button"> 
+    
+        
+
+        <div class="container-button"> 
                         <button class="scroll-down-btn" @click="scrollToCarousel">
                             <h3 class="btn-text">
                                 Iniziamo?
@@ -177,14 +172,6 @@ export default {
                         </button>
                         
                     </div>
-                    
-                </div>
-            </div>
-    
-            <div class="col-12 col-md-6 col-lg-6 image-container d-flex align-items-center justify-content-start">
-                <img src="/panino.png" alt="Delicious sandwich" class="panino-image" />
-            </div>
-        </div> 
         
         <div class="jumbotron">
             <!--video per pc-->
@@ -368,18 +355,13 @@ video {
 }
 
 .container-button,
-.btn-text,
- {
-
+.btn-text {
     @media (max-width: 1200px) {
         font-size: 6rem;
-        
     }
 
     @media (max-width: 992px) {
         font-size: 2rem;
-        
-        
     }
 
     @media (max-width: 768px) {
@@ -391,26 +373,22 @@ video {
     }
 }
 
-.scroll-down-btn,{
+.scroll-down-btn {
+    @media (max-width: 1200px) {
+        font-size: 6rem;
+    }
 
-@media (max-width: 1200px) {
-    font-size: 6rem;
-    
-}
+    @media (max-width: 992px) {
+        font-size: 3rem;
+    }
 
-@media (max-width: 992px) {
-    font-size: 3rem;
-    
-    
-}
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
 
-@media (max-width: 768px) {
-    font-size: 2rem;
-}
-
-@media (max-width: 576px) {
-    font-size: 2rem;
-}
+    @media (max-width: 576px) {
+        font-size: 2rem;
+    }
 }
 
 .btn-text {
