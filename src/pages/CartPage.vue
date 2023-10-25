@@ -297,7 +297,7 @@ export default {
     
   <div v-if="orderStatus === 'success' && showSuccessMessage" class="success-message">
     L'ordine è stato inviato con successo!
-    <button type="button" @click="redirectToHome">Torna alla home</button>
+    <button class="green-button btn btn-success border border-dark px-3" type="button" @click="redirectToHome">Torna alla home</button>
   </div>
 
   <div v-if="orderStatus === 'error'" class="error-message d-flex align-items-center justify-content-between fs-3">
@@ -312,7 +312,7 @@ export default {
 
       <FooterComponent></FooterComponent>
     
-  </template>
+</template>
   
   
   
@@ -429,5 +429,9 @@ input{
   border: 1px solid #ebccd1; /* Bordo rosso chiaro */
   border-radius: 5px;
   margin-top: 20px;
+}
+
+.green-button {
+  margin-left: 100px;
 }
 </style>
