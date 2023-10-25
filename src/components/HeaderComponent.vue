@@ -146,6 +146,7 @@ nav {
     align-items: center;
     background-color: $bg-color;
     padding: 0 8%;
+    
 
     div {
         img {
@@ -194,6 +195,8 @@ nav {
         }
     }
 }
+
+
 
 .link li a,
 .link li button.transparent-button {

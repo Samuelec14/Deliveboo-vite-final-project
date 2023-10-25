@@ -217,7 +217,7 @@ export default {
     
 
     <div v-if="dishesInCart.length === 0" class="not-order my-5 d-flex my-error">
-      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello</h3>
+      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > Aggiungi piatti al tuo carrello</h3>
     </div>
   </div>
 
@@ -297,12 +297,12 @@ export default {
     
   <div v-if="orderStatus === 'success' && showSuccessMessage" class="success-message">
     L'ordine è stato inviato con successo!
-    <button type="button" @click="redirectToHome">Torna alla home</button>
+    <button class="green-button btn btn-success border border-dark px-3" type="button" @click="redirectToHome">Torna alla home</button>
   </div>
 
   <div v-if="orderStatus === 'error'" class="error-message d-flex align-items-center justify-content-between fs-3">
     I dati nell'ordine non sono validi.
-    <button type="button" class="btn btn-danger fw-light" @click="closePaymentForm">Annulla Pagamento</button>
+    <button type="button" class=" btn btn-danger fw-light" @click="closePaymentForm">Annulla Pagamento</button>
   </div>
 </div>
 <!-- risultato invio ordine -->
@@ -312,12 +312,14 @@ export default {
 
       <FooterComponent></FooterComponent>
     
-  </template>
+</template>
   
   
   
 
 <style scoped lang="scss">
+
+
 .my-container{
     width: 80%;
     min-height: 350px;
@@ -327,6 +329,7 @@ export default {
   width: 80%;
   margin: 0 auto;
   display: flex;
+  
 }
 .recap-order{
   text-align: center;
@@ -429,5 +432,9 @@ input{
   border: 1px solid #ebccd1; /* Bordo rosso chiaro */
   border-radius: 5px;
   margin-top: 20px;
+}
+
+.green-button {
+  margin-left: 100px
 }
 </style>
