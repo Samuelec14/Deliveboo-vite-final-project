@@ -174,7 +174,7 @@ export default {
 
     <div class="px-5 sticky bg-white shadow-sm">
         <div class="mx-4">
-           
+        
                 <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
                     <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
@@ -208,7 +208,6 @@ export default {
                     </template>
                     
                 </carousel>
-                <h1 class="text-center">Stai cercando:</h1>
 
         </div>
     </div>
