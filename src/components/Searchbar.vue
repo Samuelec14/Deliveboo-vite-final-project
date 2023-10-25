@@ -172,7 +172,7 @@ export default {
 
     <h2 class="d-flex align-items-center justify-content-center mt-5" >Cosa vuoi mangiare?</h2>
 
-    <div class="px-5 py-2 sticky bg-white">
+    <div class="px-5 sticky bg-white shadow-sm">
         <div class="mx-4">
            
                 <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
@@ -208,6 +208,7 @@ export default {
                     </template>
                     
                 </carousel>
+                <h1 class="text-center">Stai cercando:</h1>
 
         </div>
     </div>
@@ -261,7 +262,7 @@ export default {
 
 .carousel__slide {
     padding: 10px;
-    margin: 15px;
+    margin: 0 15px 0 15px;
 }
 
 .sticky{
@@ -582,8 +583,5 @@ main {
 .carousel_slide {
   margin: 15px; 
 }
-
-
-
 
 </style>
