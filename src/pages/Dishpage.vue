@@ -122,7 +122,7 @@ setTimeout(() => {
       
         <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;"  >
           <template v-if="dish.thumb">
-                    <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top" alt="Restaurant Image">
+                    <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
                 </template>
           <div class="card-body">
             <h2 class="card-title">{{ dish.name }}</h2>
@@ -175,7 +175,11 @@ button:hover{
 .error-message{
     color: red;
 }
-
+.card-img{
+  max-height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
 .div-add-message {
   position: absolute;
   z-index: 5;
