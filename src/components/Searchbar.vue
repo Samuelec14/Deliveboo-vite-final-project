@@ -160,15 +160,10 @@ export default {
 
 
 <template>
-    <main>
-        <div class="row h-100">
-            <div id="left-side" class="col-12 col-md-6 col-lg-6">
-                <div class="box py-5 h-100">
-                    <h1 class="slogan">
-                        Il gusto, <br />
-                        a casa tua!
-                    </h1>
-                    <div class="container-button"> 
+    
+        
+
+        <div class="container-button"> 
                         <button class="scroll-down-btn" @click="scrollToCarousel">
                             <h3 class="btn-text">
                                 Iniziamo?
@@ -177,15 +172,21 @@ export default {
                         </button>
                         
                     </div>
-                    
-                </div>
-            </div>
-    
-            <div class="col-12 col-md-6 col-lg-6 image-container d-flex align-items-center justify-content-start">
-                <img src="/panino.png" alt="Delicious sandwich" class="panino-image" />
-            </div>
-        </div>
-    </main>
+        
+        <div class="jumbotron">
+            <!--video per pc-->
+            <video src="../../public/DelivebooVideoHomepage.mp4" autoplay muted loop class="video-desktop">
+                <source :src="DelivebooVideoHomepage" type="video/mp4">
+            </video>
+
+            <!--video per smartphone-->
+            <video src="../../public/DelivebooVideoHomepageSmartPhone.mp4" autoplay muted loop class="video-smartphone">
+                <source :src="DelivebooVideoHomepageSmartPhone" type="video/mp4">
+            </video>
+        </div> 
+
+        
+         
 
     <h2 id="test1" class="d-flex align-items-center justify-content-center pt-4" >Cosa vuoi mangiare?</h2>
 
@@ -207,7 +208,7 @@ export default {
                         <template v-if="types.length > 0">
                                 <slide v-for="type in types" :key="type.id">
                                     <div @click="submitForm">
-                                        <a class="text-dark" href="#test1"><Checkbox  :type="type" /></a>
+                                        <a class="text-dark text-capitalize" href="#test1"><Checkbox  :type="type" /></a>
                                     </div>
                                 </slide> 
                         </template>
@@ -241,6 +242,46 @@ export default {
 
 * {
     font-family: "Alfa Slab One", serif;
+}
+
+ .jumbotron {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+
+video {
+  width: 100%;
+  height: 100vh; // Per mantenere il rapporto d'aspetto 
+  object-fit: cover;
+  object-position: center;
+} 
+
+/* Stile per il video su desktop */
+.video-desktop {
+  display: block; 
+  width: 100%;    
+  max-height: none; 
+}
+
+/* Stile per il video su smartphone */
+.video-smartphone {
+  display: none; 
+}
+
+@media (max-width: 768px) {
+  /* larghezza dello schermo è inferiore a 768px (dimensioni smartphone) */
+  .video-desktop {
+    display: none; 
+  }
+
+  .video-smartphone {
+    display: block; 
+    width: 100%;    
+    max-height: none; 
+  }
 }
 
 .checkbox-overlay{
@@ -314,18 +355,13 @@ export default {
 }
 
 .container-button,
-.btn-text,
- {
-
+.btn-text {
     @media (max-width: 1200px) {
         font-size: 6rem;
-        
     }
 
     @media (max-width: 992px) {
         font-size: 2rem;
-        
-        
     }
 
     @media (max-width: 768px) {
@@ -337,26 +373,22 @@ export default {
     }
 }
 
-.scroll-down-btn,{
+.scroll-down-btn {
+    @media (max-width: 1200px) {
+        font-size: 6rem;
+    }
 
-@media (max-width: 1200px) {
-    font-size: 6rem;
-    
-}
+    @media (max-width: 992px) {
+        font-size: 3rem;
+    }
 
-@media (max-width: 992px) {
-    font-size: 3rem;
-    
-    
-}
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
 
-@media (max-width: 768px) {
-    font-size: 2rem;
-}
-
-@media (max-width: 576px) {
-    font-size: 2rem;
-}
+    @media (max-width: 576px) {
+        font-size: 2rem;
+    }
 }
 
 .btn-text {
