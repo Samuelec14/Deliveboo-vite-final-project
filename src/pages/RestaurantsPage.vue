@@ -127,20 +127,56 @@ export default {
 
 <style scoped lang="scss">
 
-.main-container{
-    min-height: 800px;
+*{
+    font-family: helevetica
 }
+
+.main-container {
+    min-height: 800px;
+    
+}
+
 .card {
     cursor: pointer;
+    height:350px; 
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+   
 }
 
-.card-img-top{
-    max-height: 300px;
-    object-fit: cover;
+.card-img-top {
+    max-height: 150px; 
+    object-fit: contain;
     object-position: center;
-
+    width: 100%;
+    margin-top:20px;
 }
+
+.card-body {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;  
+}
+
+.card-body h4 {
+    margin: 0;
+}
+
+
+
+.card-title {
+    margin: 2px; 
+}
+
+.card-text {
+    margin: 2px; 
+    font-size:15pt;
+}
+
 .phone-number {
+    padding: 0.5rem 0;
     color: blue;
+    text-decoration: underline;
 }
 </style>
