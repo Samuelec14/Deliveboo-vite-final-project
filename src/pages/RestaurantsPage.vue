@@ -28,7 +28,7 @@ export default {
     if (this.store.restaurants && this.store.restaurants.length > 0 && !this.showError) {
       return 'Stai cercando:';
     } else {
-      return 'Nessun ristorante disponibile al momento';
+      return 'Nessun ristorante disponibile per la tua ricerca';
     }
   }
 },
@@ -115,7 +115,7 @@ export default {
 
 <style scoped lang="scss">
 
-#main-container{
+.main-container{
     min-height: 800px;
 }
 .card {
