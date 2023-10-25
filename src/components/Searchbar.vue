@@ -268,7 +268,7 @@ export default {
 
 .carousel__slide {
     padding: 10px;
-    margin: 0 15px 0 15px;
+    margin: 15px;
 }
 
 .sticky{
@@ -589,5 +589,8 @@ main {
 .carousel_slide {
   margin: 15px; 
 }
+
+
+
 
 </style>

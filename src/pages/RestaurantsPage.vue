@@ -127,7 +127,7 @@ export default {
 
 <style scoped lang="scss">
 
-#main-container{
+.main-container{
     min-height: 800px;
 }
 .card {
