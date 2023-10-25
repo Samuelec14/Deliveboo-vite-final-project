@@ -1,4 +1,5 @@
 <script>
+
 export default {
     name: "MainComponent",
     data() {
@@ -17,7 +18,7 @@ export default {
 
 <template>
     <main>
-        <div class="row h-100">
+       <div class="row h-100"> 
             <div id="left-side" class="col-12 col-md-6 col-lg-6">
                 <div class="box py-5 h-100">
                     <h1 class="slogan">Il gusto, <br> a casa tua!</h1>
@@ -27,7 +28,7 @@ export default {
             <div class="col-12 col-md-6 col-lg-6 image-container d-flex align-items-center justify-content-start">
                 <img src="/panino.png" alt="Delicious sandwich" class="panino-image">
             </div>
-        </div>
+        </div> 
     </main>
 
 </template>
@@ -40,7 +41,8 @@ export default {
     font-family: 'Alfa Slab One', serif;
 }
 
-main {
+ main {
+    
     height: calc(100vh - 100px);
     background-image: url('/bg-3.png');
     background-size: cover;
@@ -50,7 +52,7 @@ main {
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
 
     .row {
         width: 100%;
