@@ -165,16 +165,6 @@ export default {
         </div>
       </div>
 
-<<<<<<< HEAD
-    <h2 class="d-flex align-items-center justify-content-center mt-5" >Cosa vuoi mangiare?</h2>
-
-    <div class="px-5 sticky bg-white shadow-sm">
-        <div class="mx-4">
-        
-                <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
-
-                    <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
-=======
       <div
         class="col-12 col-md-6 col-lg-6 image-container d-flex align-items-center justify-content-start"
       >
@@ -197,7 +187,6 @@ export default {
         :touch-drag="true"
       >
         <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
->>>>>>> modifiche-varie
                         <a href="" class="text-decoration-none text-black">
                             <div class="img-container d-block h-100" style="width: 90%;"> 
                                 <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
@@ -288,13 +277,8 @@ export default {
 }
 
 .carousel__slide {
-<<<<<<< HEAD
-    padding: 10px;
-    margin: 0 15px 0 15px;
-=======
   padding: 10px;
   margin: 15px;
->>>>>>> modifiche-varie
 }
 
 .sticky {
@@ -591,8 +575,6 @@ main {
   margin: 30px;
 }
 
-<<<<<<< HEAD
-=======
 @media (max-width: 400px) {
   .carousel {
     height: 150px;
@@ -623,5 +605,4 @@ main {
 .carousel_slide {
   margin: 30px;
 }
->>>>>>> modifiche-varie
 </style>

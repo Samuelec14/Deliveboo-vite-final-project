@@ -127,15 +127,11 @@ export default {
 
 <style scoped lang="scss">
 
-<<<<<<< HEAD
-#main-container{
-=======
 *{
     font-family: helevetica
 }
 
 .main-container {
->>>>>>> modifiche-varie
     min-height: 800px;
     
 }
