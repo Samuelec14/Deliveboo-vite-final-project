@@ -85,27 +85,27 @@ export default {
   <h2>{{ searchMessage }}</h2>
 </div>
 
-  
-          <!-- Print Restaurants by Type -->
-          <template v-if="store.restaurants && store.restaurants.length > 0">
+
+            <!-- Print Restaurants by Type -->
+            <template v-if="store.restaurants && store.restaurants.length > 0">
             <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 my-3">
-              <div class="card" style="width: 100%;" @click="navigateToDish(restaurant.id)">
+                <div class="card" style="width: 100%;" @click="navigateToDish(restaurant.id)">
                 <template v-if="restaurant.thumb">
-                  <img :src="store.imgPath+'/' + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
+                    <img :src="store.imgPath+'/' + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
                 </template>
                 <div class="card-body">
-                  <h2 class="card-title">{{ restaurant.name }}</h2>
-                  <h4 class="card-text">Tipologie del ristorante</h4>
-                  <p class="card-text">{{ restaurant.address }}</p>
-                  <h3 class="phone-number p-3">{{ restaurant.phone_number }}</h3>
+                    <h2 class="card-title">{{ restaurant.name }}</h2>
+                    <h4 class="card-text">Tipologie del ristorante</h4>
+                    <p class="card-text">{{ restaurant.address }}</p>
+                    <h3 class="phone-number p-3">{{ restaurant.phone_number }}</h3>
                 </div>
-              </div>
+                </div>
             </div>
-          </template>
-  
-          <!-- Messaggio se l'array è vuoto -->
+            </template>
+
+            <!-- Messaggio se l'array è vuoto -->
         
-      </div>
+        </div>
     </div>
   
       <!-- Footer Component -->
@@ -115,7 +115,7 @@ export default {
 
 <style scoped lang="scss">
 
-.main-container{
+#main-container{
     min-height: 800px;
 }
 .card {
