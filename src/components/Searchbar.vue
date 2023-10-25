@@ -22,6 +22,7 @@ export default {
             store,
             loading: false,
             selected: [],
+            showError: false,
 
             // storage statico
             search: "",
@@ -94,45 +95,58 @@ export default {
             this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
         },
         submitForm() {
+        this.loading = true;
+
+        this.store.restaurants = [];
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+
+        const values = [];
+        checked.forEach(element => {
+            values.push(element.value);
+        });
+
+        this.store.checkboxNames = values;
+
+        if (values.length > 0) {
+            axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
+                    params: {
+                        search: values
+                    }
+                })
+                .then(response => {
+                    this.store.restaurants = response.data.restaurants;
+                    this.loading = false;
+                    
+
+                     // Mostra il messaggio di errore se non ci sono risultati
+    this.showError = this.store.restaurants.length === 0;
+})
+.catch(error => {
+    console.error(error);
+    this.showError = true; // Mostra il messaggio di errore in caso di errore API
+});
+        } else {
             this.loading = true;
+            axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant`)
+                .then(response => {
+                    this.store.restaurants = response.data.results;
+                    this.loading = false;
 
-            this.store.restaurants = [];
-
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-
-            const values = [];
-            checked.forEach(element => {
-                values.push(element.value);
-            });
-
-            this.store.checkboxNames = values;
-
-            if (values.length > 0) {
-                axios.get(`http://127.0.0.1:8000/api/restaurant/results`, {
-                        params: {
-                            search: values
-                        }
-                    })
-                    .then(response => {
-                        this.store.restaurants = response.data.restaurants;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            } else {
-                this.loading = true;
-                axios.get(`http://127.0.0.1:8000/api/restaurant/restaurant`)
-                    .then(response => {
-                        this.store.restaurants = response.data.results;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            }
-        },
+                    // Mostra il messaggio di errore se non ci sono risultati
+                    if (this.store.restaurants.length === 0) {
+                        this.showError = true;
+                    } else {
+                        this.showError = false;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    this.showError = true; // Mostra il messaggio di errore in caso di errore API
+                });
+        }
+    },
         scrollToCarousel() {
             const carouselElement = document.querySelector('.sticky');
             carouselElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -208,7 +222,7 @@ export default {
                     </template>
                     
                 </carousel>
-                <h1 class="text-center">Stai cercando:</h1>
+                
 
         </div>
     </div>

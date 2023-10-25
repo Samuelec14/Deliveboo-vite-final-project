@@ -19,9 +19,19 @@ export default {
             types: [],
             store,
             searchValue: '',
-            loading: false
+            loading: false,
+            
         };
     },
+    computed: {
+  searchMessage() {
+    if (this.store.restaurants && this.store.restaurants.length > 0 && !this.showError) {
+      return 'Stai cercando:';
+    } else {
+      return 'Nessun ristorante disponibile al momento';
+    }
+  }
+},
     methods: {
 
         // SEARCH TYPES -> gives an array of types
@@ -62,68 +72,46 @@ export default {
 </script>
 
 <template>
-
     <div>
-        <!-- Header Component -->
-        <HeaderComponent></HeaderComponent>
+      <!-- Header Component -->
+      <HeaderComponent></HeaderComponent>
+  
+      <!-- Searchbar Component -->
+      <Searchbar />
+  
+      <div id="main-container" class="container">
+        <div class="row">
+            <div class="col-12 text-center my-3">
+  <h2>{{ searchMessage }}</h2>
+</div>
 
-        <!-- Searchbar Component -->
-        <Searchbar />
-
-        <div id="main-container" class="container">
-            <div class="row">
-
-            <!-- Error Message -->
-            <div v-if="store.restaurants && !loading" class="col-12 text-center">
-                <h2 class="mt-3">Nessun ristorante corrisponde a questa tipologia</h2>
-            </div>
-
-            <!-- Print Restaurants by Type -->
-                <template v-if="store.restaurants">
-
-                    <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 my-3">
-                        
-                        <div class="card" style="width: 100%;" @click="navigateToDish(restaurant.id)">
-                            <template v-if="restaurant.thumb">
-                                <img :src="store.imgPath+'/' + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
-                            </template>
-                            <div class="card-body">
-                                <h2 class="card-title">{{ restaurant.name }}</h2>
-                                <h4 class="card-text">Tipologie del ristorante</h4>
-                                <p class="card-text">{{ restaurant.address }}</p>
-                                <h3 class="phone-number p-3">{{ restaurant.phone_number }}</h3>
-                            </div>
-                        </div>
-
-                    </div>
-
+  
+          <!-- Print Restaurants by Type -->
+          <template v-if="store.restaurants && store.restaurants.length > 0">
+            <div v-for="restaurant in store.restaurants" :key="restaurant.id" class="col-12 col-md-6 col-lg-4 my-3">
+              <div class="card" style="width: 100%;" @click="navigateToDish(restaurant.id)">
+                <template v-if="restaurant.thumb">
+                  <img :src="store.imgPath+'/' + restaurant.thumb" class="card-img-top" alt="Restaurant Image">
                 </template>
-
-
-                
-            </div>
-        </div>
-
-        <!-- <div class="container">
-            <h3 class="text-center my-4">SCEGLI PER TIPOLOGIA</h3>
-            <div class="row"> -->
-            <!-- Display Types -->
-                <!-- <div v-for="type in types" :key="type.id" @click="fetchRestaurants(type.name); scrollToTop();" class="col-12 col-md-6 col-lg-4 my-3">
-                    <div class="card w-100">
-                        <img :src="store.imgPath + type.thumb" class="card-img-top" :alt="type.name">
-                        <div class="card-body">
-                            <h2 class="card-title">{{ type.name }}</h2>
-                            <h4>vedi i più vicini a te</h4>
-                        </div>
-                    </div>
+                <div class="card-body">
+                  <h2 class="card-title">{{ restaurant.name }}</h2>
+                  <h4 class="card-text">Tipologie del ristorante</h4>
+                  <p class="card-text">{{ restaurant.address }}</p>
+                  <h3 class="phone-number p-3">{{ restaurant.phone_number }}</h3>
                 </div>
+              </div>
             </div>
-        </div> -->
-
-        <!-- Footer Component -->
-        <FooterComponent></FooterComponent>
-  </div>
-</template>
+          </template>
+  
+          <!-- Messaggio se l'array è vuoto -->
+        
+      </div>
+    </div>
+  
+      <!-- Footer Component -->
+      <FooterComponent></FooterComponent>
+    </div>
+  </template>
 
 <style scoped lang="scss">
 
