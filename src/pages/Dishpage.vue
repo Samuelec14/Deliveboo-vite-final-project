@@ -46,7 +46,11 @@ export default {
     this.dish = this.$route.params.dish;
   }
 },
-
+computed: {
+    filteredDishes() {
+      return this.dishes.filter((dish) => dish.restaurant_id === this.restaurantId);
+    },
+  },
   methods: {
     addToCartHandler(dish) {
       // Verifica se il carrello è vuoto o se il ristorante del piatto corrisponde al ristorante nel carrello
@@ -89,21 +93,19 @@ setTimeout(() => {
       this.errorMessage = ''; // Resetta il messaggio di errore
     },
     fetchDishes() {
-      axios
-        .get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
-        .then((response) => {
-          this.dishes = response.data.results;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  axios
+    .get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
+    .then((response) => {
+      const filteredDishes = response.data.results.filter(dish => dish.visible);
+      console.log(filteredDishes);
+      this.dishes = filteredDishes;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
     },
   },
-  computed: {
-    filteredDishes() {
-      return this.dishes.filter((dish) => dish.restaurant_id === this.restaurantId);
-    },
-  },
+
 };
 </script>
 <template>
@@ -116,8 +118,9 @@ setTimeout(() => {
   </div>
       <h2 class="text-center my-4">Lista Piatti</h2>
     <div class="container d-flex flex-wrap min-height">
-      <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;">
-          <img :src="dish.thumb" class="card-img-top" alt="...">
+      
+        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;"  >
+        <img :src="dish.thumb" class="card-img-top" alt="...">
           <div class="card-body">
             <h2 class="card-title">{{ dish.name }}</h2>
             <h4 class="card-text">{{ dish.price }}€</h4>
@@ -144,7 +147,16 @@ setTimeout(() => {
   min-height: 400px;
 }
 .card{
-  max-height: 300px;
+  max-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2{
+    max-width: 250px;
+    word-wrap: break-word;
+  }
+  
 }
 button{
     background-color: orange;
