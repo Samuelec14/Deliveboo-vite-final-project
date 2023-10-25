@@ -20,6 +20,7 @@ export default {
       restaurantId: null,
       errorMessage: '', 
       showMessage: false,
+      store,
     };
   },
   props: {
@@ -73,7 +74,7 @@ computed: {
         }
 
         localStorage.setItem('cart', JSON.stringify(store.cart));
-        console.log('Piatto aggiunto al carrello:', dish);
+        
         this.errorMessage = ''; // Pulisci eventuali messaggi di errore precedenti
       } else {
         // Mostra un messaggio di errore se il ristorante del piatto è diverso dal ristorante nel carrello
@@ -97,7 +98,7 @@ setTimeout(() => {
     .get(`http://127.0.0.1:8000/api/dish/dish/${this.restaurantId}`)
     .then((response) => {
       const filteredDishes = response.data.results.filter(dish => dish.visible);
-      console.log(filteredDishes);
+      
       this.dishes = filteredDishes;
     })
     .catch((error) => {
@@ -120,7 +121,9 @@ setTimeout(() => {
     <div class="container d-flex flex-wrap min-height">
       
         <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;"  >
-        <img :src="dish.thumb" class="card-img-top" alt="...">
+          <template v-if="dish.thumb">
+                    <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top" alt="Restaurant Image">
+                </template>
           <div class="card-body">
             <h2 class="card-title">{{ dish.name }}</h2>
             <h4 class="card-text">{{ dish.price }}€</h4>
