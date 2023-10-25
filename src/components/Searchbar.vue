@@ -160,20 +160,16 @@ export default {
 
 
 <template>
-    
-        
+        <div class="jumbotron position-relative z-4">
+            <div class="container-button position-absolute z-3 start-50" @click="scrollToCarousel"> 
+                <button class="scroll-down-btn">
+                    <h3 class="btn-text">
+                        Iniziamo?
+                    </h3>
+                    <i class="fa-solid fa-circle-arrow-down"></i>
+                </button>
+            </div>
 
-        <div class="container-button"> 
-                        <button class="scroll-down-btn" @click="scrollToCarousel">
-                            <h3 class="btn-text">
-                                Iniziamo?
-                            </h3>
-                            <i class="fa-solid fa-circle-arrow-down"></i>
-                        </button>
-                        
-                    </div>
-        
-        <div class="jumbotron">
             <!--video per pc-->
             <video src="../../public/WelcomeDelivebooDesktop.mp4" autoplay muted loop class="video-desktop">
                 <source :src="WelcomeDelivebooDesktop" type="video/mp4">
@@ -250,6 +246,78 @@ export default {
   max-width: 100%;
   overflow: hidden;
   padding: 0;
+
+  .scroll-down-btn {
+  border: none;
+  background-color: transparent;
+  color:#F8BE32;
+  font-size: 6rem;
+  cursor: pointer;
+  padding: 10px;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-down-btn:hover {
+  background-color: rgba(0, 0, 0, 0.308);
+}
+
+
+.container-button {
+    margin-bottom:30px;
+    background-color: rgba(255, 255, 255, 0.801);
+    transform: translate(-50% , 0);
+    top: 70%;
+}
+.container-button:hover {
+    margin-bottom:30px;
+
+}
+
+.container-button,
+.btn-text {
+    @media (max-width: 1200px) {
+        font-size: 6rem;
+    }
+
+    @media (max-width: 992px) {
+        font-size: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+
+    @media (max-width: 576px) {
+        font-size: 1rem;
+    }
+}
+
+.scroll-down-btn {
+    @media (max-width: 1200px) {
+        font-size: 6rem;
+    }
+
+    @media (max-width: 992px) {
+        font-size: 3rem;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+
+    @media (max-width: 576px) {
+        font-size: 2rem;
+    }
+}
+
+.btn-text {
+    color:#7A2113;
+    margin: 30px;
+    
+}
 }
 
 video {
@@ -332,70 +400,6 @@ video {
     z-index: 2;
 }
 
-.scroll-down-btn {
-  border: none;
-  background-color: transparent;
-  color:#F8BE32;
-  font-size: 6rem;
-  cursor: pointer;
-  padding: 10px;
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.scroll-down-btn:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-
-.container-button {
-    margin-bottom:30px;
-}
-
-.container-button,
-.btn-text {
-    @media (max-width: 1200px) {
-        font-size: 6rem;
-    }
-
-    @media (max-width: 992px) {
-        font-size: 2rem;
-    }
-
-    @media (max-width: 768px) {
-        font-size: 2rem;
-    }
-
-    @media (max-width: 576px) {
-        font-size: 1rem;
-    }
-}
-
-.scroll-down-btn {
-    @media (max-width: 1200px) {
-        font-size: 6rem;
-    }
-
-    @media (max-width: 992px) {
-        font-size: 3rem;
-    }
-
-    @media (max-width: 768px) {
-        font-size: 2rem;
-    }
-
-    @media (max-width: 576px) {
-        font-size: 2rem;
-    }
-}
-
-.btn-text {
-    color:#7A2113;
-    margin: 30px;
-    
-}
 
 main {
     height: calc(100vh - 100px);
@@ -409,61 +413,61 @@ main {
     align-items: center;
     justify-content: center;
 
-.row {
-    width: 100%;
-    text-align: center;
+    .row {
+        width: 100%;
+        text-align: center;
 
-    @media (max-width: 992px) {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #left-side {
-        z-index: 10;
-        .box {
-            display: flex;
+        @media (max-width: 992px) {
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-
-            .slogan {
-                color: $brown-primary;
-                font-size: 6rem;
-                margin-top: 1rem;
-                margin-bottom: 1rem;
-            
-                @media (max-width: 1200px) {
-                    font-size: 5rem;
-                }
-
-                @media (max-width: 992px) {
-                    font-size: 4rem;
-                }
-
-                @media (max-width: 768px) {
-                    font-size: 3rem;
-                }
-
-                @media (max-width: 576px) {
-                    font-size: 2rem;
-                }
-            }      
-               
-            
-
-            input {
-                border: unset;
-                width: 100%;
-                height: auto;
-                margin-top: 10px;
-
-                @media (max-width: 768px) {
-                    width: 80%;
-                }
-                
-            }
+            align-items: center;
         }
+
+        #left-side {
+            z-index: 10;
+            .box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .slogan {
+                    color: $brown-primary;
+                    font-size: 6rem;
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                
+                    @media (max-width: 1200px) {
+                        font-size: 5rem;
+                    }
+
+                    @media (max-width: 992px) {
+                        font-size: 4rem;
+                    }
+
+                    @media (max-width: 768px) {
+                        font-size: 3rem;
+                    }
+
+                    @media (max-width: 576px) {
+                        font-size: 2rem;
+                    }
+                }      
+                
+                
+
+                input {
+                    border: unset;
+                    width: 100%;
+                    height: auto;
+                    margin-top: 10px;
+
+                    @media (max-width: 768px) {
+                        width: 80%;
+                    }
+                    
+                }
+            }
     }
 
     .image-container {
