@@ -93,6 +93,7 @@ export default {
         navigateToDish(restaurantId) {
             this.$router.push({ name: 'dish', params: { restaurant_id: parseInt(restaurantId) } });
         },
+
         submitForm() {
             this.loading = true;
 
@@ -105,6 +106,7 @@ export default {
             checked.forEach(element => {
                 values.push(element.value);
             });
+
 
             this.store.checkboxNames = values;
 
@@ -134,9 +136,9 @@ export default {
             }
         },
         scrollToCarousel() {
-            const carouselElement = document.querySelector('.sticky');
+            var carouselElement = document.querySelector('.sticky');
             carouselElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        },
     }
 }
 </script>
@@ -159,6 +161,7 @@ export default {
                             </h3>
                             <i class="fa-solid fa-circle-arrow-down"></i>
                         </button>
+                        
                     </div>
                     
                 </div>
@@ -170,47 +173,51 @@ export default {
         </div>
     </main>
 
-    <h2 class="d-flex align-items-center justify-content-center mt-5" >Cosa vuoi mangiare?</h2>
+    <h2 id="test1" class="d-flex align-items-center justify-content-center pt-4" >Cosa vuoi mangiare?</h2>
 
-    <div class="px-5 sticky bg-white shadow-sm">
-        <div class="mx-4">
-        
-                <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
+        <div class="px-5 sticky bg-white shadow-sm">
+            <div class="mx-4">
+            
+                    <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
-                    <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
-                        <a href="" class="text-decoration-none text-black">
-                            <div class="img-container d-block h-100" style="width: 90%;"> 
-                                <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
-                                <figcaption class="image-caption mt-2">{{ imageInfo.caption }}</figcaption>
-                            </div>
-                        </a>
-                    </slide> -->
-
-
-                    <template v-if="types.length > 0">
-                            <slide v-for="type in types" :key="type.id">
-                                <div @click="submitForm">
-                                    <Checkbox  :type="type" />
+                        <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
+                            <a href="" class="text-decoration-none text-black">
+                                <div class="img-container d-block h-100" style="width: 90%;"> 
+                                    <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
+                                    <figcaption class="image-caption mt-2">{{ imageInfo.caption }}</figcaption>
                                 </div>
-                            </slide> 
-                    </template>
+                            </a>
+                        </slide> -->
 
 
-                    <template #addons>
-                        <navigation>
-                            <template #prev>
-                                <span> <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
-                            </template>
-                            <template #next>
-                                <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
-                            </template>
-                        </navigation>
-                    </template>
-                    
-                </carousel>
+                        <template v-if="types.length > 0">
+                                <slide v-for="type in types" :key="type.id">
+                                    <div @click="submitForm">
+                                        <a class="text-dark" href="#test1"><Checkbox  :type="type" /></a>
+                                    </div>
+                                </slide> 
+                        </template>
+                        
 
+
+                        <template #addons>
+                            <navigation>
+                                <template #prev>
+                                    <span> <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                                </template>
+                                <template #next>
+                                    <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                                </template>
+                            </navigation>
+
+                        </template>
+                        
+                    </carousel>
+
+            </div>
         </div>
-    </div>
+
+
     
 </template>
 
