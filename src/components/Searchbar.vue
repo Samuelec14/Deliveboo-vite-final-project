@@ -175,13 +175,13 @@ export default {
         
         <div class="jumbotron">
             <!--video per pc-->
-            <video src="../../public/DelivebooVideoHomepage.mp4" autoplay muted loop class="video-desktop">
-                <source :src="DelivebooVideoHomepage" type="video/mp4">
+            <video src="../../public/WelcomeDelivebooDesktop.mp4" autoplay muted loop class="video-desktop">
+                <source :src="WelcomeDelivebooDesktop" type="video/mp4">
             </video>
 
             <!--video per smartphone-->
-            <video src="../../public/DelivebooVideoHomepageSmartPhone.mp4" autoplay muted loop class="video-smartphone">
-                <source :src="DelivebooVideoHomepageSmartPhone" type="video/mp4">
+            <video src="../../public/WelcomeDelivebooSmartphone.mp4" autoplay muted loop class="video-smartphone">
+                <source :src="WelcomeDelivebooSmartphone" type="video/mp4">
             </video>
         </div> 
 
