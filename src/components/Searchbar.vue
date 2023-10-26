@@ -186,10 +186,10 @@ export default {
 
     <h2 id="test1" class="d-flex align-items-center justify-content-center pt-4" >Cosa vuoi mangiare?</h2>
 
-        <div class="px-5 sticky bg-white shadow-sm">
+        <div class="background px-5 sticky shadow-sm">
             <div class="mx-4">
             
-                    <carousel :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
+                    <carousel class="background" :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
                         <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
                             <a href="" class="text-decoration-none text-black">
@@ -212,9 +212,9 @@ export default {
 
 
                         <template #addons>
-                            <navigation>
+                            <navigation >
                                 <template #prev>
-                                    <span> <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                                    <span > <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
                                 </template>
                                 <template #next>
                                     <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
@@ -238,6 +238,10 @@ export default {
 
 * {
     font-family: "Alfa Slab One", serif;
+}
+
+.background {
+    background-color: #F6F7E9;
 }
 
  .jumbotron {
