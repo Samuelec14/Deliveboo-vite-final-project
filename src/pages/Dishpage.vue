@@ -121,8 +121,10 @@ setTimeout(() => {
     <div class="container d-flex flex-wrap min-height">
       
         <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;"  >
-          <template v-if="dish.thumb">
+          <template v-if="dish.thumb" >
+            <div class="min-space">
                     <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
+                  </div>
                 </template>
           <div class="card-body">
             <h2 class="card-title">{{ dish.name }}</h2>
@@ -147,17 +149,19 @@ setTimeout(() => {
   
 <style scoped lang="scss">
 .min-height{
-  min-height: 400px;
+  min-height: 380px;
 }
 .card{
-  max-height: 380px;
+  max-height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   h2{
     max-width: 250px;
+    max-height: 110px;
     word-wrap: break-word;
+    overflow: hidden;
   }
   
 }
@@ -175,8 +179,12 @@ button:hover{
 .error-message{
     color: red;
 }
+.min-space{
+  height: 200px;
+  width: 18rem;
+}
 .card-img{
-  max-height: 200px;
+  height: 200px;
   object-fit: cover;
   object-position: center;
 }

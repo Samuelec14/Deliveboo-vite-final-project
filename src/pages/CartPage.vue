@@ -354,6 +354,11 @@ export default {
     }
   
 }
+.card{
+  h2{
+    max-height: 30px
+  }
+}
 .overlay {
     position: fixed;
     top: 0;
