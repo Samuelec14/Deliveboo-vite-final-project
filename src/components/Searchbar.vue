@@ -189,7 +189,49 @@ export default {
         <div class="background px-5 sticky shadow-sm">
             <div class="mx-4">
             
-                    <carousel class="background" :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
+                    <carousel class="carousel-desktop" :items-to-show="5.5" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
+
+                        <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
+                            <a href="" class="text-decoration-none text-black">
+                                <div class="img-container d-block h-100" style="width: 90%;"> 
+                                    <img :src="imageInfo.src" :alt="imageInfo.alt" class="image">
+                                    <figcaption class="image-caption mt-2">{{ imageInfo.caption }}</figcaption>
+                                </div>
+                            </a>
+                        </slide> -->
+
+
+                        <template v-if="types.length > 0">
+                                <slide v-for="type in types" :key="type.id">
+                                    <div @click="submitForm">
+                                        <a class="text-dark text-capitalize" href="#test1"><Checkbox  :type="type" /></a>
+                                    </div>
+                                </slide> 
+                        </template>
+                        
+
+
+                        <template #addons>
+                            <navigation >
+                                <template #prev>
+                                    <span > <img class="prev_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                                </template>
+                                <template #next>
+                                    <span> <img class="next_icon" width="35" height="35" src="https://img.icons8.com/color/48/chevron-left.png" alt="chevron-left"/> </span>
+                                </template>
+                            </navigation>
+
+                        </template>
+                        
+                    </carousel>
+
+            </div>
+        </div>
+
+        <div class="background px-5 sticky shadow-sm">
+            <div class="mx-4">
+            
+                    <carousel class=" carousel-mobile" :items-to-show="2" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
 
                         <!-- <slide v-for="(imageInfo, index) in imagesInfo" :key="index" class="image-figure">
                             <a href="" class="text-decoration-none text-black">
@@ -280,48 +322,46 @@ export default {
 
 }
 
-.container-button,
-.btn-text {
-    @media (max-width: 1200px) {
-        font-size: 6rem;
-    }
+ 
+   
 
-    @media (max-width: 992px) {
+    @media (max-width: 340px) {
+        .scroll-down-btn,{
+        border: none;
+        color:#F8BE32;
         font-size: 2rem;
-    }
-
-    @media (max-width: 768px) {
-        font-size: 2rem;
-    }
-
-    @media (max-width: 576px) {
-        font-size: 1rem;
-    }
+        margin-right: 10px;
+        padding:0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
 }
 
-.scroll-down-btn {
-    @media (max-width: 1200px) {
-        font-size: 6rem;
-    }
 
-    @media (max-width: 992px) {
-        font-size: 3rem;
-    }
+   
 
-    @media (max-width: 768px) {
+    @media (max-width: 340px) {
+        .scroll-down-btn {
+        border: none;
+        background-color: transparent;
+        color:#F8BE32;
         font-size: 2rem;
-    }
-
-    @media (max-width: 576px) {
-        font-size: 2rem;
-    }
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
+    }
+
 
 .btn-text {
     color:#7A2113;
     margin: 30px;
     
 }
+
 }
 
 video {
@@ -381,6 +421,7 @@ video {
     bottom: 50%;
     left: 120%;
 }
+
 .carousel__item {
     min-height: 200px;
     width: 100%;
@@ -396,6 +437,57 @@ video {
 .carousel__slide {
     padding: 10px;
     margin: 15px;
+}
+
+.carousel-desktop {
+    display: none; /* Nascondi il carosello desktop come predefinito */
+}
+
+.carousel-mobile {
+    display: block; /* Mostra il carosello mobile come predefinito */
+}
+
+/* Per dispositivi con una larghezza maggiore di 340px */
+@media (min-width: 341px) {
+    .carousel-desktop {
+        display: block; /* Mostra il carosello desktop */
+    }
+    .carousel-mobile {
+        display: none; /* Nascondi il carosello mobile */
+    }
+}
+
+/* Stili specifici per la versione mobile */
+@media (max-width: 340px) {
+    .carousel-mobile .carousel__item {
+        min-height: 200px;
+        width: 100%;
+        background-color: var(--vc-clr-primary);
+        color: var(--vc-clr-white);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .carousel-mobile .image {
+        width: 80%; /* Solo un esempio, adattalo alle tue esigenze */
+        /* Altri stili specifici per la versione mobile qui... */
+    }
+
+    .image-caption {
+        font-size: 10px;
+    }
+
+    .carousel__slide {
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+
+
 }
 
 .sticky{
@@ -466,37 +558,9 @@ main {
                     height: auto;
                     margin-top: 10px;
 
-                    @media (max-width: 768px) {
-                        width: 80%;
-                    }
-                    
+                  
                 }
             }
-    }
-
-    .image-container {
-      position: relative;
-
-      .panino-image {
-        max-width: 200%;
-        position: absolute;
-        right: 0px;
-        z-index: 0;
-
-        @media (max-width: 992px) {
-          max-width: 200%;
-        }
-
-        @media (max-width: 768px) {
-          max-width:200%;
-        
-        }
-       
-
-        @media (max-width: 576px) {
-            display:none;
-        }
-      }
     }
   }
 }
@@ -575,73 +639,6 @@ main {
 .router-link-active,
 .router-link-exact-active {
   text-decoration: none !important;
-}
-/* Stili per tablet */
-@media (max-width: 992px) {
-  .carousel {
-    /* Riduci la dimensione del carosello */
-    height: 300px;
-  }
-
-  .slide {
-    /* Riduci la dimensione del testo o degli elementi nelle slide */
-    font-size: 14px;
-  }
-}
-
-/* Stili per dispositivi mobili */
-@media (max-width: 768px) {
-  .carousel {
-    
-    /* Riduci ulteriormente la dimensione del carosello */
-    height: 200px;
-  }
-
-  .panino-image{
-    display:none;
-  }
-
-  .slide {
-    /* Riduci ulteriormente la dimensione del testo o degli elementi nelle slide */
-    font-size: 12px;
-    }
-    .carousel_slide {
-    margin: 0; 
-    }
-    
-}
-
-/* Stili per dispositivi con larghezza dello schermo fino a 576px */
-@media (max-width: 576px) {
-  .carousel {
-    /* Puoi modificare la dimensione del carosello se necessario */
-    height: 150px;
-  }
-
-  .image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin:0 40px;
-  }
-
-  .image-caption {
-    font-size: 12px; /* Riduci la dimensione del font come desideri */
-    margin-top: 5px;
-    text-align:center;
-  }
-}
-
-.carousel-image {
-  margin: 10px; /* Aggiunge un margine intorno a ciascuna immagine */
-}
-
-.carousel-caption {
-  margin-top: 5px; /* Aggiunge un margine sopra la didascalia */
-}
-
-.carousel_slide {
-  margin: 15px; 
 }
 
 
