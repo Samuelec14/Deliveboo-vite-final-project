@@ -72,7 +72,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="background ">
       <!-- Header Component -->
       <HeaderComponent></HeaderComponent>
   
@@ -116,8 +116,13 @@ export default {
 <style scoped lang="scss">
 
 * {
-    font-family: helevtica;
+    font-family: 'Montserrat', sans-serif; 
 }
+
+.background {
+    background-color: #F6F7E9;
+}
+
 
 #main-container {
     min-height: 800px;
@@ -128,13 +133,16 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    text-align: center;  
+    text-align: center;
+    padding: 10px; 
+    background-color: #f9f9f9; 
 }
+
 
 .card-img-top {
     height: 200px;
     max-height: 300px;
-    object-fit: cover;
+    object-fit: contain; 
     object-position: center;
     width: 100%;
 }
@@ -149,6 +157,6 @@ export default {
 }
 
 .phone-number {
-    color: blue;
+    color: orange;
 }
 </style>

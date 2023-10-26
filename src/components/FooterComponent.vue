@@ -76,9 +76,14 @@ export default {
 
 
 <style lang="scss" scoped>
+
+*{
+  font-family: 'Montserrat', sans-serif; 
+}
+
 .footer {
     background-color: #333;
-    font-family: 'Plex Sans', sans-serif; 
+
 }
 
 .footer-list {
@@ -114,7 +119,7 @@ export default {
 }
 
 .image-card{
-  margin-top:50px;
+  margin-top:40px;
 }
 
 
