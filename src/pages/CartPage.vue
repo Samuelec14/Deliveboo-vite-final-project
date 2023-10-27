@@ -260,8 +260,9 @@ export default {
     <div v-if="showPaymentForm">
         <div class="overlay"></div> <!-- Aggiungi l'overlay qui -->
         <div class="payment-form">
-    <h2 class="fw-bold">Procedi al  Pagamento</h2>
+    
     <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
+      <h2 class="fw-bold">Procedi al  Pagamento</h2>
       <div class="d-flex">
       <div class="info-container">
       <div class="mb-3">
@@ -285,17 +286,17 @@ export default {
       <div class="creditcard-container ">
         <div class="mb-3">
         <label for="address" class="form-label">Indirizzo</label>
-        <input type="text"  class="form-control" id="address" v-model="address" required>
+        <input type="text"  class="form-control my-input" id="address" v-model="address" required>
       </div>
       <h3 class="fw-bold"> Dati di  Pagamento</h3>
       <div class="mb-3">
         
   <label for="creditCardNumber" class="form-label">Numero della Carta </label>
-  <input type="text" id="creditCardNumber" maxlength="16" class="form-control" required pattern="[0-9]{16}" placeholder="0000-0000-0000-0000">
+  <input type="text" id="creditCardNumber" maxlength="16" class="form-control  my-input" required pattern="[0-9]{16}" placeholder="0000-0000-0000-0000">
 </div>
 <div class="d-flex justify-content-around card-data">
 <div class="mb-3 date">
-  <label for="expiryDate" class="form-label text-center">Data di Scadenza (MM/YY)</label>
+  <label for="expiryDate" class="form-label text-center">Data di Scadenza</label>
   <div class="d-flex justify-content-center"><input type="text" class="form-control" id="expiryDate" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="(MM/YY)"></div>
 </div>
 
@@ -410,6 +411,12 @@ export default {
 }
 .creditcard-container{
   padding: 20px;
+  h3{
+    font-size: 1.3rem;
+  }
+  .my-input{
+    max-width: 100%;
+  }
 .card-data{
  .date{
   margin-right: 20px;
@@ -421,7 +428,7 @@ export default {
  .code{
   width: 200px;
 input{
-  width: 60px;
+  min-width: 60px;
   text-align: center;
 }
  }
@@ -429,14 +436,19 @@ input{
 }
 .info-container{
   padding: 20px;
-  min-width: 50%;
+  min-width: 30vw;
 }
+.creditcard-container{
+  padding: 20px;
+  min-width: 30vw;
+}
+
 .payment-form {
   * {
     font-family: 'Montserrat', sans-serif; 
   }
 
-    width: 60%;
+    
     min-width: 400px;
     margin: 0 auto;
     position: absolute;
@@ -451,6 +463,7 @@ input{
 }
 
 .success-message {
+  width: 300px;
   background-color: #dff0d8; /* Colore di sfondo verde per il messaggio di successo */
   color: #3c763d; /* Colore del testo verde scuro */
   padding: 10px;
