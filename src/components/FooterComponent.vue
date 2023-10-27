@@ -52,6 +52,7 @@ export default {
             <a href="#"><img class="footer-image m-2" src="/img/play-store.png" alt="play-store-badge"></a>
           </div>
         </div>
+        
       </div>
       <div class="row">
         <div class="col">
@@ -80,6 +81,7 @@ export default {
 *{
   font-family: 'Montserrat', sans-serif; 
 }
+
 
 .footer {
     background-color: #333;
@@ -122,6 +124,9 @@ export default {
   margin-top:40px;
 }
 
+.footer-image {
+  border-radius:4px;
+}
 
 .footer-newsletter input,
 .footer-newsletter textarea {
@@ -142,7 +147,7 @@ export default {
 .copyright {
   color:white;
   text-align:center;
-  margin-bottom: 0;
+  margin: 10px;
 }
 
 .footer-image {
@@ -162,5 +167,20 @@ export default {
     color: #fff; 
 }
 
+@media (max-width: 340px) {
+  
+  .image-card{
+    background-color:#CCCCCC;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    margin-bottom:45px;
+    border-radius: 4px;
+    
+  }
 
+  .footer-image {
+    border-radius:4px;
+  }
+}
 </style>
