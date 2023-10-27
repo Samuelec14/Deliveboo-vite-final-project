@@ -84,7 +84,7 @@ computed: {
 setTimeout(() => {
   this.showMessage = false;
   this.$refs.successMessage.classList.add('hidden');
-}, 2000);
+}, 1000);
     },
   removeFromCartHandler(index) {
     store.removeFromCart(index);
@@ -212,12 +212,12 @@ button:hover{
   object-position: center;
 }
 .div-add-message {
-  position: absolute;
+  position: fixed;
   z-index: 5;
   top: 50px;
   left: calc(50vw - 200px);
   animation-name: myAnimation;
-    animation-duration: 2000ms;
+    animation-duration: 1000ms;
     animation-fill-mode: forwards;
 
   .success-message {
@@ -272,14 +272,14 @@ button:hover{
   top: 0;
   left: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: 10; /* Assicura che l'overlay sia sopra gli altri elementi */
 }
 
 .error-message {
     font-size: 2rem;
-    height: 30vh;
+    height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -289,6 +289,7 @@ button:hover{
   border: 1px solid black;
   text-align: center;
   z-index: 5; 
+  margin-top: 20px;
   button{
 margin: 0 20px;
   }
