@@ -105,6 +105,20 @@ setTimeout(() => {
       console.error(error);
     });
     },
+    clearCart() {
+      if(confirm('Sei Sicuro di voler svuotare il carrello?')){
+
+        // Svuota il carrello nell'oggetto store
+        store.clearCart();
+  
+        // Svuota anche il carrello nel localStorage
+        localStorage.removeItem('cart');
+  
+        // ricarica la pagina dopo lo svuotamento
+        location.reload();
+      }
+
+    },
   },
 
 };
@@ -113,46 +127,55 @@ setTimeout(() => {
     
       <HeaderComponent></HeaderComponent>
       <div v-if="showMessage"  class="div-add-message">
-    <div class="success-message">
-      Piatto aggiunto al carrello!
-    </div>
-  </div>
-      <h2 class="text-center my-4">Lista Piatti</h2>
-    <div class="container d-flex flex-wrap min-height">
+        <div class="success-message">
+          Piatto aggiunto al carrello!
+        </div>
+      </div>
+      <h2 class="text-center my-4 fw-bold">Lista Piatti</h2>
+      <div class="container d-flex flex-wrap min-height justify-content-center">
       
-        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2" style="width: 18rem;"  >
+        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2 mb-5 mx-3" style="width: 18rem;"  >
           <template v-if="dish.thumb" >
             <div class="min-space">
-                    <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
-                  </div>
+              <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
+            </div>
                 </template>
-          <div class="card-body">
-            <h2 class="card-title">{{ dish.name }}</h2>
-            <h4 class="card-text">{{ dish.price }}€</h4>
-            <p class="card-text">{{ dish.description }}</p>
-            <button type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h2 class="card-title text-capitalize fw-semibold fs-3">{{ dish.name }}</h2>
+            <h4 class="card-text fs-5">{{ dish.price }}€</h4>
+            <p class="card-text fs-5"><small>{{ dish.description }}</small></p>
+            <button class="fw-semibold px-3" type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
 
           </div>
         </div>
       </div>
        <!-- Messaggio di errore -->
-       <div class="overlay" v-if="errorMessage">
-    <div class="error-message">
-      {{ errorMessage }}
-      <button @click="resetError">Ho capito</button>
-    </div>
-  </div>
+      <div class="overlay" v-if="errorMessage">
+        <div>
+          <div class="error-message text-center rounded-5">
+          {{ errorMessage }}
+          <div class="text-center fs-5 btn btn-danger py-1 mt-2" @click="clearCart">Svuota carrello</div>
+          <button class="text-center fs-4 mt-4" @click="resetError">Ho capito</button>
+          </div>
+        </div>
+      </div>
 
       <FooterComponent></FooterComponent>
     
   </template>
   
 <style scoped lang="scss">
+
+
 .min-height{
   min-height: 380px;
 }
 .card{
-  max-height: 450px;
+  * {
+    font-family: 'Montserrat', sans-serif; 
+  }
+
+  min-height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -258,6 +281,8 @@ button:hover{
     font-size: 2rem;
     height: 30vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: white;
   padding: 20px;

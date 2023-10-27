@@ -97,6 +97,9 @@ export default {
 
       // Svuota anche il carrello nel localStorage
       localStorage.removeItem('cart');
+
+      // ricarica la pagina dopo lo svuotamento
+      location.reload();
     },
     redirectToHome() {
       // Naviga alla home page
@@ -200,16 +203,18 @@ export default {
     <h2 class="text-center my-4">Lista ordini</h2>
 <div class="big-container">
     <div class="my-container d-flex flex-wrap">
-      <div v-for="(dish, index) in dishesInCart" :key="dish.id" class="card m-2" style="width: 18rem;" :class="{ 'd-none': !isDishInCart(dish.id) }">
-  <div class="card-body" v-if="dish">
-    <h2 class="card-title">{{ dish.name }}</h2>
-    <h4 class="card-text">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
-    <div class="mb-3 d-flex align-items-center  fs-4">
-      <label for="quantity" class="me-2">Quantità: </label>
-      <input type="number" id="quantity" class="form-control quantity mb-2" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
+      <div v-for="(dish, index) in dishesInCart" :key="dish.id" class="card m-2 mb-5" style="width: 18rem;" :class="{ 'd-none': !isDishInCart(dish.id) }">
+  <div class="card-body d-flex flex-column justify-content-between" v-if="dish">
+    <div>
+      <h2 class="card-title fw-bold">{{ dish.name }}</h2>
+      <h4 class="card-text fs-5 mt-3">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
+      <div class="mb-3 d-flex align-items-center  fs-4">
+        <label for="quantity" class="me-2">Quantità: </label>
+        <input type="number" id="quantity" class="form-control quantity mb-2" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
+      </div>
     </div>
     <p class="card-text">{{ dish.description }}</p>
-    <button @click="removeFromCartHandler(index)" class="btn btn-danger fs-6">Rimuovi dal carrello</button>
+    <button @click="removeFromCartHandler(index)" class="btn btn-danger fs-6 fw-bold">Rimuovi dal carrello</button>
 
   </div>
 </div>
@@ -218,6 +223,9 @@ export default {
 
     <div v-if="dishesInCart.length === 0" class="not-order my-5 d-flex my-error">
       <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello</h3>
+    </div>
+    <div v-if="dishesInCart.length === 0" class="text-center w-100 fs-3 start-button">
+      <a class="text-success" href="/">inzia subito!</a>
     </div>
   </div>
 
@@ -241,7 +249,7 @@ export default {
     <div v-if="showPaymentForm">
         <div class="overlay"></div> <!-- Aggiungi l'overlay qui -->
         <div class="payment-form">
-    <h2>Procedi al  Pagamento</h2>
+    <h2 class="fw-bold">Procedi al  Pagamento</h2>
     <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
       <div class="d-flex">
       <div class="info-container">
@@ -268,7 +276,7 @@ export default {
         <label for="address" class="form-label">Indirizzo</label>
         <input type="text"  class="form-control" id="address" v-model="address" required>
       </div>
-      <h3> Dati di  Pagamento</h3>
+      <h3 class="fw-bold"> Dati di  Pagamento</h3>
       <div class="mb-3">
         
   <label for="creditCardNumber" class="form-label">Numero della Carta </label>
@@ -355,6 +363,10 @@ export default {
   
 }
 .card{
+  *{
+    font-family: 'Montserrat', sans-serif; ;
+  }
+
   h2{
     max-height: 30px
   }
@@ -376,6 +388,10 @@ export default {
   h3{
     font-size: 4rem
   }
+}
+.start-button{
+  position: relative;
+  left: -5vw;
 }
 .quantity{
   width: 60px;
@@ -404,6 +420,10 @@ input{
   min-width: 50%;
 }
 .payment-form {
+  * {
+    font-family: 'Montserrat', sans-serif; 
+  }
+
     width: 60%;
     min-width: 400px;
     margin: 0 auto;
