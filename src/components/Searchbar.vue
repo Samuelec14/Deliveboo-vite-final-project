@@ -326,7 +326,7 @@ export default {
     
 
         @media (max-width: 380px) {
-            .scroll-down-btn,{
+            .scroll-down-btn{
             border: none;
             color:#F8BE32;
             font-size: 2rem;
