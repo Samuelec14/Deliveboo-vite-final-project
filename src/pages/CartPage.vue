@@ -21,7 +21,7 @@ export default {
       dishesInCart: store.cart,
       showSuccessMessage: false,
       showErrorMessage: false,
-      
+      showConfirmMessage: false,
     };
   },
   components: {
@@ -101,6 +101,9 @@ export default {
       // ricarica la pagina dopo lo svuotamento
       location.reload();
     },
+    confirmClearCart() {
+    this.showConfirmMessage = true; // Mostra il messaggio di conferma
+  },
     redirectToHome() {
       // Naviga alla home page
       router.push({ name: 'home' });
@@ -239,11 +242,18 @@ export default {
     <h2 class="text-center">{{ totalPriceInCart }} €</h2>
     <div class="text-center button-container" v-if="dishesInCart.length > 0">
       <button @click="openPaymentForm" class="btn btn-primary me-3">Procedi all'Ordine</button>
-      <button @click="clearCart" class=" remove">Svuota Carrello</button>
+      <button @click="confirmClearCart" class="remove">Svuota Carrello</button>
+
     </div>
   </div>
   </div>
 
+        <!-- messaggio di conferma svuota carrello -->
+  <div v-if="showConfirmMessage" class="confirmation-message">
+    <p>Sei sicuro di voler svuotare il carrello?</p>
+    <button @click="clearCart" class="confirm-button">Conferma</button>
+    <button @click="showConfirmMessage = false" class="cancel-button">Annulla</button>
+  </div>
 
     <!-- pagamento -->
     
@@ -339,18 +349,19 @@ export default {
 }
 .recap-order{
   text-align: center;
-  padding: 20px;
-  height: 320px;
+  padding: 10px;
+  height: 30vh;
   border: 20px solid #EF6C00;
   border-radius: 30px;
   width: 320px;
   h4{
-    line-height:40px;
+    line-height:30px;
+    font-size: 1.3rem;
   }
+  
   .remove{
     background-color: transparent;
     border: none;
-    margin-top: 25px;
     font-size: 0.8rem;
   }
   .remove:hover{
@@ -358,7 +369,7 @@ export default {
     
   }
     button{
-      margin: 10px auto;
+      margin: 0 auto 15px auto;
       font-weight: lighter;
     }
   
@@ -459,5 +470,49 @@ input{
 
 .green-button {
   margin-left: 100px;
+}
+
+.confirmation-message {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  
+}
+
+.confirm-button{
+  margin: 10px  10px 0 10px;
+  color: green;
+  cursor: pointer;
+  background-color: lightgreen;
+  
+}
+.cancel-button {
+  margin: 10px  10px 0 10px;
+  cursor: pointer;
+  color: purple;
+  background-color: lightcoral;
+
+  
+}
+.confirm-button:hover{
+  color: black;
+  cursor: pointer;
+  transform: scale(110%);
+  background-color: lightgreen;
+}
+.cancel-button:hover {
+  cursor: pointer;
+  color: red;
+  transform: scale(110%);
+  background-color: lightcoral;
+  
+  
 }
 </style>
