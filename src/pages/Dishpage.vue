@@ -249,14 +249,14 @@ button:hover{
   top: 0;
   left: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: 10; /* Assicura che l'overlay sia sopra gli altri elementi */
 }
 
 .error-message {
     font-size: 2rem;
-    height: 30vh;
+    height: 15vh;
   display: flex;
   align-items: center;
   background-color: white;
@@ -264,6 +264,7 @@ button:hover{
   border: 1px solid black;
   text-align: center;
   z-index: 5; 
+  margin-top: 20px;
   button{
 margin: 0 20px;
   }
