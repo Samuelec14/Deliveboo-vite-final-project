@@ -189,7 +189,7 @@ button:hover{
   object-position: center;
 }
 .div-add-message {
-  position: absolute;
+  position: fixed;
   z-index: 5;
   top: 50px;
   left: calc(50vw - 200px);
