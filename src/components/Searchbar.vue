@@ -228,7 +228,7 @@ export default {
             </div>
         </div>
 
-        <div class="background px-5 sticky shadow-sm">
+        <div class="background px-3 px-md-5 sticky shadow-sm">
             <div class="mx-4">
             
                     <carousel class=" carousel-mobile" :items-to-show="2" :items-to-scroll="1" :wrapAround="true" snap-align="center" :touch-drag="true">
@@ -293,74 +293,67 @@ export default {
   overflow: hidden;
   padding: 0;
 
-  .scroll-down-btn {
-  border: none;
-  background-color: transparent;
-  color:#F8BE32;
-  font-size: 6rem;
-  cursor: pointer;
-  padding: 10px;
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .scroll-down-btn {
+    border: none;
+    background-color: transparent;
+    color:#F8BE32;
+    font-size: 6rem;
+    cursor: pointer;
+    padding: 10px;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
 
-.scroll-down-btn:hover {
-  background-color: rgba(0, 0, 0, 0.308);
-}
-
-
-.container-button {
-    margin-bottom:30px;
-    background-color: rgba(255, 255, 255, 0.801);
-    transform: translate(-50% , 0);
-    top: 70%;
-}
-.container-button:hover {
-    margin-bottom:30px;
-
-}
-
- 
-   
-
-    @media (max-width: 340px) {
-        .scroll-down-btn,{
-        border: none;
-        color:#F8BE32;
-        font-size: 2rem;
-        margin-right: 10px;
-        padding:0;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-}
-}
-
-
-   
-
-    @media (max-width: 340px) {
-        .scroll-down-btn {
-        border: none;
-        background-color: transparent;
-        color:#F8BE32;
-        font-size: 2rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-}
+    .scroll-down-btn:hover {
+    background-color: rgba(0, 0, 0, 0.308);
     }
 
 
-.btn-text {
-    color:#7A2113;
-    margin: 30px;
+    .container-button {
+        margin-bottom:30px;
+        background-color: rgba(255, 255, 255, 0.801);
+        transform: translate(-50% , 0);
+        top: 70%;
+    }
+    .container-button:hover {
+        margin-bottom:30px;
+
+    }
+
     
-}
+    
+
+        @media (max-width: 380px) {
+            .scroll-down-btn,{
+            border: none;
+            color:#F8BE32;
+            font-size: 2rem;
+            padding:0;
+            margin: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+                i{
+                    margin-right: 10px;
+                }    
+
+            }
+        }
+
+    .btn-text {
+        color:#7A2113;
+        margin: 30px;
+
+        @media (max-width: 360px) {
+        margin: 10px;
+
+        }
+        
+    }
 
 }
 
@@ -448,7 +441,7 @@ video {
 }
 
 /* Per dispositivi con una larghezza maggiore di 340px */
-@media (min-width: 341px) {
+@media (min-width: 381px) {
     .carousel-desktop {
         display: block; /* Mostra il carosello desktop */
     }
@@ -458,7 +451,7 @@ video {
 }
 
 /* Stili specifici per la versione mobile */
-@media (max-width: 340px) {
+@media (max-width: 380px) {
     .carousel-mobile .carousel__item {
         min-height: 200px;
         width: 100%;
@@ -468,10 +461,12 @@ video {
         display: flex;
         justify-content: center;
         align-items: center;
+
     }
     .carousel-mobile .image {
         width: 80%; /* Solo un esempio, adattalo alle tue esigenze */
         /* Altri stili specifici per la versione mobile qui... */
+        margin-top: 10px;
     }
 
     .image-caption {
