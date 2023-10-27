@@ -84,7 +84,7 @@ computed: {
 setTimeout(() => {
   this.showMessage = false;
   this.$refs.successMessage.classList.add('hidden');
-}, 2000);
+}, 1000);
     },
   removeFromCartHandler(index) {
     store.removeFromCart(index);
@@ -194,7 +194,7 @@ button:hover{
   top: 50px;
   left: calc(50vw - 200px);
   animation-name: myAnimation;
-    animation-duration: 2000ms;
+    animation-duration: 1000ms;
     animation-fill-mode: forwards;
 
   .success-message {
