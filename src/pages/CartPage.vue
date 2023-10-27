@@ -21,7 +21,7 @@ export default {
       dishesInCart: store.cart,
       showSuccessMessage: false,
       showErrorMessage: false,
-      
+      showConfirmMessage: false,
     };
   },
   components: {
@@ -101,6 +101,9 @@ export default {
       // ricarica la pagina dopo lo svuotamento
       location.reload();
     },
+    confirmClearCart() {
+    this.showConfirmMessage = true; // Mostra il messaggio di conferma
+  },
     redirectToHome() {
       // Naviga alla home page
       router.push({ name: 'home' });
@@ -222,10 +225,11 @@ export default {
     
 
     <div v-if="dishesInCart.length === 0" class="not-order my-5 d-flex my-error">
-      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello</h3>
-    </div>
-    <div v-if="dishesInCart.length === 0" class="text-center w-100 fs-3 start-button">
+      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello. <br>
+        <span>
+    <div v-if="dishesInCart.length === 0" class="text-center w-100 link-home start-button d-flex justify-content-center ms-5 ">
       <a class="text-success" href="/">inzia subito!</a>
+    </div></span></h3>
     </div>
   </div>
 
@@ -238,19 +242,27 @@ export default {
     <h2 class="text-center">{{ totalPriceInCart }} €</h2>
     <div class="text-center button-container" v-if="dishesInCart.length > 0">
       <button @click="openPaymentForm" class="btn btn-primary me-3">Procedi all'Ordine</button>
-      <button @click="clearCart" class=" remove">Svuota Carrello</button>
+      <button @click="confirmClearCart" class="remove">Svuota Carrello</button>
+
     </div>
   </div>
   </div>
 
+        <!-- messaggio di conferma svuota carrello -->
+  <div v-if="showConfirmMessage" class="confirmation-message">
+    <p>Sei sicuro di voler svuotare il carrello?</p>
+    <button @click="clearCart" class="confirm-button">Conferma</button>
+    <button @click="showConfirmMessage = false" class="cancel-button">Annulla</button>
+  </div>
 
     <!-- pagamento -->
     
     <div v-if="showPaymentForm">
         <div class="overlay"></div> <!-- Aggiungi l'overlay qui -->
         <div class="payment-form">
-    <h2 class="fw-bold">Procedi al  Pagamento</h2>
+    
     <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
+      <h2 class="fw-bold">Procedi al  Pagamento</h2>
       <div class="d-flex">
       <div class="info-container">
       <div class="mb-3">
@@ -274,17 +286,17 @@ export default {
       <div class="creditcard-container ">
         <div class="mb-3">
         <label for="address" class="form-label">Indirizzo</label>
-        <input type="text"  class="form-control" id="address" v-model="address" required>
+        <input type="text"  class="form-control my-input" id="address" v-model="address" required>
       </div>
       <h3 class="fw-bold"> Dati di  Pagamento</h3>
       <div class="mb-3">
         
   <label for="creditCardNumber" class="form-label">Numero della Carta </label>
-  <input type="text" id="creditCardNumber" maxlength="16" class="form-control" required pattern="[0-9]{16}" placeholder="0000-0000-0000-0000">
+  <input type="text" id="creditCardNumber" maxlength="16" class="form-control  my-input" required pattern="[0-9]{16}" placeholder="0000-0000-0000-0000">
 </div>
 <div class="d-flex justify-content-around card-data">
 <div class="mb-3 date">
-  <label for="expiryDate" class="form-label text-center">Data di Scadenza (MM/YY)</label>
+  <label for="expiryDate" class="form-label text-center">Data di Scadenza</label>
   <div class="d-flex justify-content-center"><input type="text" class="form-control" id="expiryDate" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="(MM/YY)"></div>
 </div>
 
@@ -338,18 +350,19 @@ export default {
 }
 .recap-order{
   text-align: center;
-  padding: 20px;
-  height: 320px;
+  padding: 10px;
+  height: 30vh;
   border: 20px solid #EF6C00;
   border-radius: 30px;
   width: 320px;
   h4{
-    line-height:40px;
+    line-height:30px;
+    font-size: 1.3rem;
   }
+  
   .remove{
     background-color: transparent;
     border: none;
-    margin-top: 25px;
     font-size: 0.8rem;
   }
   .remove:hover{
@@ -357,7 +370,7 @@ export default {
     
   }
     button{
-      margin: 10px auto;
+      margin: 0 auto 15px auto;
       font-weight: lighter;
     }
   
@@ -398,6 +411,12 @@ export default {
 }
 .creditcard-container{
   padding: 20px;
+  h3{
+    font-size: 1.3rem;
+  }
+  .my-input{
+    max-width: 100%;
+  }
 .card-data{
  .date{
   margin-right: 20px;
@@ -409,7 +428,7 @@ export default {
  .code{
   width: 200px;
 input{
-  width: 60px;
+  min-width: 60px;
   text-align: center;
 }
  }
@@ -417,14 +436,19 @@ input{
 }
 .info-container{
   padding: 20px;
-  min-width: 50%;
+  min-width: 30vw;
 }
+.creditcard-container{
+  padding: 20px;
+  min-width: 30vw;
+}
+
 .payment-form {
   * {
     font-family: 'Montserrat', sans-serif; 
   }
 
-    width: 60%;
+    
     min-width: 400px;
     margin: 0 auto;
     position: absolute;
@@ -439,6 +463,7 @@ input{
 }
 
 .success-message {
+  width: 300px;
   background-color: #dff0d8; /* Colore di sfondo verde per il messaggio di successo */
   color: #3c763d; /* Colore del testo verde scuro */
   padding: 10px;
@@ -458,5 +483,49 @@ input{
 
 .green-button {
   margin-left: 100px;
+}
+
+.confirmation-message {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  
+}
+
+.confirm-button{
+  margin: 10px  10px 0 10px;
+  color: green;
+  cursor: pointer;
+  background-color: lightgreen;
+  
+}
+.cancel-button {
+  margin: 10px  10px 0 10px;
+  cursor: pointer;
+  color: purple;
+  background-color: lightcoral;
+
+  
+}
+.confirm-button:hover{
+  color: black;
+  cursor: pointer;
+  transform: scale(110%);
+  background-color: lightgreen;
+}
+.cancel-button:hover {
+  cursor: pointer;
+  color: red;
+  transform: scale(110%);
+  background-color: lightcoral;
+  
+  
 }
 </style>
