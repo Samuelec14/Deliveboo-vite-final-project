@@ -263,7 +263,7 @@ export default {
     
     <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
       <h2 class="fw-bold">Procedi al  Pagamento</h2>
-      <div class="d-flex">
+      <div class="flex">
       <div class="info-container">
       <div class="mb-3">
         <label for="name" class="form-label ">Nome</label>
@@ -294,29 +294,36 @@ export default {
   <label for="creditCardNumber" class="form-label">Numero della Carta </label>
   <input type="text" id="creditCardNumber" maxlength="16" class="form-control  my-input" required pattern="[0-9]{16}" placeholder="0000-0000-0000-0000">
 </div>
-<div class="d-flex justify-content-around card-data">
+<div class="d-flex justify-content-around  aligt-items-center card-data">
 <div class="mb-3 date">
   <label for="expiryDate" class="form-label text-center">Data di Scadenza</label>
-  <div class="d-flex justify-content-center"><input type="text" class="form-control" id="expiryDate" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="(MM/YY)"></div>
 </div>
 
 <div class="mb-3 code text-center">
   <label for="securityCode" class="form-label ">Codice di Sicurezza</label>
+</div>
+</div>
+<div class="d-flex justify-content-around  aligt-items-center card-data">
+<div class="mb-3 date">
+  <div class="d-flex justify-content-center"><input type="text" class="form-control" id="expiryDate" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="(MM/YY)"></div>
+</div>
+
+<div class="mb-3 code text-center">
   <div class="d-flex justify-content-center"><input type="text" id="securityCode" class="form-control" required pattern="[0-9]{3}" placeholder="***"></div>
 </div>
 </div>
 </div>
 </div>
       <!-- Altri campi del modulo come telefono, indirizzo, ecc. -->
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-danger text-light me-4 fw-light" @click="closePaymentForm">Annulla Pagamento</button>
-        <button type="submit" class="btn btn-primary ms-4 fw-light">Conferma Pagamento</button>
+    <div class="flex-button ">
+      <button type="button" class="btn btn-danger text-light  fw-light" @click="closePaymentForm">Annulla Pagamento</button>
+        <button type="submit" class="btn btn-primary  fw-light">Conferma Pagamento</button>
         
     </div>
     </form>
     
   <div v-if="orderStatus === 'success' && showSuccessMessage" class="success-message">
-    L'ordine è stato inviato con successo!
+   <h5 class="text-center"> Il tuo Ordine è Stato Completato</h5>
     <button class="green-button btn btn-success border border-dark px-3" type="button" @click="redirectToHome">Torna alla home</button>
   </div>
 
@@ -447,29 +454,46 @@ input{
   * {
     font-family: 'Montserrat', sans-serif; 
   }
+  .flex{
+    display: flex;
+  }
+  .flex-button{
+    display: flex;
+    justify-content: flex-end;
+    button{
+      margin: 0 10px;
+    }
+  }
+  form{
+    padding: 20px;
+  }
 
     
-    min-width: 400px;
+    min-width: 200px;
     margin: 0 auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    padding: 20px;
+    
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
 
 .success-message {
-  width: 300px;
+  width: 320px;
   background-color: #dff0d8; /* Colore di sfondo verde per il messaggio di successo */
   color: #3c763d; /* Colore del testo verde scuro */
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #d6e9c6; /* Bordo verde chiaro */
   border-radius: 5px;
-  margin-top: 20px;
+  
 }
 
 .error-message {
@@ -481,9 +505,7 @@ input{
   margin-top: 20px;
 }
 
-.green-button {
-  margin-left: 100px;
-}
+
 
 .confirmation-message {
   background-color: #f5f5f5;
@@ -528,4 +550,61 @@ input{
   
   
 }
+@media (max-width:400px) {
+         
+  .payment-form {
+  * {
+    font-family: 'Montserrat', sans-serif; 
+  }
+  form{
+    padding: 20px;
+  }
+.flex{
+  display: block;
+  
+}
+.flex-button{
+    display: flex;
+    flex-direction: column-reverse;
+  
+    button{
+      margin: 10px auto;
+      text-align: center;
+    }
+  }
+input{
+  max-width: 200px;
+}
+.my-input{
+  max-width: 215px;
+}
+.card-data{
+  max-width: 220px;
+}
+.success-message{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#expiryDate{
+  max-width: 90px;
+}
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+        }
+
 </style>
