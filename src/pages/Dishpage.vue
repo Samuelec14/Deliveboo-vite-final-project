@@ -131,7 +131,7 @@ setTimeout(() => {
           Piatto aggiunto al carrello!
         </div>
       </div>
-      <h2 class="text-center my-4 fw-bold">Lista Piatti</h2>
+      <h2 class="text-center my-4">Lista Piatti</h2>
       <div class="container d-flex flex-wrap min-height justify-content-center">
       
         <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2 mb-5 mx-3" style="width: 18rem;"  >
@@ -254,6 +254,7 @@ button:hover{
 
 
 .success-message {
+    font-family: 'Montserrat', sans-serif;
   font-size: 2rem;
   height: 30vh;
   display: flex;
@@ -278,8 +279,11 @@ button:hover{
 }
 
 .error-message {
+
+    font-family: 'Montserrat', sans-serif;
+
+
     font-size: 2rem;
-    height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
