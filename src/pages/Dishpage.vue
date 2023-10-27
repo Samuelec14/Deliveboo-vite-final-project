@@ -54,6 +54,7 @@ computed: {
   },
   methods: {
     addToCartHandler(dish) {
+      
       // Verifica se il carrello è vuoto o se il ristorante del piatto corrisponde al ristorante nel carrello
       if (store.cart.length === 0 || store.cart[0].restaurant_id === dish.restaurant_id) {
         const existingDishIndex = store.cart.findIndex(item => item.id === dish.id);
@@ -89,6 +90,9 @@ setTimeout(() => {
   removeFromCartHandler(index) {
     store.removeFromCart(index);
     localStorage.setItem('cart', JSON.stringify(store.cart));
+  },
+  isDishInCart(dishId) {
+    return store.cart.some(item => item.id === dishId);
   },
     resetError() {
       this.errorMessage = ''; // Resetta il messaggio di errore
@@ -134,8 +138,9 @@ setTimeout(() => {
       <h2 class="text-center my-4">Lista Piatti</h2>
       <div class="container d-flex flex-wrap min-height justify-content-center">
       
-        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2 mb-5 mx-3" style="width: 18rem;"  >
-          <template v-if="dish.thumb" >
+        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2 mb-5 mx-3" style="width: 18rem;"
+     :class="{ 'dish-in-cart': isDishInCart(dish.id) }">          
+      <template v-if="dish.thumb" >
             <div class="min-space">
               <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
             </div>
@@ -188,6 +193,9 @@ setTimeout(() => {
   }
   
 }
+.dish-in-cart {
+  border: 5px solid green;
+}
 button{
     background-color: orange;
     color: black;
@@ -204,7 +212,7 @@ button:hover{
 }
 .min-space{
   height: 200px;
-  width: 18rem;
+  width: 17rem;
 }
 .card-img{
   height: 200px;
