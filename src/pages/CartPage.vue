@@ -222,10 +222,11 @@ export default {
     
 
     <div v-if="dishesInCart.length === 0" class="not-order my-5 d-flex my-error">
-      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello</h3>
-    </div>
-    <div v-if="dishesInCart.length === 0" class="text-center w-100 fs-3 start-button">
+      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello. <br>
+        <span>
+    <div v-if="dishesInCart.length === 0" class="text-center w-100 link-home start-button d-flex justify-content-center ms-5 ">
       <a class="text-success" href="/">inzia subito!</a>
+    </div></span></h3>
     </div>
   </div>
 
