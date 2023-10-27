@@ -148,7 +148,7 @@ setTimeout(() => {
           <div class="card-body d-flex flex-column justify-content-between">
             <h2 class="card-title text-capitalize fw-semibold fs-3">{{ dish.name }}</h2>
             <h4 class="card-text fs-5">{{ dish.price }}€</h4>
-            <p class="card-text fs-5"><small>{{ dish.description }}</small></p>
+            <p class="card-text fs-5 description-container" ><small>{{ dish.description }}</small></p>
             <button class="fw-semibold px-3" type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
 
           </div>
@@ -187,11 +187,17 @@ setTimeout(() => {
   align-items: center;
   h2{
     max-width: 250px;
-    max-height: 110px;
+    max-height: 100px;
     word-wrap: break-word;
     overflow: hidden;
   }
   
+}
+
+.description-container{
+  width: 200px;
+  height: 60px;
+  overflow: hidden;
 }
 .dish-in-cart {
   border: 5px solid green;

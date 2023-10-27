@@ -209,14 +209,14 @@ export default {
       <div v-for="(dish, index) in dishesInCart" :key="dish.id" class="card m-2 mb-5" style="width: 18rem;" :class="{ 'd-none': !isDishInCart(dish.id) }">
   <div class="card-body d-flex flex-column justify-content-between" v-if="dish">
     <div>
-      <h2 class="card-title fw-bold">{{ dish.name }}</h2>
+      <h2 class="card-title fw-bold title-fix" >{{ dish.name }}</h2>
       <h4 class="card-text fs-5 mt-3">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
       <div class="mb-3 d-flex align-items-center  fs-4">
         <label for="quantity" class="me-2">Quantità: </label>
         <input type="number" id="quantity" class="form-control quantity mb-2" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
       </div>
     </div>
-    <p class="card-text">{{ dish.description }}</p>
+    <p class="card-text description-fix">{{ dish.description }}</p>
     <button @click="removeFromCartHandler(index)" class="btn btn-danger fs-6 fw-bold">Rimuovi dal carrello</button>
 
   </div>
@@ -367,6 +367,7 @@ export default {
     font-size: 1.3rem;
   }
   
+ 
   .remove{
     background-color: transparent;
     border: none;
@@ -388,8 +389,13 @@ export default {
   }
 
   h2{
-    max-height: 30px
+    max-height: 30px;
+    overflow: hidden;
   }
+  .description-fix{
+max-height: 50px;
+overflow: hidden;
+}
 }
 .overlay {
     position: fixed;
