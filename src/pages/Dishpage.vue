@@ -197,7 +197,7 @@ setTimeout(() => {
 <style scoped lang="scss">
 
 .my-container{
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -311,13 +311,15 @@ button:hover{
   .if-not-image{
     margin: 50% auto;
     font-size: 0.7rem;
-    max-width: 100%;
+    width: 100%;
     word-break: break-all;
   }
  
 }
 .card-img{
   height: 200px;
+  width: 200px;
+  max-width: 100%;
   object-fit: cover;
   object-position: center;
   z-index: 5;
