@@ -203,9 +203,9 @@ export default {
 
 <template>
     <HeaderComponent :isCartPage="true"></HeaderComponent>
-    <h2 class="text-center my-4">Lista ordini</h2>
+    <h2 class="background text-center ">Lista ordini</h2>
 <div class="big-container">
-    <div class="my-container d-flex flex-wrap">
+    <div class="my-container background d-flex flex-wrap">
       <div v-for="(dish, index) in dishesInCart" :key="dish.id" class="card m-2 mb-5" style="width: 18rem;" :class="{ 'd-none': !isDishInCart(dish.id) }">
   <div class="card-body d-flex flex-column justify-content-between" v-if="dish">
     <div>
@@ -225,24 +225,26 @@ export default {
     
 
     <div v-if="dishesInCart.length === 0" class="not-order my-5 d-flex my-error">
-      <h3 class="text-center">Il tuo carrello Deliveboo è vuoto. <br > aggiungi piatti al tuo carrello. <br>
+      <h3 class="margin-left text-center fs-2 d-flex align-items-center justify-content-center flex-column">Il tuo carrello Deliveboo è vuoto. <br> aggiungi piatti al tuo carrello. <br>
         <span>
     <div v-if="dishesInCart.length === 0" class="text-center w-100 link-home start-button d-flex justify-content-center ms-5 ">
-      <a class="text-success" href="/">inzia subito!</a>
+      <a class="btn btn-success text-white m-4" href="/" style="text-decoration: none;">Inizia subito!</a>
+
+      
     </div></span></h3>
     </div>
   </div>
 
 
 
-    <div class="recap-order">
+    <div class="recap-order m-4 ">
     <h4>
       Totale provvisorio <br>({{ totalItemsInCart }}  {{ totalItemsInCart === 1 ? 'articolo' : 'articoli' }})
     </h4>
     <h2 class="text-center">{{ totalPriceInCart }} €</h2>
     <div class="text-center button-container" v-if="dishesInCart.length > 0">
-      <button @click="openPaymentForm" class="btn btn-primary me-3">Procedi all'Ordine</button>
-      <button @click="confirmClearCart" class="remove">Svuota Carrello</button>
+      <button @click="openPaymentForm" class="btn btn-success me-1">Procedi all'Ordine</button>
+      <button @click="confirmClearCart" class=" btn btn-danger me-1">Svuota Carrello</button>
 
     </div>
   </div>
@@ -262,7 +264,7 @@ export default {
         <div class="payment-form">
     
     <form @submit.prevent="submitPaymentForm" v-if="!orderStatus">
-      <h2 class="fw-bold">Procedi al  Pagamento</h2>
+      <h2 class="fw-bold">Procedi al Pagamento</h2>
       <div class="flex">
       <div class="info-container">
       <div class="mb-3">
@@ -345,6 +347,16 @@ export default {
   
 
 <style scoped lang="scss">
+
+*{
+    font-family: 'Montserrat', sans-serif;
+
+  }
+
+.margin-left {
+  margin-left:150px;
+}
+
 .my-container{
     width: 80%;
     min-height: 350px;
@@ -358,7 +370,7 @@ export default {
 .recap-order{
   text-align: center;
   padding: 10px;
-  height: 30vh;
+  max-height: 40vh;
   border: 20px solid #EF6C00;
   border-radius: 30px;
   width: 320px;
@@ -368,15 +380,15 @@ export default {
   }
   
  
-  .remove{
-    background-color: transparent;
-    border: none;
-    font-size: 0.8rem;
-  }
-  .remove:hover{
-    color: red;
-    
-  }
+  // .remove{
+  //   background-color: transparent;
+  //   border: none;
+  //   font-size: 0.8rem;
+  // }
+  // .remove:hover{
+  //   color: red;
+  // }
+  
     button{
       margin: 0 auto 15px auto;
       font-weight: lighter;
@@ -384,16 +396,14 @@ export default {
   
 }
 .card{
-  *{
-    font-family: 'Montserrat', sans-serif; ;
-  }
+ 
 
   h2{
     max-height: 30px;
     overflow: hidden;
   }
   .description-fix{
-max-height: 50px;
+max-height: 40px;
 overflow: hidden;
 }
 }
