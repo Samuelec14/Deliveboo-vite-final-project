@@ -94,6 +94,10 @@ setTimeout(() => {
   isDishInCart(dishId) {
     return store.cart.some(item => item.id === dishId);
   },
+  getQuantityInCart(dishId) {
+    const cartItem = store.cart.find(item => item.id === dishId);
+    return cartItem ? cartItem.quantity : 0;
+  },
     resetError() {
       this.errorMessage = ''; // Resetta il messaggio di errore
     },
@@ -150,10 +154,10 @@ setTimeout(() => {
             <h4 class="card-text price fs-4">{{ dish.price }}€</h4>
           </div>
           <div class="container-button">
-            
-            <div class="mb-3 d-flex align-items-center  fs-4">
-        <input type="number" id="quantity" class="form-control quantity mb-2" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
-      </div>
+            <div v-if="getQuantityInCart(dish.id) > 0">
+            <h3 >QT: {{ getQuantityInCart(dish.id) }}</h3>  
+              <h6>Rimuovi dal Carrello </h6>
+          </div>    
             <button class="fw-semibold " type="button" @click="addToCartHandler(dish)">AGGIUNGI</button>
           </div><div></div>
           <div class="min-space">
