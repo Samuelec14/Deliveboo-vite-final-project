@@ -168,13 +168,14 @@ setTimeout(() => {
           </div>
           </div><div></div>
           <div class="min-space">
-            <h4 class="if-not-image">immagine non disponibile</h4>
-            <template v-if="dish.thumb" >
-            
-              <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
-              
-                </template>
-              </div>
+            <template v-if="!dish.thumb">
+              <h4 class="if-not-image">immagine non disponibile</h4>
+            </template>
+            <template v-else>
+              <img :src="store.imgPath + '/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
+            </template>
+          </div>
+
           </div>
         </div>
       </div>
@@ -210,7 +211,7 @@ setTimeout(() => {
 }
 
 .new-card{
-  width: 40%;
+  width: 45%;
   flex-wrap: wrap;
   padding: 10px;
   border-radius: 10px;
@@ -228,6 +229,7 @@ setTimeout(() => {
 
  .card-body{
   max-width: 100%;
+  overflow: hidden;
  }
   display: flex;
   flex-direction: column;
@@ -305,16 +307,14 @@ button:hover{
 }
 .min-space{
   height: 200px;
-  width: 17rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
   .if-not-image{
-  position: absolute;
-  z-index: 1;
-  max-width: 190px;
-  text-align: center;
-}
+    margin: 50% auto;
+    font-size: 0.7rem;
+    max-width: 100%;
+    word-break: break-all;
+  }
+ 
 }
 .card-img{
   height: 200px;
@@ -322,6 +322,7 @@ button:hover{
   object-position: center;
   z-index: 5;
   border-radius: 10px;
+  
 }
 .div-add-message {
   position: fixed;
@@ -410,4 +411,7 @@ button:hover{
 margin: 0 20px;
   }
 }
+
+
+
 </style>
