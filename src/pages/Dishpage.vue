@@ -109,6 +109,7 @@ setTimeout(() => {
       console.error(error);
     });
     },
+    
     clearCart() {
       if(confirm('Sei Sicuro di voler svuotare il carrello?')){
 
@@ -135,22 +136,34 @@ setTimeout(() => {
           Piatto aggiunto al carrello!
         </div>
       </div>
-      <h2 class="text-center my-4">Lista Piatti</h2>
-      <div class="container d-flex flex-wrap min-height justify-content-center">
+      <div class="background-page">
+      <h2 class="text-center py-4">Lista Piatti</h2>
+      <div class="my-container  min-height justify-content-center">
       
-        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2 mb-5 mx-3" style="width: 18rem;"
+        <div v-for="dish in filteredDishes" :key="dish.id" class=" d-flex m-2 mb-5 mx-3 new-card" 
      :class="{ 'dish-in-cart': isDishInCart(dish.id) }">          
-      <template v-if="dish.thumb" >
-            <div class="min-space">
-              <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
-            </div>
-                </template>
-          <div class="card-body d-flex flex-column justify-content-between">
+     
+          <div class="card-body d-flex  justify-content-between">
+            <div class="description-container">
             <h2 class="card-title text-capitalize fw-semibold fs-3">{{ dish.name }}</h2>
-            <h4 class="card-text fs-5">{{ dish.price }}€</h4>
-            <p class="card-text fs-5 description-container" ><small>{{ dish.description }}</small></p>
-            <button class="fw-semibold px-3" type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
-
+            <p class="card-text  fs-5 " ><small>{{ dish.description }}</small></p>
+            <h4 class="card-text price fs-4">{{ dish.price }}€</h4>
+          </div>
+          <div class="container-button">
+            
+            <div class="mb-3 d-flex align-items-center  fs-4">
+        <input type="number" id="quantity" class="form-control quantity mb-2" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
+      </div>
+            <button class="fw-semibold " type="button" @click="addToCartHandler(dish)">AGGIUNGI</button>
+          </div><div></div>
+          <div class="min-space">
+            <h4 class="if-not-image">immagine non disponibile</h4>
+            <template v-if="dish.thumb" >
+            
+              <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
+              
+                </template>
+              </div>
           </div>
         </div>
       </div>
@@ -164,40 +177,86 @@ setTimeout(() => {
           </div>
         </div>
       </div>
-
+    </div>
       <FooterComponent></FooterComponent>
     
   </template>
   
 <style scoped lang="scss">
 
-
-.min-height{
+.my-container{
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  .min-height{
   min-height: 380px;
+}
+}
+
+.quantity{
+  width: 50px;
+}
+
+.new-card{
+  width: 40%;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-radius: 10px;
+  border: 4px;
+  background-color: white;
+  box-shadow: 0 1px orange;
+}
+.new-card:hover{
+  box-shadow: 0 8px orangered;
 }
 .card{
   * {
     font-family: 'Montserrat', sans-serif; 
   }
 
-  min-height: 450px;
+ .card-body{
+  max-width: 100%;
+ }
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
+  
+}
+.background-page{
+  width: 100%;
+  background-color: rgb(230, 226, 226);
+}
+.container-button{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  button{
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+}
+.description-container{
+  width: 200px;
+  overflow: hidden;
+
   h2{
+    text-align: center;
     max-width: 250px;
-    max-height: 100px;
+    height: 65px;
     word-wrap: break-word;
     overflow: hidden;
   }
-  
-}
-
-.description-container{
-  width: 200px;
-  height: 60px;
-  overflow: hidden;
+  p{
+    word-wrap: break-word;
+    overflow: hidden;
+    height: 90px;
+  }
 }
 .dish-in-cart {
   border: 5px solid green;
@@ -219,15 +278,25 @@ button:hover{
 .min-space{
   height: 200px;
   width: 17rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .if-not-image{
+  position: absolute;
+  z-index: 1;
+  max-width: 190px;
+  text-align: center;
+}
 }
 .card-img{
   height: 200px;
   object-fit: cover;
   object-position: center;
+  z-index: 5;
 }
 .div-add-message {
   position: fixed;
-  z-index: 5;
+  z-index: 100;
   top: 50px;
   left: calc(50vw - 200px);
   animation-name: myAnimation;
@@ -246,7 +315,7 @@ button:hover{
     padding: 10px;
     border: 3px solid green;
     text-align: center;
-    z-index: 5;
+    z-index: 20;
     opacity: 1;
   }
 }
