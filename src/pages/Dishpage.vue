@@ -87,7 +87,7 @@ setTimeout(() => {
   this.$refs.successMessage.classList.add('hidden');
 }, 1000);
     },
-  removeFromCartHandler(index) {
+    removeFromCartHandler(index) {
     store.removeFromCart(index);
     localStorage.setItem('cart', JSON.stringify(store.cart));
   },
@@ -98,6 +98,11 @@ setTimeout(() => {
     const cartItem = store.cart.find(item => item.id === dishId);
     return cartItem ? cartItem.quantity : 0;
   },
+  removeFromCartHandler(index) {
+    store.removeFromCart(index);
+    localStorage.setItem('cart', JSON.stringify(store.cart));
+  },
+
     resetError() {
       this.errorMessage = ''; // Resetta il messaggio di errore
     },
@@ -155,10 +160,12 @@ setTimeout(() => {
           </div>
           <div class="container-button">
             <div v-if="getQuantityInCart(dish.id) > 0">
-            <h3 >QT: {{ getQuantityInCart(dish.id) }}</h3>  
-              <h6>Rimuovi dal Carrello </h6>
-          </div>    
+              <h4>QT: {{ getQuantityInCart(dish.id) }}</h4>
+            </div>
+            <div>
             <button class="fw-semibold " type="button" @click="addToCartHandler(dish)">AGGIUNGI</button>
+            <button  v-if="getQuantityInCart(dish.id) > 0" @click="removeFromCartHandler(store.cart.findIndex(item => item.id === dish.id))" class="remove-button">Rimuovi</button>
+          </div>
           </div><div></div>
           <div class="min-space">
             <h4 class="if-not-image">immagine non disponibile</h4>
@@ -226,9 +233,10 @@ setTimeout(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
-  
 }
+.price{
+    text-align: center;
+  }
 .background-page{
   width: 100%;
   background-color: rgb(230, 226, 226);
@@ -243,6 +251,22 @@ setTimeout(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 3px 0;
+    margin-right: 10px;
+    font-size: 0.8rem;
+    }
+    .remove-button{
+      padding: 0;
+      margin: 0;
+      color: red;
+      background-color: transparent;
+      font-size: 0.8rem;
+      margin-top: 10px;
+    }
+    .remove-button:hover{
+      border: none;
+      color: black;
+     
     }
 }
 .description-container{
@@ -297,6 +321,7 @@ button:hover{
   object-fit: cover;
   object-position: center;
   z-index: 5;
+  border-radius: 10px;
 }
 .div-add-message {
   position: fixed;
