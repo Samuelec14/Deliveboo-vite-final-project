@@ -112,12 +112,13 @@ export default {
 
 .footer-list ul li a {
     font-size: smaller;
-    text-decoration:underline;
+    text-decoration:none;
     color: black;
 }
 
 .footer-list ul li a:hover {
     color: #EF6C00;
+    text-decoration: underline;
 }
 
 .image-card{

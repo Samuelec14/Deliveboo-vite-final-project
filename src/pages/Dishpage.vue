@@ -87,13 +87,22 @@ setTimeout(() => {
   this.$refs.successMessage.classList.add('hidden');
 }, 1000);
     },
-  removeFromCartHandler(index) {
+    removeFromCartHandler(index) {
     store.removeFromCart(index);
     localStorage.setItem('cart', JSON.stringify(store.cart));
   },
   isDishInCart(dishId) {
     return store.cart.some(item => item.id === dishId);
   },
+  getQuantityInCart(dishId) {
+    const cartItem = store.cart.find(item => item.id === dishId);
+    return cartItem ? cartItem.quantity : 0;
+  },
+  removeFromCartHandler(index) {
+    store.removeFromCart(index);
+    localStorage.setItem('cart', JSON.stringify(store.cart));
+  },
+
     resetError() {
       this.errorMessage = ''; // Resetta il messaggio di errore
     },
@@ -109,6 +118,7 @@ setTimeout(() => {
       console.error(error);
     });
     },
+    
     clearCart() {
       if(confirm('Sei Sicuro di voler svuotare il carrello?')){
 
@@ -135,21 +145,36 @@ setTimeout(() => {
           Piatto aggiunto al carrello!
         </div>
       </div>
-      <h2 class="text-center my-4">Lista Piatti</h2>
-      <div class="container d-flex flex-wrap min-height justify-content-center">
+      <div class="background-page">
+      <h2 class="text-center py-4">Lista Piatti</h2>
+      <div class="my-container  min-height justify-content-center">
       
-        <div v-for="dish in filteredDishes" :key="dish.id" class="card m-2 mb-5 mx-3" style="width: 18rem;"
+        <div v-for="dish in filteredDishes" :key="dish.id" class=" d-flex m-2 mb-5 mx-3 new-card" 
      :class="{ 'dish-in-cart': isDishInCart(dish.id) }">          
-      <template v-if="dish.thumb" >
-            <div class="min-space">
-              <img :src="store.imgPath+'/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
-            </div>
-                </template>
-          <div class="card-body d-flex flex-column justify-content-between">
+     
+          <div class="card-body d-flex  justify-content-between">
+            <div class="description-container">
             <h2 class="card-title text-capitalize fw-semibold fs-3">{{ dish.name }}</h2>
-            <h4 class="card-text fs-5">{{ dish.price }}€</h4>
-            <p class="card-text fs-5 description-container" ><small>{{ dish.description }}</small></p>
-            <button class="fw-semibold px-3" type="button" @click="addToCartHandler(dish)">Aggiungi al Carrello</button>
+            <p class="card-text  fs-5 " ><small>{{ dish.description }}</small></p>
+            <h4 class="card-text price fs-4">{{ dish.price }}€</h4>
+          </div>
+          <div class="container-button">
+            <div v-if="getQuantityInCart(dish.id) > 0">
+              <h4>QT: {{ getQuantityInCart(dish.id) }}</h4>
+            </div>
+            <div>
+            <button class="fw-semibold " type="button" @click="addToCartHandler(dish)">AGGIUNGI</button>
+            <button  v-if="getQuantityInCart(dish.id) > 0" @click="removeFromCartHandler(store.cart.findIndex(item => item.id === dish.id))" class="remove-button">Rimuovi</button>
+          </div>
+          </div><div></div>
+          <div class="min-space">
+            <template v-if="!dish.thumb">
+              <h4 class="if-not-image">immagine non disponibile</h4>
+            </template>
+            <template v-else>
+              <img :src="store.imgPath + '/' + dish.thumb" class="card-img-top card-img" alt="Restaurant Image">
+            </template>
+          </div>
 
           </div>
         </div>
@@ -164,40 +189,104 @@ setTimeout(() => {
           </div>
         </div>
       </div>
-
+    </div>
       <FooterComponent></FooterComponent>
     
   </template>
   
 <style scoped lang="scss">
 
-
-.min-height{
+.my-container{
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  .min-height{
   min-height: 380px;
+}
+}
+
+.quantity{
+  width: 50px;
+}
+
+.new-card{
+  width: 45%;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-radius: 10px;
+  border: 4px;
+  background-color: white;
+  box-shadow: 0 1px orange;
+}
+.new-card:hover{
+  box-shadow: 0 8px orangered;
 }
 .card{
   * {
     font-family: 'Montserrat', sans-serif; 
   }
 
-  min-height: 450px;
+ .card-body{
+  max-width: 100%;
+  overflow: hidden;
+ }
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.price{
+    text-align: center;
+  }
+.background-page{
+  width: 100%;
+  background-color: rgb(230, 226, 226);
+}
+.container-button{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  button{
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 0;
+    margin-right: 10px;
+    font-size: 0.8rem;
+    }
+    .remove-button{
+      padding: 0;
+      margin: 0;
+      color: red;
+      background-color: transparent;
+      font-size: 0.8rem;
+      margin-top: 10px;
+    }
+    .remove-button:hover{
+      border: none;
+      color: black;
+     
+    }
+}
+.description-container{
+  width: 200px;
+  overflow: hidden;
+
   h2{
+    text-align: center;
     max-width: 250px;
-    max-height: 100px;
+    height: 65px;
     word-wrap: break-word;
     overflow: hidden;
   }
-  
-}
-
-.description-container{
-  width: 200px;
-  height: 60px;
-  overflow: hidden;
+  p{
+    word-wrap: break-word;
+    overflow: hidden;
+    height: 90px;
+  }
 }
 .dish-in-cart {
   border: 5px solid green;
@@ -218,16 +307,26 @@ button:hover{
 }
 .min-space{
   height: 200px;
-  width: 17rem;
+  overflow: hidden;
+  .if-not-image{
+    margin: 50% auto;
+    font-size: 0.7rem;
+    max-width: 100%;
+    word-break: break-all;
+  }
+ 
 }
 .card-img{
   height: 200px;
   object-fit: cover;
   object-position: center;
+  z-index: 5;
+  border-radius: 10px;
+  
 }
 .div-add-message {
   position: fixed;
-  z-index: 5;
+  z-index: 100;
   top: 50px;
   left: calc(50vw - 200px);
   animation-name: myAnimation;
@@ -246,7 +345,7 @@ button:hover{
     padding: 10px;
     border: 3px solid green;
     text-align: center;
-    z-index: 5;
+    z-index: 20;
     opacity: 1;
   }
 }
@@ -312,4 +411,47 @@ button:hover{
 margin: 0 20px;
   }
 }
+
+@media (max-width:400px) {
+
+  .new-card{
+    width: 100%;
+  }
+  .card-body{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    .description-container{
+    p{
+      height: auto;
+      max-height: 95px;
+    }
+  }
+    .container-button{
+      margin: 20px 0;
+    }
+    h2{
+      max-height: 60px;
+    }
+    .min-space{
+      width: 250px;
+      .if-not-image{
+        text-align: center;
+      }
+    }
+  }
+  .div-add-message{
+    width: 100%;
+    height: 100px;
+    .success-message{
+    width: 70%;
+    height: 80px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  }
+ 
+}
+
 </style>
