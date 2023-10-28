@@ -412,6 +412,46 @@ margin: 0 20px;
   }
 }
 
+@media (max-width:400px) {
 
+  .new-card{
+    width: 100%;
+  }
+  .card-body{
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    .description-container{
+    p{
+      height: auto;
+      max-height: 95px;
+    }
+  }
+    .container-button{
+      margin: 20px 0;
+    }
+    h2{
+      max-height: 60px;
+    }
+    .min-space{
+      width: 250px;
+      .if-not-image{
+        text-align: center;
+      }
+    }
+  }
+  .div-add-message{
+    width: 100%;
+    height: 100px;
+    .success-message{
+    width: 70%;
+    height: 80px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  }
+ 
+}
 
 </style>
