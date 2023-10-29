@@ -153,7 +153,7 @@ setTimeout(() => {
           <div class="card-body d-flex  justify-content-between">
             <div class="description-container">
             <h2 class="card-title text-capitalize fw-semibold fs-3">{{ dish.name }}</h2>
-            <p class="card-text  fs-5 " ><small>{{ dish.description }}</small></p>
+            <p class="card-text fs-5"><small class="description">{{ dish.description }}</small></p>
             <h4 class="card-text price fs-4">{{ dish.price }}€</h4>
           </div>
           <div class="container-button">
@@ -161,7 +161,7 @@ setTimeout(() => {
               <h4>QT: {{ getQuantityInCart(dish.id) }}</h4>
             </div>
             <div>
-            <button class="fw-semibold " type="button" @click="addToCartHandler(dish)">AGGIUNGI</button>
+            <button class="fw-bold text-capitalize" type="button" @click="addToCartHandler(dish)">Aggiungi</button>
             <button  v-if="getQuantityInCart(dish.id) > 0" @click="removeFromCartHandler(store.cart.findIndex(item => item.id === dish.id))" class="remove-button">Rimuovi</button>
           </div>
           </div><div></div>
@@ -218,9 +218,10 @@ setTimeout(() => {
   border: 4px;
   background-color: white;
   box-shadow: 0 1px orange;
+  transition: box-shadow 0.3s;
 }
 .new-card:hover{
-  box-shadow: 0 8px orangered;
+  box-shadow: 0 5px orangered;
 }
 .card{
   * {
@@ -249,6 +250,8 @@ setTimeout(() => {
   align-items: center;
   justify-content: space-around;
   button{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
     width: 110px;
     display: flex;
     justify-content: center;
@@ -256,8 +259,10 @@ setTimeout(() => {
     padding: 3px 0;
     margin-right: 10px;
     font-size: 0.8rem;
+    transition: border 0.2s;
     }
     .remove-button{
+      font-weight: bold;
       padding: 0;
       margin: 0;
       color: red;
@@ -274,6 +279,10 @@ setTimeout(() => {
 .description-container{
   width: 200px;
   overflow: hidden;
+  
+  .description{
+    font-family: 'Montserrat', sans-serif;
+  }
 
   h2{
     text-align: center;
@@ -292,6 +301,7 @@ setTimeout(() => {
 
 .dish-in-cart {
   border: 5px solid green;
+  transition: border 0.3s;
 }
 
 button{
@@ -300,6 +310,7 @@ button{
     border-radius: 10px;
     border: none;
     padding: 5px;
+    transition: border 0.3s;
 }
 button:hover{
     cursor: pointer;
@@ -387,7 +398,7 @@ button:hover{
 
 
 .success-message {
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 2rem;
   height: 30vh;
   display: flex;
@@ -428,7 +439,7 @@ button:hover{
   z-index: 5; 
   margin-top: 20px;
   button{
-margin: 0 20px;
+  margin: 0 20px;
   }
 }
 
@@ -456,7 +467,7 @@ margin: 0 20px;
     .description-container{
     p{
       height: auto;
-     
+    
       max-height: 95px;
     }
   }

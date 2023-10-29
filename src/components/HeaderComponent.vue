@@ -83,9 +83,9 @@ export default {
         </a>
         
         <div class="d-flex align-items-center">
-          <span class="cart m-3" v-if="!isCartPage">
+          <span class="cart m-3 me-4 position-relative" v-if="!isCartPage">
             <img @click="navigateToCart" src="https://img.icons8.com/material-outlined/24/shopping-cart--v1.png" alt="Carrello" class="cart-icon">
-            <span class="cart-count m-3" v-if="totalItemsInCart > 0">{{ totalItemsInCart }}</span>
+            <span class="cart-count bg-success rounded-circle" v-if="totalItemsInCart > 0"><span>{{ totalItemsInCart }}</span></span>
           </span>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,6 +149,16 @@ nav {
     align-items: center;
     background-color: $bg-color;
     padding: 0 8%;
+
+    .cart-count{
+        color: white;
+        padding: 2px 9px;
+        font-weight: bold;
+        font-size: smaller;
+        position:absolute;
+        left: 20px;
+        bottom: 20px;
+    }
 
     div {
         img {
