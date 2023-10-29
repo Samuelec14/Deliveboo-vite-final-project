@@ -555,8 +555,6 @@ input{
   cursor: pointer;
   color: purple;
   background-color: lightcoral;
-
-  
 }
 .confirm-button:hover{
   color: black;
@@ -569,8 +567,7 @@ input{
   color: red;
   transform: scale(110%);
   background-color: lightcoral;
-  
-  
+
 }
 @media (max-width:425px) {
          

@@ -124,7 +124,6 @@ setTimeout(() => {
     },
     
     clearCart() {
-      if(confirm('Sei Sicuro di voler svuotare il carrello?')){
 
         // Svuota il carrello nell'oggetto store
         store.clearCart();
@@ -134,7 +133,6 @@ setTimeout(() => {
   
         // ricarica la pagina dopo lo svuotamento
         location.reload();
-      }
 
     },
   },
@@ -184,8 +182,10 @@ setTimeout(() => {
         <div>
           <div class="error-message text-center rounded-5">
           {{ errorMessage }}
-          <div class="text-center fs-5 btn btn-danger py-1 mt-2" @click="clearCart">Svuota carrello</div>
-          <button class="text-center fs-4 mt-4" @click="resetError">Ho capito</button>
+          <div class="d-flex align-items-center my-clean">  
+          <div class="confirm-button" @click="clearCart">Svuota carrello</div>
+          <button class="cancel-button" @click="resetError">Ho capito</button>
+        </div>
           </div>
         </div>
       </div>
@@ -306,7 +306,52 @@ button:hover{
     border: 1px solid black;
 }
 .error-message{
-    color: red;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  color: red;
+  font-weight: bold;
+}
+
+.my-clean{
+  margin-top: 20px;
+}
+.confirm-button{
+  color: yellow;
+  font-weight: lighter;
+  cursor: pointer;
+  background-color: orange;
+  border-radius: 10px;
+  padding: 10px;
+  height: auto;
+  
+}
+.cancel-button {
+  padding: 10px;
+  height: auto;
+  cursor: pointer;
+  color: green;
+  background-color: lightgreen;
+  font-weight: lighter;
+}
+.confirm-button:hover{
+ 
+  cursor: pointer;
+  transform: scale(110%);
+  border: 1px solid black;
+  
+}
+.cancel-button:hover {
+  cursor: pointer;
+  transform: scale(110%);
+
 }
 .min-space{
   height: 200px;
@@ -389,6 +434,18 @@ margin: 0 20px;
 
 @media (max-width:400px) {
 
+  .error-message{
+    height: 400px;
+    .my-clean{
+      margin-top: 20px;
+      div{
+        height: auto;
+      }
+      button{
+        height: auto;
+      }
+    }
+  }
   .new-card{
     width: 100%;
   }
@@ -409,6 +466,7 @@ margin: 0 20px;
     h2{
       max-height: 60px;
     }
+    
     .min-space{
       width: 250px;
       .if-not-image{
@@ -416,7 +474,7 @@ margin: 0 20px;
       }
     }
   }
-  .div-add-message{
+    .div-add-message{
     width: 100%;
     height: 100px;
     .success-message{
