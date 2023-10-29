@@ -42,11 +42,9 @@ export default {
         </div>
         <div class="text-container">
             <h1>Alessio Vinci</h1>
-<<<<<<< HEAD
+
             <p>Full Stack Web Developer
-=======
-            <p>mi sono divertito
->>>>>>> bd42387ee385e092f8830ce7f282e2d20fbc4474
+
             </p>
         </div>
     </div>
@@ -56,11 +54,10 @@ export default {
         </div>
         <div class="text-container">
             <h1>Emanuele Verità</h1>
-<<<<<<< HEAD
+
             <p>Full Stack Web Developer</p>
-=======
-            <p>mi sono divertito</p>
->>>>>>> bd42387ee385e092f8830ce7f282e2d20fbc4474
+
+
         </div>
     </div>
     <div class="my-card">
@@ -158,4 +155,3 @@ p {
 
 
 
-</style>
