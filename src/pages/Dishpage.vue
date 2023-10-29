@@ -51,6 +51,9 @@ computed: {
     filteredDishes() {
       return this.dishes.filter((dish) => dish.restaurant_id === this.restaurantId);
     },
+    imgPath() {
+      return store.imgPath;
+    },
   },
   methods: {
     addToCartHandler(dish) {
@@ -70,6 +73,7 @@ computed: {
             price: dish.price,
             description: dish.description,
             quantity: 1,
+            thumb: dish.thumb, 
             restaurant_id: dish.restaurant_id // Aggiungi l'ID del ristorante al piatto nel carrello
           });
         }
@@ -140,11 +144,7 @@ setTimeout(() => {
 <template>
     
       <HeaderComponent></HeaderComponent>
-      <div v-if="showMessage"  class="div-add-message">
-        <div class="success-message">
-          Piatto aggiunto al carrello!
-        </div>
-      </div>
+    
       <div class="background-page">
       <h2 class="text-center py-4">Lista Piatti</h2>
       <div class="my-container  min-height justify-content-center">
@@ -289,9 +289,11 @@ setTimeout(() => {
     margin-left: 10px;
   }
 }
+
 .dish-in-cart {
   border: 5px solid green;
 }
+
 button{
     background-color: orange;
     color: black;
@@ -335,38 +337,8 @@ button:hover{
   animation-name: myAnimation;
     animation-duration: 1000ms;
     animation-fill-mode: forwards;
+}
 
-  .success-message {
-    width: 400px;
-    color: green;
-    border-radius: 20px;
-    font-size: 1.5rem;
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
-    border: 3px solid green;
-    text-align: center;
-    z-index: 20;
-    opacity: 1;
-  }
-}
-@keyframes myAnimation{
-  0%{
-    opacity: 1;
-    transform: rotateX(90deg);
-  }
-  50%{
-    opacity: 0.7;
-    transform: rotateX(0deg);
-  }
-  100%{
-    display: none;
-    opacity: 0.2;
-    transform: rotateX(90deg);
-  }
-}
 
 
 .success-message {

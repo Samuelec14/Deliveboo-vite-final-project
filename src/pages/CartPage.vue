@@ -203,21 +203,26 @@ export default {
 
 <template>
     <HeaderComponent :isCartPage="true"></HeaderComponent>
-    <h2 class="background text-center ">Lista ordini</h2>
+    <h2 class="background text-center mb-4">Lista ordini</h2>
 <div class="big-container">
     <div class="my-container background d-flex flex-wrap">
-      <div v-for="(dish, index) in dishesInCart" :key="dish.id" class="card m-2 mb-5" style="width: 18rem;" :class="{ 'd-none': !isDishInCart(dish.id) }">
-  <div class="card-body d-flex flex-column justify-content-between" v-if="dish">
-    <div>
+      <div v-for="(dish, index) in dishesInCart" :key="dish.id" class="my-card  d-flex m-2 mb-4"  :class="{ 'd-none': !isDishInCart(dish.id) }">
+  <div class="card-body d-flex justify-content-around align-items-center" v-if="dish">
+    <div class="dish-data">
       <h2 class="card-title fw-bold title-fix" >{{ dish.name }}</h2>
-      <h4 class="card-text fs-5 mt-3">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
-      <div class="mb-3 d-flex align-items-center  fs-4">
+      <p class="card-text description-fix">{{ dish.description }}</p>
+      <h4 class="card-text  mt-3 price">{{ (dish.price * dish.quantity).toFixed(2) }}€</h4> <!-- Aggiorna questa parte -->
+    </div>
+      <div class="mb-3  fs-4 my-quantity">
         <label for="quantity" class="me-2">Quantità: </label>
         <input type="number" id="quantity" class="form-control quantity mb-2" v-model="dish.quantity" @input="updateCartItemQuantity(index, $event.target.value)" min="1" required>
       </div>
-    </div>
-    <p class="card-text description-fix">{{ dish.description }}</p>
-    <button @click="removeFromCartHandler(index)" class="btn btn-danger fs-6 fw-bold">Rimuovi dal carrello</button>
+    
+    <div class="remove-button">
+      <button @click="removeFromCartHandler(index)" class="btn btn-danger fs-6 fw-bold">Rimuovi dal carrello</button>
+
+          </div>
+    
 
   </div>
 </div>
@@ -237,7 +242,7 @@ export default {
 
 
 
-    <div class="recap-order m-4 ">
+    <div class="recap-order  ">
     <h4>
       Totale provvisorio <br>({{ totalItemsInCart }}  {{ totalItemsInCart === 1 ? 'articolo' : 'articoli' }})
     </h4>
@@ -359,19 +364,21 @@ export default {
 
 .my-container{
     width: 80%;
-    min-height: 350px;
     position: relative;
 }
 .big-container{
   width: 80%;
   margin: 0 auto;
   display: flex;
-}
-.recap-order{
+  min-height: 380px;
+
+  .recap-order{
+  position: sticky;
+  top: 30px;
   text-align: center;
   padding: 10px;
-  max-height: 40vh;
-  border: 20px solid #EF6C00;
+  max-height: 30vh;
+  border: 10px solid #EF6C00;
   border-radius: 30px;
   width: 320px;
   h4{
@@ -380,30 +387,29 @@ export default {
   }
   
  
-  // .remove{
-  //   background-color: transparent;
-  //   border: none;
-  //   font-size: 0.8rem;
-  // }
-  // .remove:hover{
-  //   color: red;
-  // }
-  
+
     button{
       margin: 0 auto 15px auto;
       font-weight: lighter;
     }
   
 }
-.card{
- 
+}
 
+.my-card{
+ background-color: white;
+ width: 100%;
+ max-height: 200px;
+.dish-data{
+  width:40%;
+}
   h2{
     max-height: 30px;
     overflow: hidden;
+    margin-bottom: 15px;
   }
   .description-fix{
-max-height: 40px;
+max-height: 90px;
 overflow: hidden;
 }
 }
@@ -566,11 +572,12 @@ input{
   
   
 }
-@media (max-width:400px) {
+@media (max-width:425px) {
          
   .payment-form {
   * {
     font-family: 'Montserrat', sans-serif; 
+   
   }
   form{
     padding: 20px;
@@ -604,6 +611,14 @@ input{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  word-wrap: break-word;
+  position: sticky;
+  top: 40%;
+  h5{
+    height: 60px;
+    word-wrap: break-word;
+
+  }
 }
 #expiryDate{
   max-width: 90px;
@@ -620,7 +635,57 @@ input{
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
-
+.not-order{
+  text-align: center;
+  span{
+    width: 100%;
+    text-align: center;
+    .start-button{
+      left: -6vh;
+    }
+  }
+  h3{
+    text-align: center;
+    margin-left: 0;
+  }
+}
+.big-container{
+            flex-direction: column-reverse;
+            .recap-order{
+              max-width: 100%;
+              position:relative;
+              margin-bottom: 40px;
+            }
+            .my-container{
+              width: 100%;
+              .my-card{
+                width: 100%;
+                max-height: 600px;
+                
+                .card-body{
+                  flex-direction: column;
+                  .dish-data{
+                    margin-top: 10px;
+                    width: 80%;
+                  }
+                  .price{
+                    text-align: center;
+                    font-size: 2rem;
+                  }
+                  .my-quantity{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .quantity{
+                    text-align: center;
+                  }
+                  }
+                 
+                }
+              }
+            }
+          }
         }
+
 
 </style>
