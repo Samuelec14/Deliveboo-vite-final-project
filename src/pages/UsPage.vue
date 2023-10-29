@@ -1,9 +1,25 @@
 <script>
+import HeaderComponent from '../components/HeaderComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
+import axios from 'axios';
+import { store } from '../store'
 
+
+
+export default {
+  props: {
+    dish: Object,
+  },
+  components: {
+    HeaderComponent,
+    FooterComponent,
+    FooterComponent
+},
+}
 </script>
 
 <template>
-
+<HeaderComponent></HeaderComponent>
 <div class="container d-flex">
     <div class="my-card">
         <div class="img-container">
@@ -52,7 +68,7 @@
         </div>
     </div>
 </div>
-
+<FooterComponent></FooterComponent>
 </template>
 
 <style scoped lang="scss">
