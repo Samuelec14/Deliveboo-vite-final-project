@@ -210,6 +210,7 @@ setTimeout(() => {
   width: 50px;
 }
 
+
 .new-card{
   width: 45%;
   flex-wrap: wrap;
@@ -217,11 +218,19 @@ setTimeout(() => {
   border-radius: 10px;
   border: 4px;
   background-color: white;
-  box-shadow: 0 1px orange;
+  border-bottom: 1px solid orange;
   transition: box-shadow 0.3s;
 }
 .new-card:hover{
   box-shadow: 0 5px orangered;
+}
+.dish-in-cart {
+  border-bottom: 4px solid green;
+  transition: border 0.3s;
+ 
+}
+.dish-in-cart:hover{
+  box-shadow: 0 5px green;
 }
 .card{
   * {
@@ -299,10 +308,6 @@ setTimeout(() => {
   }
 }
 
-.dish-in-cart {
-  border: 5px solid green;
-  transition: border 0.3s;
-}
 
 button{
     background-color: orange;
