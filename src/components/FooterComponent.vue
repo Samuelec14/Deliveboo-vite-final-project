@@ -42,7 +42,7 @@ export default {
           <div class="footer-list mt-3">
             <h3 class="light-text">Aiuto</h3>
             <ul>
-              <li><a @click="navigateToUs">Contatti</a></li>
+              <li><a @click="navigateToUs" href="#">Contatti</a></li>
               <li><a href="#">Faq</a></li>
               <li><a href="#">Tipi di cucina</a></li>        
             </ul>
