@@ -45,7 +45,7 @@ export default {
             <img src="../../public/img/simpson/simpsons ema.jpg" alt="">
         </div>
         <div class="text-container">
-            <h1>Emanuele</h1>
+            <h1>Emanuele Verità</h1>
             <p>mi sono divertito</p>
         </div>
     </div>
