@@ -286,6 +286,7 @@ setTimeout(() => {
     word-wrap: break-word;
     overflow: hidden;
     height: 90px;
+    margin-left: 10px;
   }
 }
 .dish-in-cart {
@@ -426,6 +427,7 @@ margin: 0 20px;
     .description-container{
     p{
       height: auto;
+     
       max-height: 95px;
     }
   }
