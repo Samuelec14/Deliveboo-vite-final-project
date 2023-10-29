@@ -35,7 +35,7 @@ export default {
             <img src="../../public/img/simpson/simpsons ale.jpg" alt="">
         </div>
         <div class="text-container">
-            <h1>Alessio</h1>
+            <h1>Alessio Vinci</h1>
             <p>mi sono divertito
             </p>
         </div>
