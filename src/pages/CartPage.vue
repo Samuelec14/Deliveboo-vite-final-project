@@ -542,6 +542,7 @@ input{
   color: green;
   cursor: pointer;
   background-color: lightgreen;
+  transition: transform 0.3s;
   
 }
 .cancel-button {
@@ -549,6 +550,7 @@ input{
   cursor: pointer;
   color: purple;
   background-color: lightcoral;
+  transition: transform 0.3s;
 
   
 }
