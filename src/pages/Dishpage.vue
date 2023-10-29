@@ -222,15 +222,15 @@ setTimeout(() => {
   transition: box-shadow 0.3s;
 }
 .new-card:hover{
-  box-shadow: 0 5px orangered;
+  box-shadow: 0 3px orangered;
 }
 .dish-in-cart {
-  border-bottom: 4px solid green;
+  border-bottom: 1px solid green;
   transition: border 0.3s;
  
 }
 .dish-in-cart:hover{
-  box-shadow: 0 5px green;
+  box-shadow: 0 3px green;
 }
 .card{
   * {
@@ -448,7 +448,7 @@ button:hover{
   }
 }
 
-@media (max-width:400px) {
+@media (max-width:425px) {
 
   .error-message{
     height: 400px;
@@ -462,9 +462,25 @@ button:hover{
       }
     }
   }
+ 
+.new-card:hover{
+  box-shadow:  3px orangered;
+}
+
   .new-card{
     width: 100%;
+    border: 1px solid orange;
+  transition: box-shadow 0.3s;
+    
   }
+  .dish-in-cart {
+  border: 1px solid green;
+  transition: border 0.3s;
+ 
+}
+.dish-in-cart:hover{
+  box-shadow: 0 3px green;
+}
   .card-body{
     flex-direction: column-reverse;
     align-items: center;
@@ -484,12 +500,12 @@ button:hover{
     }
     
     .min-space{
-      width: 250px;
       .if-not-image{
         text-align: center;
       }
     }
   }
+  
     .div-add-message{
     width: 100%;
     height: 100px;
@@ -502,6 +518,7 @@ button:hover{
 
   }
  
+  
 }
 
 </style>
