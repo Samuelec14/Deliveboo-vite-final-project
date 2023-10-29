@@ -62,6 +62,9 @@ export default {
         console.error(error);
       });
   },
+  navigateToUs() {
+      this.$router.push({ name: 'us' });
+    },
   navigateToCart() {
       this.$router.push({ name: 'cart' });
     },
@@ -94,7 +97,7 @@ export default {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item text-right fs-5 me-3"><a class="nav-link" href="http://127.0.0.1:8000/register">Lavora con noi</a></li>
-          <li class="nav-item text-right fs-5"><a class="nav-link" href="#">Contatti</a></li>
+          <li class="nav-item text-right fs-5"><a class="nav-link" href="#" @click="navigateToUs">Contatti</a></li>
         </ul>
       </div>
     </nav>
