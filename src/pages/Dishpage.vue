@@ -152,7 +152,7 @@ setTimeout(() => {
      
           <div class="card-body d-flex  justify-content-between">
             <div class="description-container">
-            <h2 class="card-title text-capitalize fw-semibold fs-3">{{ dish.name }}</h2>
+            <h2 class="card-title text-capitalize ">{{ dish.name }}</h2>
             <p class="card-text fs-5"><small class="description">{{ dish.description }}</small></p>
             <h4 class="card-text price fs-4">{{ dish.price }}€</h4>
           </div>
@@ -300,10 +300,12 @@ setTimeout(() => {
     height: 65px;
     word-wrap: break-word;
     overflow: hidden;
+    font-size: 1.5rem;
   }
   p{
+    margin-top: 5px;
     word-wrap: break-word;
-    overflow: hidden;
+    overflow: auto;
     height: 90px;
     margin-left: 10px;
   }

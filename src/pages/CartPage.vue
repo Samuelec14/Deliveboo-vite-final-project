@@ -404,7 +404,7 @@ export default {
   width:40%;
 }
   h2{
-    max-height: 30px;
+    max-height: 40px;
     overflow: hidden;
     margin-bottom: 15px;
   }
