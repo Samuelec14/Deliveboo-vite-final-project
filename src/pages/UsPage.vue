@@ -79,7 +79,7 @@ export default {
         </div>
     </div>
 </div>
-<h2 class="text-center">Teachers of Boolean</h2>
+<h2 class="text-center">un Grazie ai Teachers di Boolean</h2>
 <div class=" container d-flex">
    
     <div class="my-card">
