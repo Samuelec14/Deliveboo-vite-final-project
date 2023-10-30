@@ -257,7 +257,8 @@ setTimeout(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  
   button{
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
@@ -286,7 +287,7 @@ setTimeout(() => {
     }
 }
 .description-container{
-  width: 200px;
+  width: 270px;
   overflow: hidden;
   
   .description{
@@ -463,6 +464,9 @@ button:hover{
     }
   }
  
+  .description-container{
+  width: 200px;
+  }
 .new-card:hover{
   box-shadow:  3px orangered;
 }
