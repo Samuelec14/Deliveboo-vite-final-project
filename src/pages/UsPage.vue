@@ -81,15 +81,7 @@ export default {
 </div>
 <h2 class="text-center">Teachers of Boolean</h2>
 <div class=" container d-flex">
-    <div class="my-card">
-        <div class="img-container">
-            <img src="../../public/img/simpson/simpsons_ale_vietri.jpg" alt="">
-        </div>
-        <div class="text-container">
-            <h1>Alessio Vietri</h1>
-            <p>Teacher and angel</p>
-        </div>
-    </div>
+   
     <div class="my-card">
         <div class="img-container">
             <img src="../../public/img/simpson/simpsons_mauro.jpg" alt="">
@@ -97,6 +89,15 @@ export default {
         <div class="text-container">
             <h1>Mauro Formisano</h1>
             <p>Tutor</p>
+        </div>
+    </div>
+    <div class="my-card">
+        <div class="img-container">
+            <img src="../../public/img/simpson/simpsons_ale_vietri.jpg" alt="">
+        </div>
+        <div class="text-container">
+            <h1>Alessio Vietri</h1>
+            <p>Teacher and angel</p>
         </div>
     </div>
     <div class="my-card">
