@@ -358,13 +358,12 @@ export default {
 
   }
 
-.margin-left {
-  margin-left:150px;
-}
+
 
 .my-container{
     width: 80%;
     position: relative;
+    text-align: center;
 }
 .big-container{
   width: 80%;
@@ -426,9 +425,10 @@ overflow: hidden;
 .my-error{
   width:100%;
   position: relative;
-  text-align: center;
-  left: -4vw;
+  text-align: left;
+  
   h3{
+    width: 100%;
     font-size: 4rem
   }
 }
