@@ -152,7 +152,7 @@ setTimeout(() => {
      
           <div class="card-body d-flex  justify-content-between">
             <div class="description-container">
-            <h2 class="card-title text-capitalize ">{{ dish.name }}</h2>
+            <div class="vertical-center"><h2 class="card-title text-capitalize ">{{ dish.name }}</h2></div>
             <p class="card-text fs-5"><small class="description">{{ dish.description }}</small></p>
             <h4 class="card-text price fs-4">{{ dish.price }}€</h4>
           </div>
@@ -293,15 +293,19 @@ setTimeout(() => {
   .description{
     font-family: 'Montserrat', sans-serif;
   }
-
+.vertical-center{
+  height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   h2{
     text-align: center;
     max-width: 250px;
-    height: 65px;
     word-wrap: break-word;
     overflow: hidden;
     font-size: 1.5rem;
   }
+}
   p{
     margin-top: 5px;
     word-wrap: break-word;

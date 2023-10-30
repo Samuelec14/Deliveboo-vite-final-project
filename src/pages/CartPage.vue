@@ -282,7 +282,7 @@ export default {
       </div>
       <div class="mb-3">
         <label for="phone_number" class="form-label">Numero di Telefono</label>
-        <input type="number" min="111111111" max='9999999999999' id="phone_number"  class="form-control" v-model="phone_number" required>
+        <input type="number" min="300000000" max='399999999999' id="phone_number"  class="form-control" v-model="phone_number" required>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
