@@ -375,6 +375,7 @@ export default {
   .recap-order{
   position: sticky;
   top: 30px;
+  margin-left: 20px;
   text-align: center;
   padding: 10px;
   max-height: 30vh;
@@ -599,6 +600,7 @@ input{
 input{
   max-width: 200px;
 }
+
 .my-input{
   max-width: 215px;
 }
@@ -650,18 +652,25 @@ input{
     margin-left: 0;
   }
 }
+.remove-button{
+                    margin-bottom:20px;
+                  }
 .big-container{
             flex-direction: column-reverse;
             .recap-order{
               max-width: 100%;
               position:relative;
               margin-bottom: 40px;
+              margin-left: 0px;
             }
             .my-container{
               width: 100%;
               .my-card{
                 width: 100%;
                 max-height: 600px;
+                h2{
+                  max-height: 100px;
+                }
                 
                 .card-body{
                   flex-direction: column;
@@ -680,6 +689,7 @@ input{
                     .quantity{
                     text-align: center;
                   }
+              
                   }
                  
                 }
